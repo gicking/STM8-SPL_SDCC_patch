@@ -1,5 +1,5 @@
 #!/bin/bash  
-
+# xxx
 # change to current working directory
 cd `dirname $0`
 
