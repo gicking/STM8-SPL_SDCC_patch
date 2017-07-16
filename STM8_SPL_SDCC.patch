@@ -3682,6 +3682,40 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/WWDG/WWDG_Examp
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void TLI_IRQHandler(void); /* TLI */
    INTERRUPT void AWU_IRQHandler(void); /* AWU */
+diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/main.c ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/main.c
+*** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/main.c	2014-10-21 17:31:56.000000000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/main.c	2017-07-16 12:37:05.598193965 +0200
+***************
+*** 35,43 ****
+--- 35,62 ----
+  
+  void main(void)
+  {
++   uint32_t  num;
++ 
++   /* Initialize LED pin PD0 to Output Mode */
++   GPIO_Init(GPIOD, (GPIO_Pin_TypeDef)(GPIO_PIN_0), GPIO_MODE_OUT_PP_LOW_FAST);
++   GPIO_WriteHigh(GPIOD, (GPIO_Pin_TypeDef)(GPIO_PIN_2 | GPIO_PIN_3));
++ 
+    /* Infinite loop */
+    while (1)
+    {
++     /* toggle LED */
++     GPIO_WriteReverse(GPIOD, (GPIO_Pin_TypeDef)GPIO_PIN_0);
++ 
++     /* wait some time */
++     for (num=0; num<20000L; num++) {
++       #ifdef _COSMIC_
++         _asm("nop");
++       #elif defined(_SDCC_) 
++         __asm__("nop");
++       #else /* _IAR_ */
++         asm("nop");
++       #endif /* _COSMIC_*/
++     }
+    }
+    
+  }
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/readme.txt ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/readme.txt
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/readme.txt	2014-10-21 17:31:56.000000000 +0200
 --- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/readme.txt	2017-07-15 21:15:07.285360000 +0200
@@ -3792,7 +3826,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/Makefile .
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_OSX_clean.command ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_OSX_clean.command
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_OSX_clean.command	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_OSX_clean.command	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_OSX_clean.command	2017-07-15 21:15:07.000000000 +0200
 ***************
 *** 0 ****
 --- 1,23 ----
@@ -3821,30 +3855,32 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_OSX_clean
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_OSX_compile_run.command ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_OSX_compile_run.command
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_OSX_compile_run.command	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_OSX_compile_run.command	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_OSX_compile_run.command	2017-07-16 12:42:42.437469668 +0200
 ***************
 *** 0 ****
---- 1,52 ----
+--- 1,50 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
 + cd `dirname $0`
 + 
 + # just for output
-+ echo off
 + clear
 + 
-+ # target device
-+ DEVICE=STM8AF52Ax
++ # target device ("muBoard" and "STM8S Discovery")
++ #DEVICE=STM8AF52Ax
++ DEVICE=STM8S105
 + 
 + # set make tool (if not in PATH, set complete path)
 + MAKE=make
 + 
-+ # set STM8 flasher tool (if not in PATH, set complete path)
-+ LOADER=../../../../STM8_serial_flasher/STM8_serial_flasher
++ # set serial upload tool and serial port (from https://github.com/gicking/STM8_serial_flasher)
++ BSL_LOADER=../../../../../STM8_serial_flasher/STM8_serial_flasher
++ BSL_PORT=/dev/tty.usbserial-A4009I0O
 + 
-+ # set COM port for flash loader
-+ PORT=/dev/tty.usbserial-A4009I0O
++ # set SWIM upload tool and device name (from https://github.com/vdudouyt/stm8flash)
++ SWIM_LOADER=../../../../../stm8flash/stm8flash
++ SWIM_DEVICE=stm8s207mb                            # seems to be unimportant
 + 
 + # target hexfile
 + TARGET=./$DEVICE/$DEVICE.hex
@@ -3862,24 +3898,20 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_OSX_compi
 + echo "done with application"
 + echo " "
 + 
-+ # ask user to put STM8 to bootloader mode
-+ echo " "
-+ echo " "
-+ echo "reset STM8 and press return"
-+ echo " "
-+ read -p ""
++ # upload using STM8 serial bootloader
++ #$BSL_LOADER -p $BSL_PORT -w $TARGET -v
 + 
-+ # upload using STM8 bootloader (use flash tool from GitHub)
-+ $LOADER -p $PORT -w $TARGET -v -Q 
-+ 
++ # upload using SWIM debug interface
++ $SWIM_LOADER -c stlink -w $TARGET -p $SWIM_DEVICE
 + 
 + echo " "
 + read -p "press key to close window..."
-+ echo on
++ echo " "
++ 
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh	2017-07-15 21:15:07.000000000 +0200
 ***************
 *** 0 ****
 --- 1,23 ----
@@ -3908,30 +3940,32 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh	2017-07-16 12:42:50.433740058 +0200
 ***************
 *** 0 ****
---- 1,52 ----
+--- 1,50 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
 + cd `dirname $0`
 + 
 + # just for output
-+ echo off
 + clear
 + 
-+ # target device
-+ DEVICE=STM8AF52Ax
++ # target device ("muBoard" and "STM8S Discovery")
++ #DEVICE=STM8AF52Ax
++ DEVICE=STM8S105
 + 
 + # set make tool (if not in PATH, set complete path)
 + MAKE=make
 + 
-+ # set STM8 flasher tool (if not in PATH, set complete path)
-+ LOADER=../../../../STM8_serial_flasher/STM8_serial_flasher
++ # set serial upload tool and serial port (from https://github.com/gicking/STM8_serial_flasher)
++ BSL_LOADER=../../../../../STM8_serial_flasher/STM8_serial_flasher
++ BSL_PORT=/dev/ttyUSB0
 + 
-+ # set COM port for flash loader
-+ PORT=/dev/ttyUSB0
++ # set SWIM upload tool and device name (from https://github.com/vdudouyt/stm8flash)
++ SWIM_LOADER=../../../../../stm8flash/stm8flash
++ SWIM_DEVICE=stm8s207mb                            # seems to be unimportant
 + 
 + # target hexfile
 + TARGET=./$DEVICE/$DEVICE.hex
@@ -3949,24 +3983,20 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_compil
 + echo "done with application"
 + echo " "
 + 
-+ # ask user to put STM8 to bootloader mode
-+ echo " "
-+ echo " "
-+ echo "reset STM8 and press return"
-+ echo " "
-+ read -p ""
++ # upload using STM8 serial bootloader
++ #$BSL_LOADER -p $BSL_PORT -w $TARGET -v
 + 
-+ # upload using STM8 bootloader (use flash tool from GitHub)
-+ $LOADER -p $PORT -w $TARGET -v -Q 
-+ 
++ # upload using SWIM debug interface
++ $SWIM_LOADER -c stlink -w $TARGET -p $SWIM_DEVICE
 + 
 + echo " "
 + read -p "press key to close window..."
-+ echo on
++ echo " "
++ 
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat	2017-07-15 21:15:07.000000000 +0200
 ***************
 *** 0 ****
 --- 1,18 ----
@@ -3990,27 +4020,33 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat	2017-07-16 12:43:08.090337457 +0200
 ***************
 *** 0 ****
---- 1,47 ----
+--- 1,51 ----
 + REM just for output
 + echo off
 + cls
 + 
-+ REM target device
-+ set DEVICE=STM8AF52Ax
++ REM target device ("muBoard" and "STM8S Discovery")
++ REM set DEVICE=STM8AF52Ax
++ set DEVICE=STM8S105
 + 
 + REM set make tool (if not in PATH, set complete path)
 + set MAKE=mingw32-make
 + 
-+ REM set path to STM8 flasher tool (own or by STM)
-+ set LOADER=..\..\..\..\STM8_serial_flasher\STM8_serial_flasher
-+ REM set LOADER=C:\Users\ick2bue\Documents\STM8_serial_flasher\STM8_serial_flasher.exe
-+ REM set LOADER="C:\Program Files\STMicroelectronics\Software\Flash Loader Demonstrator\STMFlashLoader.exe"
++ REM set serial upload tool and serial port (from https://github.com/gicking/STM8_serial_flasher)
++ set BSL_LOADER="..\..\..\..\..\STM8_serial_flasher\STM8_serial_flasher.exe"
++ set BSL_PORT=7
 + 
-+ REM set COM port for flash loader
-+ set PORT=7
++ REM set SWIM upload tool and device name (from https://github.com/vdudouyt/stm8flash)
++ REM set SWIM_LOADER=..\..\..\..\..\stm8flash\stm8flash.exe"
++ REM set SWIM_DEVICE=stm8s207mb
++ 
++ REM set SWIM upload tool and device name (STVP from ST homepage)
++ set SWIM_LOADER="C:\Programme\STMicroelectronics\st_toolset\stvp\STVP_CmdLine.exe"
++ set SWIM_DEVICE=STM8S105x6
++ REM set SWIM_DEVICE=STM8S207MB
 + 
 + REM name of target hexfile
 + set TARGET=.\%DEVICE%\%DEVICE%.hex
@@ -4025,16 +4061,14 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compi
 + 
 + REM GOTO END
 + 
-+ REM ask user to put STM8 to bootloader mode
-+ echo.
-+ echo.
-+ echo reset STM8 and press return
-+ echo.
-+ PAUSE 
++ REM upload using STM8 serial bootloader
++ REM %BSL_LOADER% -p %BSL_PORT% -w %TARGET% -v
 + 
-+ REM upload using STM8 bootloader (use own flash tool or STMFlashLoader by STM)
-+ %LOADER% -p COM%PORT% -w %TARGET% -v -Q 
-+ REM %LOADER% -c --pn %PORT% --br 115200 --co OFF --to 5000 -Dtr --Hi -Dtr --Lo -i STM8_128K -d --fn %TARGET% --v --o -r --a 0x8000 
++ REM upload using SWIM debug interface (stm8flash)
++ REM %SWIM_LOADER% -c stlink -w %TARGET% -p %SWIM_DEVICE%
++ 
++ REM upload using SWIM debug interface (STVP)
++ %SWIM_LOADER% -BoardName=ST-LINK -Port=USB -ProgMode=SWIM -Device=%DEVICE_STVP% -readData -readOption -no_progData -no_progOption -no_loop -no_log -FileProg=%TARGET%
 + 
 + REM clean up
 + :END
@@ -4113,7 +4147,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/stm8s_it.h ./ST
    INTERRUPT void AWU_IRQHandler(void); /* AWU */
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/main.c ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/main.c
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/main.c	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/main.c	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/main.c	2017-07-16 12:11:00.665652227 +0200
 ***************
 *** 0 ****
 --- 1,216 ----
@@ -4187,7 +4221,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/main.c ./STM8S_StdP
 +   /* Initialize LED pins in Output Mode */
 +   GPIO_Init(GPIOH, (GPIO_Pin_TypeDef)(GPIO_PIN_2 | GPIO_PIN_3), GPIO_MODE_OUT_PP_LOW_FAST);
 +   GPIO_WriteHigh(GPIOH, (GPIO_Pin_TypeDef)(GPIO_PIN_2 | GPIO_PIN_3));
-+   
++ 
 +   // config 1ms clock
 +   TIM4_DeInit();
 +   TIM4_TimeBaseInit(TIM4_PRESCALER_128, 124);
@@ -4335,7 +4369,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/main.c ./STM8S_StdP
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/Makefile ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/Makefile
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/Makefile	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/Makefile	2017-07-15 21:15:07.000000000 +0200
 ***************
 *** 0 ****
 --- 1,82 ----
@@ -4423,7 +4457,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/Makefile ./STM
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_OSX_clean.command ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_OSX_clean.command
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_OSX_clean.command	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_OSX_clean.command	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_OSX_clean.command	2017-07-15 21:15:07.000000000 +0200
 ***************
 *** 0 ****
 --- 1,23 ----
@@ -4452,30 +4486,32 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_OSX_clean.com
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_OSX_compile_run.command ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_OSX_compile_run.command
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_OSX_compile_run.command	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_OSX_compile_run.command	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_OSX_compile_run.command	2017-07-16 12:41:23.542807514 +0200
 ***************
 *** 0 ****
---- 1,52 ----
+--- 1,50 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
 + cd `dirname $0`
 + 
 + # just for output
-+ echo off
 + clear
 + 
-+ # target device
++ # target device ("muBoard" and "STM8S Discovery")
 + DEVICE=STM8AF52Ax
++ #DEVICE=STM8S105
 + 
 + # set make tool (if not in PATH, set complete path)
 + MAKE=make
 + 
-+ # set STM8 flasher tool (if not in PATH, set complete path)
-+ LOADER=../../../../STM8_serial_flasher/STM8_serial_flasher
++ # set serial upload tool and serial port (from https://github.com/gicking/STM8_serial_flasher)
++ BSL_LOADER=../../../../../STM8_serial_flasher/STM8_serial_flasher
++ BSL_PORT=/dev/tty.usbserial-A4009I0O
 + 
-+ # set COM port for flash loader
-+ PORT=/dev/tty.usbserial-A4009I0O
++ # set SWIM upload tool and device name (from https://github.com/vdudouyt/stm8flash)
++ SWIM_LOADER=../../../../../stm8flash/stm8flash
++ SWIM_DEVICE=stm8s207mb                            # seems to be unimportant
 + 
 + # target hexfile
 + TARGET=./$DEVICE/$DEVICE.hex
@@ -4493,24 +4529,20 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_OSX_compile_r
 + echo "done with application"
 + echo " "
 + 
-+ # ask user to put STM8 to bootloader mode
-+ echo " "
-+ echo " "
-+ echo "reset STM8 and press return"
-+ echo " "
-+ read -p ""
++ # upload using STM8 serial bootloader
++ $BSL_LOADER -p $BSL_PORT -w $TARGET -v
 + 
-+ # upload using STM8 bootloader (use flash tool from GitHub)
-+ $LOADER -p $PORT -w $TARGET -v -Q 
-+ 
++ # upload using SWIM debug interface
++ #$SWIM_LOADER -c stlink -w $TARGET -p $SWIM_DEVICE
 + 
 + echo " "
 + read -p "press key to close window..."
-+ echo on
++ echo " "
++ 
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh	2017-07-15 21:15:07.000000000 +0200
 ***************
 *** 0 ****
 --- 1,23 ----
@@ -4539,30 +4571,32 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh .
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh	2017-07-16 12:13:49.699655065 +0200
 ***************
 *** 0 ****
---- 1,52 ----
+--- 1,50 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
 + cd `dirname $0`
 + 
 + # just for output
-+ echo off
 + clear
 + 
-+ # target device
++ # target device ("muBoard" and "STM8S Discovery")
 + DEVICE=STM8AF52Ax
++ #DEVICE=STM8S105
 + 
 + # set make tool (if not in PATH, set complete path)
 + MAKE=make
 + 
-+ # set STM8 flasher tool (if not in PATH, set complete path)
-+ LOADER=../../../../STM8_serial_flasher/STM8_serial_flasher
++ # set serial upload tool and serial port (from https://github.com/gicking/STM8_serial_flasher)
++ BSL_LOADER=../../../../../STM8_serial_flasher/STM8_serial_flasher
++ BSL_PORT=/dev/ttyUSB0
 + 
-+ # set COM port for flash loader
-+ PORT=/dev/ttyUSB0
++ # set SWIM upload tool and device name (from https://github.com/vdudouyt/stm8flash)
++ SWIM_LOADER=../../../../../stm8flash/stm8flash
++ SWIM_DEVICE=stm8s207mb                            # seems to be unimportant
 + 
 + # target hexfile
 + TARGET=./$DEVICE/$DEVICE.hex
@@ -4580,24 +4614,20 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_ru
 + echo "done with application"
 + echo " "
 + 
-+ # ask user to put STM8 to bootloader mode
-+ echo " "
-+ echo " "
-+ echo "reset STM8 and press return"
-+ echo " "
-+ read -p ""
++ # upload using STM8 serial bootloader
++ $BSL_LOADER -p $BSL_PORT -w $TARGET -v
 + 
-+ # upload using STM8 bootloader (use flash tool from GitHub)
-+ $LOADER -p $PORT -w $TARGET -v -Q 
-+ 
++ # upload using SWIM debug interface
++ #$SWIM_LOADER -c stlink -w $TARGET -p $SWIM_DEVICE
 + 
 + echo " "
 + read -p "press key to close window..."
-+ echo on
++ echo " "
++ 
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat	2017-07-15 21:15:07.000000000 +0200
 ***************
 *** 0 ****
 --- 1,18 ----
@@ -4621,27 +4651,33 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-07-15 21:15:07.289360000 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-07-16 12:14:01.476073860 +0200
 ***************
 *** 0 ****
---- 1,47 ----
+--- 1,51 ----
 + REM just for output
 + echo off
 + cls
 + 
-+ REM target device
++ REM target device ("muBoard" and "STM8S Discovery")
 + set DEVICE=STM8AF52Ax
++ REM set DEVICE=STM8S105
 + 
 + REM set make tool (if not in PATH, set complete path)
 + set MAKE=mingw32-make
 + 
-+ REM set path to STM8 flasher tool (own or by STM)
-+ set LOADER=..\..\..\..\STM8_serial_flasher\STM8_serial_flasher
-+ REM set LOADER=C:\Users\ick2bue\Documents\STM8_serial_flasher\STM8_serial_flasher.exe
-+ REM set LOADER="C:\Program Files\STMicroelectronics\Software\Flash Loader Demonstrator\STMFlashLoader.exe"
++ REM set serial upload tool and serial port (from https://github.com/gicking/STM8_serial_flasher)
++ set BSL_LOADER="..\..\..\..\..\STM8_serial_flasher\STM8_serial_flasher.exe"
++ set BSL_PORT=7
 + 
-+ REM set COM port for flash loader
-+ set PORT=7
++ REM set SWIM upload tool and device name (from https://github.com/vdudouyt/stm8flash)
++ REM set SWIM_LOADER=..\..\..\..\..\stm8flash\stm8flash.exe"
++ REM set SWIM_DEVICE=stm8s207mb
++ 
++ REM set SWIM upload tool and device name (STVP from ST homepage)
++ set SWIM_LOADER="C:\Programme\STMicroelectronics\st_toolset\stvp\STVP_CmdLine.exe"
++ set SWIM_DEVICE=STM8S105x6
++ REM set SWIM_DEVICE=STM8S207MB
 + 
 + REM name of target hexfile
 + set TARGET=.\%DEVICE%\%DEVICE%.hex
@@ -4656,16 +4692,14 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_r
 + 
 + REM GOTO END
 + 
-+ REM ask user to put STM8 to bootloader mode
-+ echo.
-+ echo.
-+ echo reset STM8 and press return
-+ echo.
-+ PAUSE 
++ REM upload using STM8 serial bootloader
++ %BSL_LOADER% -p %BSL_PORT% -w %TARGET% -v
 + 
-+ REM upload using STM8 bootloader (use own flash tool or STMFlashLoader by STM)
-+ %LOADER% -p COM%PORT% -w %TARGET% -v -Q 
-+ REM %LOADER% -c --pn %PORT% --br 115200 --co OFF --to 5000 -Dtr --Hi -Dtr --Lo -i STM8_128K -d --fn %TARGET% --v --o -r --a 0x8000 
++ REM upload using SWIM debug interface (stm8flash)
++ REM %SWIM_LOADER% -c stlink -w %TARGET% -p %SWIM_DEVICE%
++ 
++ REM upload using SWIM debug interface (STVP)
++ REM %SWIM_LOADER% -BoardName=ST-LINK -Port=USB -ProgMode=SWIM -Device=%DEVICE_STVP% -readData -readOption -no_progData -no_progOption -no_loop -no_log -FileProg=%TARGET%
 + 
 + REM clean up
 + :END
