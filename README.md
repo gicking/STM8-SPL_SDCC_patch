@@ -21,7 +21,7 @@ Open points / questions to you:
 
 Update legal status (2017-08-03):
   - linked SPL license on homepage prohibits distribution of sources original or modified
-  - however, STM support confirmed that this is outdated, and that the valid license is much more liberal
+  - however, [ST support confirmed](https://github.com/gicking/STM8-SPL_SDCC_patch/blob/master/STM_support_licence.pdf) that this is outdated, and that the valid license is much more liberal
   - in the near future I plan to upload the modified sources directly (no need to patch). Until then... 
   
 For apply the patch:
