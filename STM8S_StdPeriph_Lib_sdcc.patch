@@ -2388,7 +2388,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Doxyfile ./STM8S_StdPeriph_Lib_sdcc/Doxyfile
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h
 *** ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h	2014-10-21 17:32:20.000000000 +0200
---- ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h	2017-08-18 13:06:41.802668942 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h	2017-08-19 08:09:58.416779045 +0200
 ***************
 *** 84,89 ****
 --- 84,94 ----
@@ -2431,7 +2431,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
    #endif /* _COSMIC_ */
 ***************
 *** 2729,2734 ****
---- 2742,2756 ----
+--- 2742,2757 ----
    #define trap()                {_asm("trap\n");} /* Trap (soft IT) */
    #define wfi()                 {_asm("wfi\n");}  /* Wait For Interrupt */
    #define halt()                {_asm("halt\n");} /* Halt */
@@ -2440,16 +2440,17 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
 +  #define disableInterrupts()   __asm__("sim")    /* disable interrupts */
 +  #define rim()                 __asm__("rim")    /* enable interrupts */
 +  #define sim()                 __asm__("sim")    /* disable interrupts */
-+  #define nop()                 __asm__("nop")    /* No Operation */
-+  #define trap()                __asm__("trap")   /* Trap (soft IT) */
-+  #define wfi()                 __asm__("wfi")    /* Wait For Interrupt */
-+  #define halt()                __asm__("halt")   /* Halt */
++  #define nop()                 __asm__("nop")    /* no operation */
++  #define trap()                __asm__("trap")   /* trap (soft IT) */
++  #define wfi()                 __asm__("wfi")    /* wait for interrupt */
++  #define wfe()                 __asm__("wfe")    /* wait for event */
++  #define halt()                __asm__("halt")   /* halt CPU */
   #else /*_IAR_*/
    #include <intrinsics.h>
    #define enableInterrupts()    __enable_interrupt()   /* enable interrupts */
 ***************
 *** 2763,2774 ****
---- 2785,2812 ----
+--- 2786,2813 ----
    _Pragma( VECTOR_ID( 1 ) ) \
    __interrupt void (a) (void)  
   #endif /* _IAR_ */
@@ -2480,46 +2481,67 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
   /*============================== Handling bits ====================================*/
 diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash.c ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash.c
 *** ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash.c	2014-10-21 17:32:20.000000000 +0200
---- ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash.c	2017-08-18 11:39:34.565824801 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash.c	2017-08-19 08:52:13.417306832 +0200
 ***************
-*** 71,78 ****
---- 71,153 ----
+*** 70,78 ****
+  #define FLASH_SET_BYTE      ((uint8_t)0xFF)
   #define OPERATION_TIMEOUT   ((uint16_t)0xFFFF)
   /* Private macro -------------------------------------------------------------*/
   /* Private variables ---------------------------------------------------------*/
+! /* Private function prototypes -----------------------------------------------*/
+  /* Private Constants ---------------------------------------------------------*/
+  
+  /** @addtogroup FLASH_Public_functions
+    * @{
+--- 70,162 ----
+  #define FLASH_SET_BYTE      ((uint8_t)0xFF)
+  #define OPERATION_TIMEOUT   ((uint16_t)0xFFFF)
+  /* Private macro -------------------------------------------------------------*/
 + 
-+ /* SDCC patch: for >64kB to pass data to/from inline ASM (SDCC doesn't support far pointers yet) */
-+ #if defined(_SDCC_) && (FLASH_PROG_END_PHYSICAL_ADDRESS > 0xFFFF)     
-+   uint32_t    asm_addr;      // 16b/24b address
-+   uint8_t     asm_val;       // 1B data for r/w data
-+ #endif // _SDCC_
++ /* SDCC patch: simplify sdcc && >64kB indicator over different SPLs */
++ #if defined(_SDCC_) && (FLASH_PROG_END_PHYSICAL_ADDRESS > 0xFFFF)
++   #define _SDCC_BIGMEM_
++   #undef  MemoryAddressCast
++   #define MemoryAddressCast uint32_t
++ #else
++   #undef  _SDCC_BIGMEM_
++   #undef  MemoryAddressCast
++   #define MemoryAddressCast uint16_t
++ #endif
 + 
-  /* Private function prototypes -----------------------------------------------*/
+  /* Private variables ---------------------------------------------------------*/
+! 
+! /* SDCC patch: for >64kB to pass data to/from inline ASM (SDCC doesn't support far pointers yet) */
+! #if defined(_SDCC_BIGMEM_)     
+!   uint32_t    asm_addr;      // 16b/24b address
+!   uint8_t     asm_val;       // 1B data for r/w data
+! #endif // _SDCC_BIGMEM_
+! 
+  /* Private Constants ---------------------------------------------------------*/
++ /* Private function prototypes -----------------------------------------------*/
 + 
 + /* SDCC patch: r/w helper routines for >64kB addresses (SDCC doesn't support far pointers yet) */
-+ #if defined (_SDCC_) && (FLASH_PROG_END_PHYSICAL_ADDRESS > 0xFFFF)
-+   void      write_byte_address(uint16_t Address, uint8_t Data);   // write single byte to 16b/24b address
++ #if defined (_SDCC_BIGMEM_)
++   void      write_byte_address(uint32_t Address, uint8_t Data);   // write single byte to 16b/24b address
 +   uint8_t   read_byte_address(uint32_t Address);                  // read single byte from 16b/24b address
-+ #endif // _SDCC_
++ #endif // _SDCC_BIGMEM_
 + 
-  /* Private Constants ---------------------------------------------------------*/
 + /* Private functions ---------------------------------------------------------*/
 +  
 + /* SDCC patch: r/w helper routines for >64kB addresses using inline ASM (SDCC doesn't support far pointers yet) */
-+ /** @addtogroup FLASH_Private_functions
++ /** @addtogroup FLASH_Helper_functions
 +   * @{
 +   */
 + 
-+ #if defined (_SDCC_) && (FLASH_PROG_END_PHYSICAL_ADDRESS > 0xFFFF)
++ #if defined (_SDCC_BIGMEM_)
 + /**
 +   * @brief  write single byte to address
-+   * @note   is required for SDCC, which doesn't yet support far pointers.
-+   *         For simplicity 16- and 24-bit pointers are treated identically.
-+   * @param  Address : Address of the byte to copy
-+   *         Data :    Value to be copied
++   * @note   is required for >64kB memory space and SDCC, which doesn't yet support far pointers
++   * @param  Address : address to write to
++   *         Data :    value to write
 +   * @retval None
 +   */
-+ void write_byte_address(uint16_t Address, uint8_t Data)
++ void write_byte_address(uint32_t Address, uint8_t Data)
 + {
 +   /* store address & data globally for assember */
 +   asm_addr = Address;
@@ -2536,10 +2558,9 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash
 + 
 + /**
 +   * @brief  Reads any byte from flash memory
-+   * @note   is required for SDCC, which doesn't yet support far pointers.
-+   *         For simplicity 16- and 24-bit pointers are treated identically.
-+   * @param  Address : Address to read
-+   * @retval Value of the byte
++   * @note   is required for >64kB memory space and SDCC, which doesn't yet support far pointers
++   * @param  Address : address to read
++   * @retval value read
 +   */
 + uint8_t read_byte_address(uint32_t Address)
 + {
@@ -2557,13 +2578,12 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash
 +   
 + }
 + 
-+ #endif // _SDCC_ && 24bit range
++ #endif // _SDCC_BIGMEM_
 + 
 + /**
 +   * @}
 +   */
 +   
-+ 
   
   /** @addtogroup FLASH_Public_functions
     * @{
@@ -2576,16 +2596,16 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash
   }
   
   /**
---- 242,253 ----
+--- 251,262 ----
     assert_param(IS_FLASH_ADDRESS_OK(Address));
     
     /* Erase byte */
 !   /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
-!   #ifndef _SDCC_ ||  && (FLASH_PROG_END_PHYSICAL_ADDRESS <= 0xFFFF)
+!   #ifndef _SDCC_BIGMEM_
 !     *(PointerAttr uint8_t*) (MemoryAddressCast)Address = FLASH_CLEAR_BYTE;
 !   #else
-!     write_byte_address(Address, FLASH_CLEAR_BYTE);
-!   #endif // _SDCC_
+!     write_byte_address((MemoryAddressCast) Address, FLASH_CLEAR_BYTE);
+!   #endif // _SDCC_BIGMEM_
   }
   
   /**
@@ -2598,18 +2618,18 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash
   }
   
   /**
---- 262,275 ----
+--- 271,284 ----
   {
     /* Check parameters */
     assert_param(IS_FLASH_ADDRESS_OK(Address));
 ! 
 !   /* Program byte */
 !   /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
-!   #ifndef _SDCC_ ||  && (FLASH_PROG_END_PHYSICAL_ADDRESS <= 0xFFFF)
+!   #ifndef _SDCC_BIGMEM_
 !     *(PointerAttr uint8_t*) (MemoryAddressCast)Address = Data;
 !   #else
-!     write_byte_address(Address, Data);
-!   #endif // _SDCC_
+!     write_byte_address((MemoryAddressCast) Address, Data);
+!   #endif // _SDCC_BIGMEM_
   }
   
   /**
@@ -2622,16 +2642,16 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash
   }
   
   /**
---- 285,296 ----
+--- 294,305 ----
     assert_param(IS_FLASH_ADDRESS_OK(Address));
     
     /* Read byte */
 !   /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
-!   #ifndef _SDCC_ ||  && (FLASH_PROG_END_PHYSICAL_ADDRESS <= 0xFFFF)
+!   #ifndef _SDCC_BIGMEM_
 !     return(*(PointerAttr uint8_t *) (MemoryAddressCast)Address); 
 !   #else
-!     return(read_byte_address(Address));
-!   #endif // _SDCC_
+!     return(read_byte_address((MemoryAddressCast) Address));
+!   #endif // _SDCC_BIGMEM_
   }
   
   /**
@@ -2651,12 +2671,12 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash
   }
   
   /**
---- 310,331 ----
+--- 319,340 ----
     FLASH->CR2 |= FLASH_CR2_WPRG;
     FLASH->NCR2 &= (uint8_t)(~FLASH_NCR2_NWPRG);
     
 !   /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
-!   #ifndef _SDCC_ ||  && (FLASH_PROG_END_PHYSICAL_ADDRESS <= 0xFFFF)
+!   #ifndef _SDCC_BIGMEM_
 !     /* Write one byte - from lowest address*/
 !     *((PointerAttr uint8_t*)(MemoryAddressCast)Address)       = *((uint8_t*)(&Data));
 !     /* Write one byte*/
@@ -2666,11 +2686,11 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash
 !     /* Write one byte - from higher address*/
 !     *(((PointerAttr uint8_t*)(MemoryAddressCast)Address) + 3) = *((uint8_t*)(&Data)+3); 
 !   #else
-!     write_byte_address(Address    , *((uint8_t*)(&Data)));
-!     write_byte_address(Address + 1, *((uint8_t*)(&Data)+1));
-!     write_byte_address(Address + 2, *((uint8_t*)(&Data)+2));
-!     write_byte_address(Address + 3, *((uint8_t*)(&Data)+3));
-!   #endif // _SDCC_
+!     write_byte_address((MemoryAddressCast) (Address    ), *((uint8_t*)(&Data)));
+!     write_byte_address((MemoryAddressCast) (Address + 1), *((uint8_t*)(&Data)+1));
+!     write_byte_address((MemoryAddressCast) (Address + 2), *((uint8_t*)(&Data)+2));
+!     write_byte_address((MemoryAddressCast) (Address + 3), *((uint8_t*)(&Data)+3));
+!   #endif // _SDCC_BIGMEM_
   }
   
   /**
@@ -2705,7 +2725,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash
        the inram function to the RAM destination address:
                    memcpy(functionname, // RAM destination address
                         (void @far*)&__address__functionname, // Flash source address
---- 568,596 ----
+--- 577,605 ----
      erased or corrupted, so it may be desirable to perform the copy again. 
      Depending on the application memory model, the memcpy() or fmemcpy() functions
      should be used to perform the copy.
@@ -2736,76 +2756,27 @@ diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash
                    memcpy(functionname, // RAM destination address
                         (void @far*)&__address__functionname, // Flash source address
 ***************
-*** 633,645 ****
-    
-  #if defined(STM8S105) || defined(STM8S005) || defined(STM8S103) || defined(STM8S003) ||  \
-    defined (STM8S903) || defined (STM8AF626x) || defined (STM8AF622x)
-!     *pwFlash = (uint32_t)0;
-  #elif defined (STM8S208) || defined(STM8S207) || defined(STM8S007) || defined (STM8AF62Ax) || \
-    defined (STM8AF52Ax)
-!     *pwFlash = (uint8_t)0;
-!   *(pwFlash + 1) = (uint8_t)0;
-!   *(pwFlash + 2) = (uint8_t)0;
-!   *(pwFlash + 3) = (uint8_t)0;    
-  #endif
-  }
-  
---- 733,765 ----
-    
-  #if defined(STM8S105) || defined(STM8S005) || defined(STM8S103) || defined(STM8S003) ||  \
-    defined (STM8S903) || defined (STM8AF626x) || defined (STM8AF622x)
+*** 534,540 ****
+    * in the stm8s.h file or define it in your toolchain compiler preprocessor
+    * - #define RAM_EXECUTION  (1) 
+    */
+!   
+  #if defined (_COSMIC_) && defined (RAM_EXECUTION)
+   #pragma section (FLASH_CODE)
+  #endif  /* _COSMIC_ && RAM_EXECUTION */
+--- 643,654 ----
+    * in the stm8s.h file or define it in your toolchain compiler preprocessor
+    * - #define RAM_EXECUTION  (1) 
+    */
 ! 
-!     /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
-!     #ifndef _SDCC_ ||  && (FLASH_PROG_END_PHYSICAL_ADDRESS <= 0xFFFF)
-!       *pwFlash = (uint32_t)0;  
-!     #else
-!       write_byte_address(pwFlash,   0x00);
-!       write_byte_address(pwFlash+1, 0x00);
-!       write_byte_address(pwFlash+2, 0x00);
-!       write_byte_address(pwFlash+3, 0x00);
-!     #endif // _SDCC_
+! /* SDCC patch: code in RAM not yet patched */
+! #if defined (_SDCC_)
+!  #error RAM execution not yet implemented in patch, comment RAM_EXECUTION in stm8s.h
+! #endif
 ! 
-  #elif defined (STM8S208) || defined(STM8S207) || defined(STM8S007) || defined (STM8AF62Ax) || \
-    defined (STM8AF52Ax)
-! 
-!     /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
-!     #ifndef _SDCC_ ||  && (FLASH_PROG_END_PHYSICAL_ADDRESS <= 0xFFFF)
-!       *pwFlash = (uint8_t)0;
-!       *(pwFlash + 1) = (uint8_t)0;
-!       *(pwFlash + 2) = (uint8_t)0;
-!       *(pwFlash + 3) = (uint8_t)0;
-!     #else
-!       write_byte_address(pwFlash,   0x00);
-!       write_byte_address(pwFlash+1, 0x00);
-!       write_byte_address(pwFlash+2, 0x00);
-!       write_byte_address(pwFlash+3, 0x00);
-!     #endif // _SDCC_
-! 
-  #endif
-  }
-  
-***************
-*** 692,698 ****
-    /* Copy data bytes from RAM to FLASH memory */
-    for(Count = 0; Count < FLASH_BLOCK_SIZE; Count++)
-    {
-!     *((PointerAttr uint8_t*) (MemoryAddressCast)startaddress + Count) = ((uint8_t)(Buffer[Count]));
-    }
-  }
-  
---- 812,823 ----
-    /* Copy data bytes from RAM to FLASH memory */
-    for(Count = 0; Count < FLASH_BLOCK_SIZE; Count++)
-    {
-!     /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
-!     #ifndef _SDCC_ ||  && (FLASH_PROG_END_PHYSICAL_ADDRESS <= 0xFFFF)
-!       *((PointerAttr uint8_t*) (MemoryAddressCast)startaddress + Count) = ((uint8_t)(Buffer[Count]));
-!     #else
-!       write_byte_address(startaddress + Count, ((uint8_t)(Buffer[Count])));
-!     #endif // _SDCC_
-    }
-  }
-  
+  #if defined (_COSMIC_) && defined (RAM_EXECUTION)
+   #pragma section (FLASH_CODE)
+  #endif  /* _COSMIC_ && RAM_EXECUTION */
 diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_i2c.c ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/src/stm8s_i2c.c
 *** ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_i2c.c	2014-10-21 17:32:20.000000000 +0200
 --- ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/src/stm8s_i2c.c	2017-08-18 11:43:34.904228266 +0200

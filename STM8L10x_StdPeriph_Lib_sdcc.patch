@@ -2388,7 +2388,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Doxyfile ./STM8L10x_StdPeriph_Lib_sdcc/Doxyfi
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h
 *** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2014-10-21 14:13:34.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2017-08-18 13:04:42.133299859 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2017-08-19 08:07:26.169881625 +0200
 ***************
 *** 40,45 ****
 --- 40,50 ----
@@ -2439,7 +2439,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
   
 ***************
 *** 1329,1334 ****
---- 1342,1356 ----
+--- 1342,1357 ----
    #define wfi()               {_asm("wfi\n");}  /*!< Wait For Interrupt */
    #define wfe()               {_asm("wfe\n");}  /*!< Wait for event */
    #define halt()              {_asm("halt\n");} /*!< Halt */
@@ -2448,16 +2448,17 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
 +  #define disableInterrupts()   __asm__("sim")    /* disable interrupts */
 +  #define rim()                 __asm__("rim")    /* enable interrupts */
 +  #define sim()                 __asm__("sim")    /* disable interrupts */
-+  #define nop()                 __asm__("nop")    /* No Operation */
-+  #define trap()                __asm__("trap")   /* Trap (soft IT) */
-+  #define wfi()                 __asm__("wfi")    /* Wait For Interrupt */
-+  #define halt()                __asm__("halt")   /* Halt */
++  #define nop()                 __asm__("nop")    /* no operation */
++  #define trap()                __asm__("trap")   /* trap (soft IT) */
++  #define wfi()                 __asm__("wfi")    /* wait for interrupt */
++  #define wfe()                 __asm__("wfe")    /* wait for event */
++  #define halt()                __asm__("halt")   /* halt CPU */
   #else /* _IAR */
    #include <intrinsics.h>
    #define enableInterrupts()  __enable_interrupt()   /*!< Enable interrupts */
 ***************
 *** 1365,1370 ****
---- 1387,1405 ----
+--- 1388,1406 ----
     __interrupt void (a) (void)
   #endif
   
@@ -2479,7 +2480,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
   #ifdef _COSMIC_
 ***************
 *** 1375,1380 ****
---- 1410,1419 ----
+--- 1411,1420 ----
   #define INTERRUPT __interrupt
   #endif
   
@@ -2492,19 +2493,228 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
   /*-----------------------------------------------------------------------------
 diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c
 *** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2014-10-21 14:13:34.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2017-08-18 11:00:45.503138262 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2017-08-19 08:53:40.143120358 +0200
 ***************
-*** 119,124 ****
---- 119,127 ----
+*** 116,125 ****
+--- 116,208 ----
+  #define FLASH_SET_BYTE     ((uint8_t)0xFF);
+  #define OPERATION_TIMEOUT  ((uint16_t)0x1000)
+  /* Private macro -------------------------------------------------------------*/
++ 
++ /* SDCC patch: simplify sdcc && >64kB indicator over different SPLs */
++ #if defined(_SDCC_) && (FLASH_END_PHYSICAL_ADDRESS > 0xFFFF)
++   #define _SDCC_BIGMEM_
++   #undef  MemoryAddressCast
++   #define MemoryAddressCast uint32_t
++ #else
++   #undef  _SDCC_BIGMEM_
++   #undef  MemoryAddressCast
++   #define MemoryAddressCast uint16_t
++ #endif
++ 
   /* Private variables ---------------------------------------------------------*/
++ 
++ /* SDCC patch: for >64kB to pass data to/from inline ASM (SDCC doesn't support far pointers yet) */
++ #if defined(_SDCC_BIGMEM_)     
++   uint32_t    asm_addr;      // 16b/24b address
++   uint8_t     asm_val;       // 1B data for r/w data
++ #endif // _SDCC_BIGMEM_
++ 
   /* Private Constants ---------------------------------------------------------*/
   /* Private function prototypes -----------------------------------------------*/
 + 
-+ /* SDCC patch: all STM8L10x have <64kB address range -> no SDCC patch for far pointers required */
++ /* SDCC patch: r/w helper routines for >64kB addresses (SDCC doesn't support far pointers yet) */
++ #if defined (_SDCC_BIGMEM_)
++   void      write_byte_address(uint32_t Address, uint8_t Data);   // write single byte to 16b/24b address
++   uint8_t   read_byte_address(uint32_t Address);                  // read single byte from 16b/24b address
++ #endif // _SDCC_BIGMEM_
 + 
   /* Private functions ---------------------------------------------------------*/
++  
++ /* SDCC patch: r/w helper routines for >64kB addresses using inline ASM (SDCC doesn't support far pointers yet) */
++ /** @addtogroup FLASH_Helper_functions
++   * @{
++   */
++ 
++ #if defined (_SDCC_BIGMEM_)
++ /**
++   * @brief  write single byte to address
++   * @note   is required for >64kB memory space and SDCC, which doesn't yet support far pointers
++   * @param  Address : address to write to
++   *         Data :    value to write
++   * @retval None
++   */
++ void write_byte_address(uint32_t Address, uint8_t Data)
++ {
++   /* store address & data globally for assember */
++   asm_addr = Address;
++   asm_val  = Data;
++ 
++   /* use inline assembler to write to 16b/24b address */
++ __asm
++   ld	a,_asm_val
++   ldf	[_asm_addr+1].e,a
++ __endasm;
++ 
++ }
++ 
++ 
++ /**
++   * @brief  Reads any byte from flash memory
++   * @note   is required for >64kB memory space and SDCC, which doesn't yet support far pointers
++   * @param  Address : address to read
++   * @retval value read
++   */
++ uint8_t read_byte_address(uint32_t Address)
++ {
++   /* store address globally for assember */
++   asm_addr = Address;
++ 
++   /* use inline assembler to read from 16b/24b address */
++ __asm
++   ldf	a,[_asm_addr+1].e
++   ld	_asm_val,a
++ __endasm;
++ 
++   /* return read byte */
++   return(asm_val);
++   
++ }
++ 
++ #endif // _SDCC_BIGMEM_
++ 
++ /**
++   * @}
++   */
++   
   
   /** @defgroup FLASH_Private_Functions
+    * @{
+***************
+*** 274,280 ****
+    /* Check parameters */
+    assert_param(IS_FLASH_ADDRESS(Address));
+  
+!   *(PointerAttr uint8_t*) (uint16_t)Address = Data;  
+  }
+  
+  /**
+--- 357,369 ----
+    /* Check parameters */
+    assert_param(IS_FLASH_ADDRESS(Address));
+  
+!   /* Program byte */
+!   /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
+!   #ifndef _SDCC_BIGMEM_
+!     *(PointerAttr uint8_t*) (MemoryAddressCast)Address = Data;
+!   #else
+!     write_byte_address((MemoryAddressCast) Address, Data);
+!   #endif // _SDCC_BIGMEM_
+  }
+  
+  /**
+***************
+*** 286,293 ****
+  {
+    /* Check parameter */
+    assert_param(IS_FLASH_ADDRESS(Address));
+! 
+!   *(PointerAttr uint8_t*) (uint16_t)Address = FLASH_CLEAR_BYTE; /* Erase byte */
+  }
+  
+  /**
+--- 375,388 ----
+  {
+    /* Check parameter */
+    assert_param(IS_FLASH_ADDRESS(Address));
+!   
+!   /* Erase byte */
+!   /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
+!   #ifndef _SDCC_BIGMEM_
+!     *(PointerAttr uint8_t*) (MemoryAddressCast)Address = FLASH_CLEAR_BYTE;
+!   #else
+!     write_byte_address((MemoryAddressCast) Address, FLASH_CLEAR_BYTE);
+!   #endif // _SDCC_BIGMEM_
+  }
+  
+  /**
+***************
+*** 304,317 ****
+    /* Enable Word Write Once */
+    FLASH->CR2 |= FLASH_CR2_WPRG;
+    
+!   /* Write one byte - from lowest address*/
+!   *((PointerAttr uint8_t*)(uint16_t)Address)       = *((uint8_t*)(&Data));   
+!   /* Write one byte*/
+!   *(((PointerAttr uint8_t*)(uint16_t)Address) + 1) = *((uint8_t*)(&Data) + 1);
+!   /* Write one byte*/
+!   *(((PointerAttr uint8_t*)(uint16_t)Address) + 2) = *((uint8_t*)(&Data) + 2); 
+!   /* Write one byte - from higher address*/
+!   *(((PointerAttr uint8_t*)(uint16_t)Address) + 3) = *((uint8_t*)(&Data) + 3); 
+  }
+  
+  /**
+--- 399,420 ----
+    /* Enable Word Write Once */
+    FLASH->CR2 |= FLASH_CR2_WPRG;
+    
+!   /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
+!   #ifndef _SDCC_BIGMEM_
+!     /* Write one byte - from lowest address*/
+!     *((PointerAttr uint8_t*)(MemoryAddressCast)Address)       = *((uint8_t*)(&Data));
+!     /* Write one byte*/
+!     *(((PointerAttr uint8_t*)(MemoryAddressCast)Address) + 1) = *((uint8_t*)(&Data)+1); 
+!     /* Write one byte*/    
+!     *(((PointerAttr uint8_t*)(MemoryAddressCast)Address) + 2) = *((uint8_t*)(&Data)+2); 
+!     /* Write one byte - from higher address*/
+!     *(((PointerAttr uint8_t*)(MemoryAddressCast)Address) + 3) = *((uint8_t*)(&Data)+3); 
+!   #else
+!     write_byte_address((MemoryAddressCast) (Address    ), *((uint8_t*)(&Data)));
+!     write_byte_address((MemoryAddressCast) (Address + 1), *((uint8_t*)(&Data)+1));
+!     write_byte_address((MemoryAddressCast) (Address + 2), *((uint8_t*)(&Data)+2));
+!     write_byte_address((MemoryAddressCast) (Address + 3), *((uint8_t*)(&Data)+3));
+!   #endif // _SDCC_BIGMEM_
+  }
+  
+  /**
+***************
+*** 324,331 ****
+    /* Check parameter */
+    assert_param(IS_FLASH_ADDRESS(Address));
+    
+!   /* Read byte */  
+!   return(*(PointerAttr uint8_t *) (uint16_t)Address);
+  }
+  /**
+    * @}
+--- 427,439 ----
+    /* Check parameter */
+    assert_param(IS_FLASH_ADDRESS(Address));
+    
+!   /* Read byte */
+!   /* SDCC patch: SDCC requires helper routines for >64kB addresses due to lack of far pointers */
+!   #ifndef _SDCC_BIGMEM_
+!     return(*(PointerAttr uint8_t *) (MemoryAddressCast)Address); 
+!   #else
+!     return(read_byte_address((MemoryAddressCast) Address));
+!   #endif // _SDCC_BIGMEM_
+  }
+  /**
+    * @}
+***************
+*** 584,589 ****
+--- 692,702 ----
+    *   #define RAM_EXECUTION  (1) 
+    */
+  
++ /* SDCC patch: code in RAM not yet patched */
++ #if defined (_SDCC_)
++  #error RAM execution not yet implemented in patch, comment RAM_EXECUTION in stm8s.h
++ #endif
++ 
+  #if defined (_COSMIC_) && defined (RAM_EXECUTION)
+   #pragma section (FLASH_CODE)
+  #endif  /* _COSMIC_ && RAM_EXECUTION */
 ***************
 *** 708,711 ****
     * @}
@@ -2512,7 +2722,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
     
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 \ Kein Zeilenumbruch am Dateiende.
---- 711,714 ----
+--- 821,824 ----
     * @}
     */ 
     
@@ -2534,7 +2744,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
     asm("pop a"); /* Ignore compiler warning, the returned value is in A register */
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -2559,25 +2769,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_A
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -2626,7 +2834,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_A
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -2651,25 +2859,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -2718,7 +2924,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -2743,25 +2949,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_M
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -2810,7 +3014,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_M
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -2835,25 +3039,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -2902,7 +3104,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -2927,25 +3129,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -2994,7 +3194,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3019,25 +3219,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3115,7 +3313,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3140,25 +3338,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3207,7 +3403,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3232,25 +3428,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3299,7 +3493,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3324,25 +3518,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3391,7 +3583,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3416,25 +3608,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3483,7 +3673,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3508,25 +3698,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3575,7 +3763,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3600,25 +3788,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_E
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3667,7 +3853,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_E
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3692,25 +3878,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3759,7 +3943,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3784,25 +3968,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_S
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3851,7 +4033,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_S
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3876,25 +4058,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -3943,7 +4123,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3968,25 +4148,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_I
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4035,7 +4213,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_I
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4060,25 +4238,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_F
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4127,7 +4303,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_F
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4152,25 +4328,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_M
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4219,7 +4393,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_M
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4244,25 +4418,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_S
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4311,7 +4483,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_S
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4336,25 +4508,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4403,7 +4573,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4428,25 +4598,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4495,7 +4663,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4520,25 +4688,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4587,7 +4753,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4612,25 +4778,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4679,7 +4843,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4704,25 +4868,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4771,7 +4933,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4796,25 +4958,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4863,7 +5023,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4888,25 +5048,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -4955,7 +5113,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4980,25 +5138,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -5047,7 +5203,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5072,25 +5228,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -5139,7 +5293,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2017-08-18 13:08:03.147476437 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2017-08-19 09:29:34.531173510 +0200
 ***************
 *** 40,45 ****
 --- 40,52 ----
@@ -5158,7 +5312,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
    #define GETCHAR_PROTOTYPE int getchar (void)
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5183,25 +5337,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -5250,7 +5402,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5275,25 +5427,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -5342,7 +5492,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2017-08-16 16:22:44.917464000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5367,25 +5517,23 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_W
     * @attention
     *
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
@@ -5820,27 +5968,25 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WI
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2014-10-21 14:13:30.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2017-08-16 16:22:44.917464221 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2017-08-19 09:11:40.053873920 +0200
 ***************
-*** 41,48 ****
+*** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! #ifndef _RAISONANCE_
-!  INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
---- 41,49 ----
+--- 41,48 ----
    INTERRUPT void NonHandledInterrupt(void);
   #endif /* _COSMIC_ */
   
 ! // SDCC patch: requires separate handling for SDCC (see below)
 ! #if !defined(_RAISONANCE_) && !defined(_SDCC_)
-!  //INTERRUPT void NonHandledInterrupt(void);
+   INTERRUPT void NonHandledInterrupt(void);
    INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
    INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
-   INTERRUPT void AWU_IRQHandler(void); /* AWU */
 ***************
 *** 66,72 ****
    INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
