@@ -1,6 +1,6 @@
 diff -rcN ./STM8L10x_StdPeriph_Lib/Doxyfile ./STM8L10x_StdPeriph_Lib_sdcc/Doxyfile
 *** ./STM8L10x_StdPeriph_Lib/Doxyfile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Doxyfile	2017-08-15 16:34:14.984371155 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Doxyfile	2017-08-15 16:34:14.000000000 +0200
 ***************
 *** 0 ****
 --- 1,2382 ----
@@ -2388,7 +2388,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Doxyfile ./STM8L10x_StdPeriph_Lib_sdcc/Doxyfi
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h
 *** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2014-10-21 14:13:34.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2017-08-19 08:07:26.169881625 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2017-09-02 18:43:16.688935718 +0200
 ***************
 *** 40,45 ****
 --- 40,50 ----
@@ -2419,7 +2419,22 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
    #define FAR  __far
    #define NEAR __near
 ***************
-*** 93,99 ****
+*** 72,77 ****
+--- 83,91 ----
+   #define CONST  const
+  #endif
+  
++ /* SDCC patch: simplify maintenance over different SPLs. All STM8L10x have <64kB memory range */
++ #undef _SDCC_BIGMEM_
++ 
+  /**
+    * @brief Legacy definition
+    */
+***************
+*** 90,99 ****
+     #define IN_RAM(a) a
+   #elif defined (_RAISONANCE_) /* __RCST7__ */
+     #define IN_RAM(a) a inram
    #else /*_IAR_*/
     #define IN_RAM(a) __ramfunc a
    #endif /* _COSMIC_ */
@@ -2427,19 +2442,22 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
     #define IN_RAM(a) a
   #endif /* RAM_EXECUTION */
   
---- 104,112 ----
+--- 104,115 ----
+     #define IN_RAM(a) a
+   #elif defined (_RAISONANCE_) /* __RCST7__ */
+     #define IN_RAM(a) a inram
++  #elif defined (_SDCC_)                    /* SDCC patch: code in RAM not yet patched */
++   #error RAM execution not yet implemented in patch, comment RAM_EXECUTION in stm8l10x.h
    #else /*_IAR_*/
     #define IN_RAM(a) __ramfunc a
    #endif /* _COSMIC_ */
-!  #elif defined (_SDCC_)                    /* SDCC patch: code in RAM not yet patched */
-!   #error RAM execution not yet implemented in patch, comment RAM_EXECUTION in stm8l10x.h
 ! #else /*_IAR_*/
     #define IN_RAM(a) a
   #endif /* RAM_EXECUTION */
   
 ***************
 *** 1329,1334 ****
---- 1342,1357 ----
+--- 1345,1360 ----
    #define wfi()               {_asm("wfi\n");}  /*!< Wait For Interrupt */
    #define wfe()               {_asm("wfe\n");}  /*!< Wait for event */
    #define halt()              {_asm("halt\n");} /*!< Halt */
@@ -2458,7 +2476,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
    #define enableInterrupts()  __enable_interrupt()   /*!< Enable interrupts */
 ***************
 *** 1365,1370 ****
---- 1388,1406 ----
+--- 1391,1409 ----
     __interrupt void (a) (void)
   #endif
   
@@ -2480,7 +2498,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
   #ifdef _COSMIC_
 ***************
 *** 1375,1380 ****
---- 1411,1420 ----
+--- 1414,1423 ----
   #define INTERRUPT __interrupt
   #endif
   
@@ -2493,21 +2511,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
   /*-----------------------------------------------------------------------------
 diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c
 *** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2014-10-21 14:13:34.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2017-08-19 08:53:40.143120358 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2017-09-02 18:39:34.802374929 +0200
 ***************
 *** 116,125 ****
---- 116,208 ----
+--- 116,206 ----
   #define FLASH_SET_BYTE     ((uint8_t)0xFF);
   #define OPERATION_TIMEOUT  ((uint16_t)0x1000)
   /* Private macro -------------------------------------------------------------*/
 + 
 + /* SDCC patch: simplify sdcc && >64kB indicator over different SPLs */
-+ #if defined(_SDCC_) && (FLASH_END_PHYSICAL_ADDRESS > 0xFFFF)
-+   #define _SDCC_BIGMEM_
++ #if defined(_SDCC_BIGMEM_)
 +   #undef  MemoryAddressCast
 +   #define MemoryAddressCast uint32_t
 + #else
-+   #undef  _SDCC_BIGMEM_
 +   #undef  MemoryAddressCast
 +   #define MemoryAddressCast uint16_t
 + #endif
@@ -2599,7 +2615,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
   }
   
   /**
---- 357,369 ----
+--- 355,367 ----
     /* Check parameters */
     assert_param(IS_FLASH_ADDRESS(Address));
   
@@ -2623,7 +2639,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
   }
   
   /**
---- 375,388 ----
+--- 373,386 ----
   {
     /* Check parameter */
     assert_param(IS_FLASH_ADDRESS(Address));
@@ -2654,7 +2670,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
   }
   
   /**
---- 399,420 ----
+--- 397,418 ----
     /* Enable Word Write Once */
     FLASH->CR2 |= FLASH_CR2_WPRG;
     
@@ -2687,7 +2703,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
   }
   /**
     * @}
---- 427,439 ----
+--- 425,437 ----
     /* Check parameter */
     assert_param(IS_FLASH_ADDRESS(Address));
     
@@ -2703,12 +2719,12 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
     * @}
 ***************
 *** 584,589 ****
---- 692,702 ----
+--- 690,700 ----
     *   #define RAM_EXECUTION  (1) 
     */
   
 + /* SDCC patch: code in RAM not yet patched */
-+ #if defined (_SDCC_)
++ #if defined (_SDCC_) && defined (RAM_EXECUTION)
 +  #error RAM execution not yet implemented in patch, comment RAM_EXECUTION in stm8s.h
 + #endif
 + 
@@ -2722,14 +2738,14 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
     
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 \ Kein Zeilenumbruch am Dateiende.
---- 821,824 ----
+--- 819,822 ----
     * @}
     */ 
     
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c
 *** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c	2014-10-21 14:13:34.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c	2017-08-16 14:30:29.570725254 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c	2017-08-16 14:30:29.000000000 +0200
 ***************
 *** 62,67 ****
 --- 62,70 ----
@@ -2744,7 +2760,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
     asm("pop a"); /* Ignore compiler warning, the returned value is in A register */
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -2834,7 +2850,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_A
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -2924,7 +2940,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3014,7 +3030,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_M
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3104,7 +3120,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3194,7 +3210,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3284,7 +3300,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2017-08-16 15:10:30.138299269 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2017-08-16 15:10:30.000000000 +0200
 ***************
 *** 95,100 ****
 --- 95,105 ----
@@ -3313,7 +3329,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3403,7 +3419,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3493,7 +3509,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3583,7 +3599,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3673,7 +3689,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3763,7 +3779,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3853,7 +3869,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_E
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3943,7 +3959,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4033,7 +4049,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_S
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4123,7 +4139,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4213,7 +4229,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_I
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4303,7 +4319,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_F
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4393,7 +4409,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_M
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4483,7 +4499,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_S
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4573,7 +4589,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4663,7 +4679,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4753,7 +4769,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4843,7 +4859,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4933,7 +4949,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5023,7 +5039,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5113,7 +5129,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5203,7 +5219,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5293,7 +5309,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2017-08-19 09:29:34.531173510 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2017-08-19 09:29:34.000000000 +0200
 ***************
 *** 40,45 ****
 --- 40,52 ----
@@ -5312,7 +5328,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
    #define GETCHAR_PROTOTYPE int getchar (void)
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5402,7 +5418,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5492,7 +5508,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2017-08-19 09:11:40.053873000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5582,7 +5598,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_W
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/readme.txt ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/readme.txt
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/readme.txt	2014-10-21 14:13:30.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/readme.txt	2017-08-16 15:08:47.918655185 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/readme.txt	2017-08-16 15:08:47.000000000 +0200
 ***************
 *** 35,41 ****
   
@@ -5602,10 +5618,10 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/readme.t
   create a new project. 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile	2017-08-18 12:36:14.724800698 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile	2017-09-02 15:28:49.809354889 +0200
 ***************
 *** 0 ****
---- 1,77 ----
+--- 1,74 ----
 + #######
 + # makefile for STM8*_StdPeriph_Lib and SDCC compiler
 + #
@@ -5615,9 +5631,9 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/Mak
 + #   1. if SDCC not in PATH set path -> CC_ROOT
 + #   2. set correct STM8 device -> DEVICE
 + #   3. set project paths -> PRJ_ROOT, PRJ_SRC_DIR, PRJ_INC_DIR
-+ #   4. set SPL root path -> SPL_ROOT
-+ #   5. include required SPL modules -> SPL_SOURCE
-+ #   6. include required STM8S_EVAL modules -> EVAL_SOURCE, EVAL_128K_SOURCE, EVAL_COMM_SOURCE
++ #   4. set SPL paths -> SPL_ROOT
++ #   5. add required SPL modules -> SPL_SOURCE
++ #   6. add required STM8L101_EVAL modules -> EVAL_SOURCE, EVAL_COMM_SOURCE
 + #
 + #######
 + 
@@ -5628,9 +5644,6 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/Mak
 + CC_ROOT =
 + CC      = sdcc
 + CFLAGS  = -mstm8 -lstm8 --opt-code-size
-+ 
-+ # required for some examples for STM8S EVAL board
-+ #CFLAGS += -DUSE_STM8_128_EVAL
 + 
 + # set output folder and target name
 + OUTPUT_DIR = ./$(DEVICE)
@@ -5645,17 +5658,17 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/Mak
 + 
 + # set SPL paths
 + SPL_ROOT    = ../../..
-+ SPL_SRC_DIR = $(SPL_ROOT)/Libraries/STM8L15x_StdPeriph_Driver/src
-+ SPL_INC_DIR = $(SPL_ROOT)/Libraries/STM8L15x_StdPeriph_Driver/inc
-+ SPL_SOURCE  = stm8l15x_gpio.c
++ SPL_SRC_DIR = $(SPL_ROOT)/Libraries/STM8L10x_StdPeriph_Driver/src
++ SPL_INC_DIR = $(SPL_ROOT)/Libraries/STM8L10x_StdPeriph_Driver/inc
++ SPL_SOURCE  = stm8l10x_gpio.c
 + SPL_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(SPL_SOURCE:.c=.rel))
 + 
-+ # set STM8L15x_EVAL Utilities paths
-+ EVAL_DIR     = $(SPL_ROOT)/Utilities/STM8_EVAL
++ # set path to STM8L101_EVAL board routines
++ EVAL_DIR     = $(SPL_ROOT)/Utilities/STM8L101_EVAL
 + EVAL_SOURCE  = 
 + EVAL_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(EVAL_SOURCE:.c=.rel))
 + 
-+ # set STM8L_EVAL Common paths
++ # set path to STM8L101_EVAL common routines
 + EVAL_COMM_DIR    = $(EVAL_DIR)/Common
 + EVAL_COMM_SOURCE  = 
 + EVAL_COMM_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(EVAL_COMM_SOURCE:.c=.rel))
@@ -5683,93 +5696,9 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/Mak
 + clean: 
 + 	rm -fr $(OUTPUT_DIR)
 + 
-diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_OSX_clean.command ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_OSX_clean.command
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_OSX_clean.command	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_OSX_clean.command	2017-08-18 12:37:32.409842458 +0200
-***************
-*** 0 ****
---- 1,23 ----
-+ #!/bin/bash 
-+ 
-+ # change to current working directory
-+ cd `dirname $0`
-+ 
-+ # just for output
-+ echo off
-+ clear
-+ 
-+ # target device (doesn't matter here)
-+ DEVICE=STM8L10x
-+ 
-+ # set make tool (if not in PATH, set complete path)
-+ MAKE=make
-+ 
-+ # use Makefiles to delete outputs
-+ #$MAKE -f Makefile DEVICE=$DEVICE clean 
-+ 
-+ # also delete output folders
-+ rm -fr $DEVICE
-+ 
-+ echo on
-+ 
-diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_OSX_compile_run.command ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_OSX_compile_run.command
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_OSX_compile_run.command	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_OSX_compile_run.command	2017-08-18 12:37:40.313947144 +0200
-***************
-*** 0 ****
---- 1,49 ----
-+ #!/bin/bash 
-+ 
-+ # change to current working directory
-+ cd `dirname $0`
-+ 
-+ # just for output
-+ clear
-+ 
-+ # target device (doesn't matter here)
-+ DEVICE=STM8L10x
-+ 
-+ # set make tool (if not in PATH, set complete path)
-+ MAKE=make
-+ 
-+ # set serial upload tool and serial port (from https://github.com/gicking/STM8_serial_flasher)
-+ BSL_LOADER=../../../../../STM8_serial_flasher/STM8_serial_flasher
-+ BSL_PORT=/dev/tty.usbserial-A4009I0O
-+ 
-+ # set SWIM upload tool and device name (from https://github.com/vdudouyt/stm8flash)
-+ SWIM_LOADER=../../../../../stm8flash/stm8flash
-+ SWIM_DEVICE=stm8s207mb                            # seems to be unimportant
-+ 
-+ # target hexfile
-+ TARGET=./$DEVICE/$DEVICE.hex
-+ 
-+ # make project; check for output folder (=device name)
-+ echo "make application"
-+ test -d $DEVICE || mkdir $DEVICE
-+ $MAKE -f Makefile DEVICE=$DEVICE
-+ if [ $? -ne 0 ]; then
-+   echo " "
-+   read -p "press key to close window..."
-+   echo on
-+   exit
-+ fi
-+ echo "done with application"
-+ echo " "
-+ 
-+ # upload using STM8 serial bootloader
-+ #$BSL_LOADER -p $BSL_PORT -w $TARGET -v
-+ 
-+ # upload using SWIM debug interface
-+ $SWIM_LOADER -c stlink -w $TARGET -p $SWIM_DEVICE
-+ 
-+ echo " "
-+ read -p "press key to close window..."
-+ echo " "
-+ 
-+ 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh	2017-08-15 21:26:46.089560392 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh	2017-08-15 21:26:46.000000000 +0200
 ***************
 *** 0 ****
 --- 1,23 ----
@@ -5798,10 +5727,10 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh	2017-08-15 16:59:02.740896675 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh	2017-09-02 17:35:16.102418000 +0200
 ***************
 *** 0 ****
---- 1,49 ----
+--- 1,45 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
@@ -5816,13 +5745,12 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX
 + # set make tool (if not in PATH, set complete path)
 + MAKE=make
 + 
-+ # set serial upload tool and serial port (from https://github.com/gicking/STM8_serial_flasher)
-+ BSL_LOADER=../../../../../STM8_serial_flasher/STM8_serial_flasher
-+ BSL_PORT=/dev/ttyUSB0
++ # STM8L10x has no bootloader, see tech note UM0560 and TN0189 on http://www.st.com
 + 
-+ # set SWIM upload tool and device name (from https://github.com/vdudouyt/stm8flash)
-+ SWIM_LOADER=../../../../../stm8flash/stm8flash
-+ SWIM_DEVICE=stm8s207mb                            # seems to be unimportant
++ # set SWIM upload tool and device name (stm8flash from https://github.com/vdudouyt/stm8flash)
++ SWIM_LOADER=~/Öffentlich/GitHub/stm8flash/stm8flash
++ SWIM_TOOL=stlink
++ SWIM_DEVICE=stm8l101?3
 + 
 + # target hexfile
 + TARGET=./$DEVICE/$DEVICE.hex
@@ -5840,11 +5768,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX
 + echo "done with application"
 + echo " "
 + 
-+ # upload using STM8 serial bootloader
-+ #$BSL_LOADER -p $BSL_PORT -w $TARGET -v
-+ 
 + # upload using SWIM debug interface
-+ $SWIM_LOADER -c stlink -w $TARGET -p $SWIM_DEVICE
++ $SWIM_LOADER -c $SWIM_TOOL -w $TARGET -p $SWIM_DEVICE
 + 
 + echo " "
 + read -p "press key to close window..."
@@ -5853,7 +5778,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat	2017-08-15 21:27:31.969415500 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat	2017-08-15 21:27:31.000000000 +0200
 ***************
 *** 0 ****
 --- 1,18 ----
@@ -5877,10 +5802,10 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WI
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat	2017-08-15 21:27:39.105392940 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat	2017-09-02 17:35:38.235205000 +0200
 ***************
 *** 0 ****
---- 1,50 ----
+--- 1,45 ----
 + REM just for output
 + echo off
 + cls
@@ -5891,18 +5816,16 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WI
 + REM set make tool (if not in PATH, set complete path)
 + set MAKE=mingw32-make
 + 
-+ REM set serial upload tool and serial port (from https://github.com/gicking/STM8_serial_flasher)
-+ set BSL_LOADER="..\..\..\..\..\STM8_serial_flasher\STM8_serial_flasher.exe"
-+ set BSL_PORT=7
++ REM STM8L10x has no bootloader, see tech note UM0560 and TN0189 on http://www.st.com
 + 
-+ REM set SWIM upload tool and device name (from https://github.com/vdudouyt/stm8flash)
-+ REM set SWIM_LOADER=..\..\..\..\..\stm8flash\stm8flash.exe"
-+ REM set SWIM_DEVICE=stm8s207mb
++ REM set SWIM upload tool and device name (stm8flash from https://github.com/vdudouyt/stm8flash)
++ REM set SWIM_LOADER=C:\Programme\stm8flash\stm8flash.exe"
++ REM set SWIM_TOOL=stlink
++ REM set SWIM_DEVICE=stm8l101?3
 + 
-+ REM set SWIM upload tool and device name (STVP from ST homepage)
++ REM set SWIM upload tool and device name (STVP-STM8 on http://www.st.com)
 + set SWIM_LOADER="C:\Programme\STMicroelectronics\st_toolset\stvp\STVP_CmdLine.exe"
-+ set SWIM_DEVICE=STM8S105x6
-+ REM set SWIM_DEVICE=STM8S207MB
++ set SWIM_DEVICE=STM8L101x3
 + 
 + REM name of target hexfile
 + set TARGET=.\%DEVICE%\%DEVICE%.hex
@@ -5917,49 +5840,11 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WI
 + 
 + REM GOTO END
 + 
-+ REM upload using STM8 serial bootloader
-+ REM %BSL_LOADER% -p %BSL_PORT% -w %TARGET% -v
++ REM upload using SWIM debug interface (stm8flash from https://github.com/vdudouyt/stm8flash)
++ REM %SWIM_LOADER% -c %SWIM_TOOL% -w %TARGET% -p %SWIM_DEVICE%
 + 
-+ REM upload using SWIM debug interface (stm8flash)
-+ REM %SWIM_LOADER% -c stlink -w %TARGET% -p %SWIM_DEVICE%
-+ 
-+ REM upload using SWIM debug interface (STVP)
++ REM upload using SWIM debug interface (STVP-STM8 on http://www.st.com)
 + %SWIM_LOADER% -BoardName=ST-LINK -Port=USB -ProgMode=SWIM -Device=%DEVICE_STVP% -readData -readOption -no_progData -no_progOption -no_loop -no_log -FileProg=%TARGET%
-+ 
-+ REM clean up
-+ :END
-+ PAUSE
-+ echo on
-+ 
-diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_upload.bat ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_upload.bat
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_upload.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_upload.bat	2017-08-18 12:38:21.186484940 +0200
-***************
-*** 0 ****
---- 1,29 ----
-+ REM just for output
-+ echo off
-+ cls
-+ 
-+ REM set path to STM8 flasher tool (own or by STM)
-+ REM set LOADER=C:\Users\ick2bue\Documents\STM8_serial_flasher\STM8_serial_flasher.exe
-+ set LOADER=..\..\..\..\STM8_serial_flasher/STM8_serial_flasher.exe
-+ 
-+ REM set COM port for flash loader
-+ set PORT=7
-+ 
-+ REM name of target hexfile
-+ set TARGET=Debug\stm8l10x.s19
-+ 
-+ REM ask user to put STM8 to bootloader mode
-+ echo.
-+ echo.
-+ echo reset STM8 and press return
-+ echo.
-+ PAUSE 
-+ 
-+ REM upload using STM8 bootloader (use own flash tool or STMFlashLoader by STM)
-+ %LOADER% -p COM%PORT% -f %TARGET% -v -Q 
 + 
 + REM clean up
 + :END
@@ -5968,7 +5853,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WI
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2014-10-21 14:13:30.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2017-08-19 09:11:40.053873920 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
 ***************
 *** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
@@ -6033,3 +5918,936 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/main.c	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/main.c	2017-09-02 19:43:24.541811976 +0200
+***************
+*** 0 ****
+--- 1,118 ----
++ /**
++   ******************************************************************************
++   * @file     Project/STM8L10x_StdPeriph_Templates/main.c
++   * @author   MCD Application Team
++   * @version V1.2.1
++   * @date    30-September-2014
++   * @brief    This file contains the firmware main function.
++   ******************************************************************************
++   * @attention
++   *
++   * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
++   *
++   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
++   * You may not use this file except in compliance with the License.
++   * You may obtain a copy of the License at:
++   *
++   *        http://www.st.com/software_license_agreement_liberty_v2
++   *
++   * Unless required by applicable law or agreed to in writing, software 
++   * distributed under the License is distributed on an "AS IS" BASIS, 
++   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++   * See the License for the specific language governing permissions and
++   * limitations under the License.
++   *
++   ******************************************************************************
++   */
++ 
++ /* Includes ------------------------------------------------------------------*/
++ #include "stm8l10x.h"
++ #include "stm8l10x_tim4.h"
++ #include "stm8l10x_it.h"    // SDCC requires ISR declaration to be included here
++ 
++ /** @addtogroup STM8L10x_StdPeriph_Templates
++   * @{
++   */
++ 
++ /* Private typedef -----------------------------------------------------------*/
++ /* Private define ------------------------------------------------------------*/
++ /* Private macro -------------------------------------------------------------*/
++ /* Private variables ---------------------------------------------------------*/
++ /* Private function prototypes -----------------------------------------------*/
++ /* Private functions ---------------------------------------------------------*/
++ 
++ /* Public variables ---------------------------------------------------------*/
++ uint8_t     g_flag1ms=0;    // flag for 1ms interrupt (for TIM4 ISR)
++ uint32_t    g_count1ms=0;   // 1ms counter (for TIM4 ISR)
++ 
++ 
++ void main(void)
++ {
++   /* init High speed internal clock prescaler: 1 */
++   CLK_MasterPrescalerConfig(CLK_MasterPrescaler_HSIDiv1);
++ 
++   /* Enable TIM4 CLK */
++   CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, ENABLE);
++ 
++   /* Initialize LED pins in Output Mode */
++   GPIO_Init(GPIOA, (GPIO_Pin_TypeDef) GPIO_Pin_7, GPIO_Mode_Out_PP_Low_Fast);
++   GPIO_SetBits(GPIOA, (GPIO_Pin_TypeDef) GPIO_Pin_7);
++ 
++   // config 1ms clock
++   TIM4_DeInit();
++   TIM4_TimeBaseInit(TIM4_Prescaler_128, 124);
++   TIM4_ClearFlag(TIM4_FLAG_Update);
++   TIM4_ITConfig(TIM4_IT_Update, ENABLE);
++   TIM4_Cmd(ENABLE);
++ 
++   // enable interrupts
++   enableInterrupts();
++ 
++   // main loop
++   while (1)
++   {
++     // every 1ms
++     if (g_flag1ms)
++     { 
++       g_flag1ms=0;
++     
++       if ((g_count1ms % 500) == 0)
++       {
++         // toogle LED
++         GPIO_ToggleBits(GPIOA, (GPIO_Pin_TypeDef) GPIO_Pin_7);
++ 
++       } // every 500ms
++     
++     } // every 1ms
++     
++   } // main loop
++ 
++ } // main()
++ 
++ 
++ #ifdef  USE_FULL_ASSERT
++ 
++ /**
++   * @brief  Reports the name of the source file and the source line number
++   *   where the assert_param error has occurred.
++   * @param file: pointer to the source file name
++   * @param line: assert_param error line source number
++   * @retval : None
++   */
++ void assert_failed(uint8_t* file, uint32_t line)
++ {
++     /* User can add his own implementation to report the file name and line number,
++        ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
++ 
++     /* Infinite loop */
++     while (1)
++     {
++     }
++ }
++ #endif
++ 
++ /**
++   * @}
++   */
++   
++ /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/Makefile ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/Makefile
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/Makefile	2017-09-02 19:17:00.980781212 +0200
+***************
+*** 0 ****
+--- 1,74 ----
++ #######
++ # makefile for STM8*_StdPeriph_Lib and SDCC compiler
++ #
++ # note: paths in this Makefile assume unmodified SPL folder structure
++ #
++ # usage:
++ #   1. if SDCC not in PATH set path -> CC_ROOT
++ #   2. set correct STM8 device -> DEVICE
++ #   3. set project paths -> PRJ_ROOT, PRJ_SRC_DIR, PRJ_INC_DIR
++ #   4. set SPL paths -> SPL_ROOT
++ #   5. add required SPL modules -> SPL_SOURCE
++ #   6. add required STM8L101_EVAL modules -> EVAL_SOURCE, EVAL_COMM_SOURCE
++ #
++ #######
++ 
++ # STM8 device (doesn't matter here, just for Makefile)
++ DEVICE=STM8L10x
++ 
++ # set compiler path & parameters 
++ CC_ROOT =
++ CC      = sdcc
++ CFLAGS  = -mstm8 -lstm8 --opt-code-size
++ 
++ # set output folder and target name
++ OUTPUT_DIR = ./$(DEVICE)
++ TARGET     = $(OUTPUT_DIR)/$(DEVICE).hex
++ 
++ # set project folder and files (all *.c)
++ PRJ_ROOT    = ..
++ PRJ_SRC_DIR = $(PRJ_ROOT)
++ PRJ_INC_DIR = $(PRJ_ROOT)
++ PRJ_SOURCE  = $(notdir $(wildcard $(PRJ_SRC_DIR)/*.c))
++ PRJ_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(PRJ_SOURCE:.c=.rel))
++ 
++ # set SPL paths
++ SPL_ROOT    = ../../..
++ SPL_SRC_DIR = $(SPL_ROOT)/Libraries/STM8L10x_StdPeriph_Driver/src
++ SPL_INC_DIR = $(SPL_ROOT)/Libraries/STM8L10x_StdPeriph_Driver/inc
++ SPL_SOURCE  = stm8l10x_gpio.c stm8l10x_clk.c stm8l10x_tim4.c
++ SPL_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(SPL_SOURCE:.c=.rel))
++ 
++ # set path to STM8L101_EVAL board routines
++ EVAL_DIR     = $(SPL_ROOT)/Utilities/STM8L101_EVAL
++ EVAL_SOURCE  = 
++ EVAL_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(EVAL_SOURCE:.c=.rel))
++ 
++ # set path to STM8L101_EVAL common routines
++ EVAL_COMM_DIR    = $(EVAL_DIR)/Common
++ EVAL_COMM_SOURCE  = 
++ EVAL_COMM_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(EVAL_COMM_SOURCE:.c=.rel))
++ 
++ 
++ # collect all include folders
++ INCLUDE = -I$(PRJ_SRC_DIR) -I$(SPL_INC_DIR) -I$(EVAL_DIR) -I$(EVAL_COMM_DIR)
++ 
++ # collect all source directories
++ VPATH=$(PRJ_SRC_DIR):$(SPL_SRC_DIR):$(EVAL_DIR):$(EVAL_COMM_DIR)
++ 
++ .PHONY: clean
++ 
++ all: $(TARGET)
++ 
++ $(OUTPUT_DIR)/%.rel: %.c
++ 	$(CC) $(CFLAGS) $(INCLUDE) -D$(DEVICE) -c $?
++ 
++ $(OUTPUT_DIR)/%.rel: %.c
++ 	$(CC) $(CFLAGS) $(INCLUDE) -D$(DEVICE) -c $? -o $@
++ 
++ $(TARGET): $(PRJ_OBJECTS) $(SPL_OBJECTS) $(EVAL_OBJECTS) $(EVAL_COMM_OBJECTS)
++ 	$(CC) $(CFLAGS) -o $(TARGET) $^
++ 
++ clean: 
++ 	rm -fr $(OUTPUT_DIR)
++ 
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clean.sh ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clean.sh
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clean.sh	2017-08-15 21:26:46.000000000 +0200
+***************
+*** 0 ****
+--- 1,23 ----
++ #!/bin/bash 
++ 
++ # change to current working directory
++ cd `dirname $0`
++ 
++ # just for output
++ echo off
++ clear
++ 
++ # target device (doesn't matter here)
++ DEVICE=STM8L10x
++ 
++ # set make tool (if not in PATH, set complete path)
++ MAKE=make
++ 
++ # use Makefiles to delete outputs
++ #$MAKE -f Makefile DEVICE=$DEVICE clean 
++ 
++ # also delete output folders
++ rm -fr $DEVICE
++ 
++ echo on
++ 
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_compile_run.sh ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_compile_run.sh
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_compile_run.sh	2017-09-02 17:35:16.102418375 +0200
+***************
+*** 0 ****
+--- 1,45 ----
++ #!/bin/bash 
++ 
++ # change to current working directory
++ cd `dirname $0`
++ 
++ # just for output
++ clear
++ 
++ # target device (doesn't matter here)
++ DEVICE=STM8L10x
++ 
++ # set make tool (if not in PATH, set complete path)
++ MAKE=make
++ 
++ # STM8L10x has no bootloader, see tech note UM0560 and TN0189 on http://www.st.com
++ 
++ # set SWIM upload tool and device name (stm8flash from https://github.com/vdudouyt/stm8flash)
++ SWIM_LOADER=~/Öffentlich/GitHub/stm8flash/stm8flash
++ SWIM_TOOL=stlink
++ SWIM_DEVICE=stm8l101?3
++ 
++ # target hexfile
++ TARGET=./$DEVICE/$DEVICE.hex
++ 
++ # make project; check for output folder (=device name)
++ echo "make application"
++ test -d $DEVICE || mkdir $DEVICE
++ $MAKE -f Makefile DEVICE=$DEVICE
++ if [ $? -ne 0 ]; then
++   echo " "
++   read -p "press key to close window..."
++   echo on
++   exit
++ fi
++ echo "done with application"
++ echo " "
++ 
++ # upload using SWIM debug interface
++ $SWIM_LOADER -c $SWIM_TOOL -w $TARGET -p $SWIM_DEVICE
++ 
++ echo " "
++ read -p "press key to close window..."
++ echo " "
++ 
++ 
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_clean.bat ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_clean.bat
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_clean.bat	2017-08-15 21:27:31.000000000 +0200
+***************
+*** 0 ****
+--- 1,18 ----
++ REM just for output
++ echo off
++ cls
++ 
++ REM target device (doesn't matter here)
++ set DEVICE=STM8L10x
++ 
++ REM set make tool (if not in PATH, set complete path)
++ set MAKE=mingw32-make
++ 
++ REM use makefile to delete sdcc output
++ REM %MAKE% -f Makefile DEVICE=%DEVICE% clean
++ 
++ REM also delete output folders
++ rd /S /Q  %DEVICE%
++ 
++ echo on
++ 
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_compile_run.bat ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_compile_run.bat
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-09-02 17:35:38.235205022 +0200
+***************
+*** 0 ****
+--- 1,45 ----
++ REM just for output
++ echo off
++ cls
++ 
++ REM target device (doesn't matter here)
++ set DEVICE=STM8L10x
++ 
++ REM set make tool (if not in PATH, set complete path)
++ set MAKE=mingw32-make
++ 
++ REM STM8L10x has no bootloader, see tech note UM0560 and TN0189 on http://www.st.com
++ 
++ REM set SWIM upload tool and device name (stm8flash from https://github.com/vdudouyt/stm8flash)
++ REM set SWIM_LOADER=C:\Programme\stm8flash\stm8flash.exe"
++ REM set SWIM_TOOL=stlink
++ REM set SWIM_DEVICE=stm8l101?3
++ 
++ REM set SWIM upload tool and device name (STVP-STM8 on http://www.st.com)
++ set SWIM_LOADER="C:\Programme\STMicroelectronics\st_toolset\stvp\STVP_CmdLine.exe"
++ set SWIM_DEVICE=STM8L101x3
++ 
++ REM name of target hexfile
++ set TARGET=.\%DEVICE%\%DEVICE%.hex
++ 
++ REM compile and link
++ echo make application
++ if not exist %DEVICE% mkdir %DEVICE%
++ %MAKE% -f Makefile DEVICE=%DEVICE%
++ IF ERRORLEVEL 1 GOTO END
++ echo done with application
++ echo.
++ 
++ REM GOTO END
++ 
++ REM upload using SWIM debug interface (stm8flash from https://github.com/vdudouyt/stm8flash)
++ REM %SWIM_LOADER% -c %SWIM_TOOL% -w %TARGET% -p %SWIM_DEVICE%
++ 
++ REM upload using SWIM debug interface (STVP-STM8 on http://www.st.com)
++ %SWIM_LOADER% -BoardName=ST-LINK -Port=USB -ProgMode=SWIM -Device=%DEVICE_STVP% -readData -readOption -no_progData -no_progOption -no_loop -no_log -FileProg=%TARGET%
++ 
++ REM clean up
++ :END
++ PAUSE
++ echo on
++ 
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_conf.h
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_conf.h	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_conf.h	2014-10-21 14:13:30.000000000 +0200
+***************
+*** 0 ****
+--- 1,81 ----
++ /**
++   ******************************************************************************
++   * @file     Project/STM8L10x_StdPeriph_Templates/stm8l10x_conf.h
++   * @author   MCD Application Team
++   * @version  V1.2.1
++   * @date     30-September-2014
++   * @brief    This file is used to configure the Library.
++   ******************************************************************************
++   * @attention
++   *
++   * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
++   *
++   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
++   * You may not use this file except in compliance with the License.
++   * You may obtain a copy of the License at:
++   *
++   *        http://www.st.com/software_license_agreement_liberty_v2
++   *
++   * Unless required by applicable law or agreed to in writing, software 
++   * distributed under the License is distributed on an "AS IS" BASIS, 
++   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++   * See the License for the specific language governing permissions and
++   * limitations under the License.
++   *
++   ******************************************************************************
++   */
++ 
++ /* Define to prevent recursive inclusion -------------------------------------*/
++ #ifndef __STM8L10x_CONF_H
++ #define __STM8L10x_CONF_H
++ 
++ /* Includes ------------------------------------------------------------------*/
++ #include "stm8l10x.h"
++ 
++ /* Uncomment/Comment the line below to enable/disable peripheral header file inclusion */
++ #include "stm8l10x_awu.h"
++ #include "stm8l10x_beep.h"
++ #include "stm8l10x_clk.h"
++ #include "stm8l10x_comp.h"
++ #include "stm8l10x_exti.h"
++ #include "stm8l10x_flash.h"
++ #include "stm8l10x_gpio.h"
++ #include "stm8l10x_i2c.h"
++ #include "stm8l10x_irtim.h"
++ #include "stm8l10x_itc.h"
++ #include "stm8l10x_iwdg.h"
++ #include "stm8l10x_rst.h"
++ #include "stm8l10x_spi.h"
++ #include "stm8l10x_tim2.h"
++ #include "stm8l10x_tim3.h"
++ #include "stm8l10x_tim4.h"
++ #include "stm8l10x_usart.h"
++ #include "stm8l10x_wfe.h"
++ 
++ /* Exported types ------------------------------------------------------------*/
++ /* Exported constants --------------------------------------------------------*/
++ /* Uncomment the line below to expanse the "assert_param" macro in the 
++    Standard Peripheral Library drivers code */
++ /* #define USE_FULL_ASSERT    1 */
++ 
++ /* Exported macro ------------------------------------------------------------*/
++ #ifdef  USE_FULL_ASSERT
++ 
++ /**
++   * @brief  The assert_param macro is used for function's parameters check.
++   * @param expr: If expr is false, it calls assert_failed function
++   *   which reports the name of the source file and the source
++   *   line number of the call that failed. 
++   *   If expr is true, it returns no value.
++   * @retval : None
++   */
++   #define assert_param(expr) ((expr) ? (void)0 : assert_failed((uint8_t *)__FILE__, __LINE__))
++ /* Exported functions ------------------------------------------------------- */
++   void assert_failed(uint8_t* file, uint32_t line);
++ #else
++   #define assert_param(expr) ((void)0)
++ #endif /* USE_FULL_ASSERT */
++ 
++ #endif /* __STM8L10x_CONF_H */
++ 
++ /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c	2017-09-02 19:16:22.263285469 +0200
+***************
+*** 0 ****
+--- 1,346 ----
++ /**
++   ******************************************************************************
++   * @file     Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.c
++   * @author   MCD Application Team
++   * @version  V1.2.1
++   * @date     30-September-2014
++   * @brief    This file contains all the interrupt routines.
++   ******************************************************************************
++   * @attention
++   *
++   * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
++   *
++   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
++   * You may not use this file except in compliance with the License.
++   * You may obtain a copy of the License at:
++   *
++   *        http://www.st.com/software_license_agreement_liberty_v2
++   *
++   * Unless required by applicable law or agreed to in writing, software 
++   * distributed under the License is distributed on an "AS IS" BASIS, 
++   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++   * See the License for the specific language governing permissions and
++   * limitations under the License.
++   *
++   ******************************************************************************
++   */
++ 
++ /* Includes ------------------------------------------------------------------*/
++ #include "stm8l10x_it.h"
++ 
++ /** @addtogroup STM8L10x_StdPeriph_Templates
++   * @{
++   */
++   
++ /* Private typedef -----------------------------------------------------------*/
++ /* Private define ------------------------------------------------------------*/
++ /* Private macro -------------------------------------------------------------*/
++ /* Private variables ---------------------------------------------------------*/
++ /* Private function prototypes -----------------------------------------------*/
++ /* Private functions ---------------------------------------------------------*/
++ /* Public variables ----------------------------------------------------------*/
++ 
++ extern uint8_t     g_flag1ms;    // flag for 1ms interrupt (for TIM4 ISR)
++ extern uint32_t    g_count1ms;   // 1ms counter (for TIM4 ISR)
++ 
++ #ifdef _COSMIC_
++ /**
++   * @brief  Dummy interrupt routine
++   * @param  None
++   * @retval None
++ */
++ INTERRUPT_HANDLER(NonHandledInterrupt,0)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ #endif
++ 
++ /**
++   * @brief  TRAP interrupt routine
++   * @param  None
++   * @retval None
++ */
++ INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  FLASH Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(FLASH_IRQHandler,1)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  Auto Wake Up Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(AWU_IRQHandler,4)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PORTB Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTIB_IRQHandler, 6)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PORTD Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTID_IRQHandler, 7)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PIN0 Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTI0_IRQHandler, 8)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PIN1 Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTI1_IRQHandler, 9)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PIN2 Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PIN3 Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PIN4 Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTI4_IRQHandler, 12)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PIN5 Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTI5_IRQHandler, 13)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PIN6 Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTI6_IRQHandler, 14)
++ 
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  External IT PIN7 Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(EXTI7_IRQHandler, 15)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  Comparator Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(COMP_IRQHandler, 18)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  Timer2 Update/Overflow/Trigger/Break Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  Timer2 Capture/Compare Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ 
++ /**
++   * @brief  Timer3 Update/Overflow/Trigger/Break Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ /**
++   * @brief  Timer3 Capture/Compare Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ /**
++   * @brief  Timer4 Update/Overflow Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25)
++ {
++   
++   // clear timer 4 interrupt flag
++   TIM4_ClearITPendingBit(TIM4_IT_Update);
++ 
++   // increase 1ms SW clock
++   g_flag1ms = 1;
++   g_count1ms++;
++  
++ }
++ 
++ /**
++   * @brief  SPI Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(SPI_IRQHandler, 26)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ /**
++   * @brief  USART TX Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(USART_TX_IRQHandler, 27)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @brief  USART RX Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(USART_RX_IRQHandler, 28)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ 
++ /**
++   * @brief  I2C Interrupt routine.
++   * @param  None
++   * @retval None
++   */
++ INTERRUPT_HANDLER(I2C_IRQHandler, 29)
++ {
++     /* In order to detect unexpected events during development,
++        it is recommended to set a breakpoint on the following instruction.
++     */
++ }
++ 
++ /**
++   * @}
++   */
++ 
++ /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
++ 
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+***************
+*** 0 ****
+--- 1,104 ----
++ /**
++   ******************************************************************************
++   * @file     Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h
++   * @author   MCD Application Team
++   * @version  V1.2.1
++   * @date     30-September-2014
++   * @brief    This file contains the external declarations of the interrupt routines.
++   ******************************************************************************
++   * @attention
++   *
++   * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
++   *
++   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
++   * You may not use this file except in compliance with the License.
++   * You may obtain a copy of the License at:
++   *
++   *        http://www.st.com/software_license_agreement_liberty_v2
++   *
++   * Unless required by applicable law or agreed to in writing, software 
++   * distributed under the License is distributed on an "AS IS" BASIS, 
++   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++   * See the License for the specific language governing permissions and
++   * limitations under the License.
++   *
++   ******************************************************************************
++   */
++ 
++ /* Define to prevent recursive inclusion -------------------------------------*/
++ #ifndef __STM8L10x_IT_H
++ #define __STM8L10x_IT_H
++ 
++ /* Includes ------------------------------------------------------------------*/
++ #include "stm8l10x.h"
++ 
++ /* Exported types ------------------------------------------------------------*/
++ /* Exported constants --------------------------------------------------------*/
++ /* Exported macro ------------------------------------------------------------*/
++ /* Exported functions ------------------------------------------------------- */
++ #ifdef _COSMIC_
++  void _stext(void); /* RESET startup routine */
++  INTERRUPT void NonHandledInterrupt(void);
++ #endif /* _COSMIC_ */
++ 
++ // SDCC patch: requires separate handling for SDCC (see below)
++ #if !defined(_RAISONANCE_) && !defined(_SDCC_)
++  INTERRUPT void NonHandledInterrupt(void);
++  INTERRUPT void TRAP_IRQHandler(void); /* TRAP */
++  INTERRUPT void FLASH_IRQHandler(void); /* FLASH EOP/PG_DIS */
++  INTERRUPT void AWU_IRQHandler(void); /* AWU */
++  INTERRUPT void EXTIB_IRQHandler(void); /* EXTI PORTB */
++  INTERRUPT void EXTID_IRQHandler(void); /* EXTI PORTD */
++  INTERRUPT void EXTI0_IRQHandler(void); /* EXTI PIN0 */
++  INTERRUPT void EXTI1_IRQHandler(void); /* EXTI PIN1 */
++  INTERRUPT void EXTI2_IRQHandler(void); /* EXTI PIN2 */
++  INTERRUPT void EXTI3_IRQHandler(void); /* EXTI PIN3 */
++  INTERRUPT void EXTI4_IRQHandler(void); /* EXTI PIN4 */
++  INTERRUPT void EXTI5_IRQHandler(void); /* EXTI PIN5 */
++  INTERRUPT void EXTI6_IRQHandler(void); /* EXTI PIN6 */
++  INTERRUPT void EXTI7_IRQHandler(void); /* EXTI PIN7 */
++  INTERRUPT void COMP_IRQHandler(void); /* COMP */
++  INTERRUPT void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void); /* TIM2 UPD/OVF/TRG/BRK */
++  INTERRUPT void TIM2_CAP_IRQHandler(void); /* TIM2 CAP*/
++  INTERRUPT void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void); /* TIM3 UPD/OVF/TRG/BRK */
++  INTERRUPT void TIM3_CAP_IRQHandler(void); /* TIM3 CAP*/
++  INTERRUPT void TIM4_UPD_OVF_IRQHandler(void); /* TIM4 UPD/OVF */
++  INTERRUPT void SPI_IRQHandler(void); /* SPI */
++  INTERRUPT void USART_TX_IRQHandler(void); /* USART TX */
++  INTERRUPT void USART_RX_IRQHandler(void); /* USART RX */
++  INTERRUPT void I2C_IRQHandler(void); /* I2C */
++ 
++ 
++ // SDCC patch: __interrupt keyword required after function name --> requires new block
++ #elif defined (_SDCC_)
++ 
++  void TRAP_IRQHandler(void) __trap;               /* TRAP */
++  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
++  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
++  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
++  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
++  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
++  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
++  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
++  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
++  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
++  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
++  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
++  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
++  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
++  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
++  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
++  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
++  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
++  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
++  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
++  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
++  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
++  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
++ 
++ #endif /* !(_RAISONANCE_) && !(_SDCC_) */
++ 
++ #endif /* __STM8L10x_IT_H */
++ 
++ /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
++ 
+diff -rcN ./STM8L10x_StdPeriph_Lib/Readme.md ./STM8L10x_StdPeriph_Lib_sdcc/Readme.md
+*** ./STM8L10x_StdPeriph_Lib/Readme.md	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Readme.md	2017-09-02 17:38:05.716435998 +0200
+***************
+*** 0 ****
+--- 1,19 ----
++ Toolchain Installation for SDCC
++ =================
++ 
++   - if required, download and install [SDCC](http://sdcc.sourceforge.net/) and Gnu-Make. Add binaries to $(PATH)
++   - for STM8 programming via SWIM debug interface
++     - install libusb-dev (e.g. `sudo apt-get install libusb-1.0-0-dev`)
++     - download and make [stm8flash](https://github.com/vdudouyt/stm8flash) source code
++     - on Linux grant write access to ST-Link debugger by creating a file `/etc/udev/rules.d/99-stlinkv2.rules` with content  
++     `SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3744", MODE="0666"`  
++     Note: since several versions of ST-Link exist, check the idProduct of your device via command `usb-devices`
++   - for STM8 programming via serial bootloader
++     - STM8L10x has no bootloader, see tech note UM0560 and TN0189 on http://www.st.com
++   - if necessary, set execute permission for build scripts in project folders
++ 
++ ### Notes
++ 
++   - the SPL projects are also compatible with other compilers and IDEs, e.g. [Cosmic](http://www.cosmic-software.com/) and [STVisualDevelop](http://www.st.com). These are not tested or supported by the build scripts, but allow graphical debugging which is not yet supported by SDCC 
++   - on Windows SWIM upload can also be performed via [STVisualProgrammer](http://www.st.com). Please adapt build scripts accordingly
++ 
