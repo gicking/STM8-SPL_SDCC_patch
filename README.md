@@ -26,7 +26,7 @@ Open points / questions to you:
 Update legal status (2017-11-19):
   - ST updated the SPL license in October 2017, see [here](http://www.st.com/en/embedded-software/stsw-stm8069.html) 
   - while it is more liberal than the old license, it still is not open-source. For a brief discussion see [here](https://github.com/gicking/STM8-SPL_SDCC_patch/issues/1)
-  - please comply to the updated license in your OS projects, e.g. don't publish it under a license which violates the SPL license
+  - please comply to the updated license in your projects, e.g. don't publish it under a license which violates the SPL license
   - to avoid legal issues, I decided to still only publish the patch, not the modified sources directly. 
   
 Update legal status (2017-08-03):
