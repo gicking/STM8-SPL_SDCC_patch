@@ -9227,10 +9227,10 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
   create a new project. 
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile	2017-09-02 18:04:44.104639095 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile	2017-11-19 09:05:04.795467001 +0100
 ***************
 *** 0 ****
---- 1,84 ----
+--- 1,87 ----
 + #######
 + # makefile for STM8*_StdPeriph_Lib and SDCC compiler
 + #
@@ -9301,7 +9301,10 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + 
 + .PHONY: clean
 + 
-+ all: $(TARGET)
++ all: $(OUTPUT_DIR) $(TARGET)
++ 
++ $(OUTPUT_DIR):
++ 	mkdir -p $(OUTPUT_DIR)
 + 
 + $(OUTPUT_DIR)/%.rel: %.c
 + 	$(CC) $(CFLAGS) $(INCLUDE) -D$(DEVICE) -c $?
@@ -9317,10 +9320,10 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + 
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh	2017-09-02 15:59:59.689192000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh	2017-11-19 09:05:24.898064096 +0100
 ***************
 *** 0 ****
---- 1,23 ----
+--- 1,20 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
@@ -9337,19 +9340,16 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + MAKE=make
 + 
 + # use Makefiles to delete outputs
-+ #$MAKE -f Makefile DEVICE=$DEVICE clean 
-+ 
-+ # also delete output folders
-+ rm -fr $DEVICE
++ $MAKE -f Makefile DEVICE=$DEVICE clean 
 + 
 + echo on
 + 
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh	2017-09-02 17:09:13.345356000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh	2017-11-19 09:05:37.049216072 +0100
 ***************
 *** 0 ****
---- 1,50 ----
+--- 1,49 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
@@ -9376,9 +9376,8 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + # target hexfile
 + TARGET=./$DEVICE/$DEVICE.hex
 + 
-+ # make project; check for output folder (=device name)
++ # make project
 + echo "make application"
-+ test -d $DEVICE || mkdir $DEVICE
 + $MAKE -f Makefile DEVICE=$DEVICE
 + if [ $? -ne 0 ]; then
 +   echo " "
@@ -9402,10 +9401,10 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + 
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat	2017-09-02 16:01:10.061955000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat	2017-11-19 09:05:48.548413530 +0100
 ***************
 *** 0 ****
---- 1,18 ----
+--- 1,15 ----
 + REM just for output
 + echo off
 + cls
@@ -9417,19 +9416,16 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + set MAKE=mingw32-make
 + 
 + REM use makefile to delete sdcc output
-+ REM %MAKE% -f Makefile DEVICE=%DEVICE% clean
-+ 
-+ REM also delete output folders
-+ rd /S /Q  %DEVICE%
++ %MAKE% -f Makefile DEVICE=%DEVICE% clean
 + 
 + echo on
 + 
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat	2017-09-02 17:21:33.289834628 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat	2017-11-19 09:05:54.112025235 +0100
 ***************
 *** 0 ****
---- 1,50 ----
+--- 1,49 ----
 + REM just for output
 + echo off
 + cls
@@ -9458,7 +9454,6 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + 
 + REM compile and link
 + echo make application
-+ if not exist %DEVICE% mkdir %DEVICE%
 + %MAKE% -f Makefile DEVICE=%DEVICE%
 + IF ERRORLEVEL 1 GOTO END
 + echo done with application
@@ -9734,10 +9729,10 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/Makefile ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/Makefile
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/Makefile	2017-09-02 19:18:07.755336604 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/Makefile	2017-11-19 09:06:37.980963422 +0100
 ***************
 *** 0 ****
---- 1,87 ----
+--- 1,90 ----
 + #######
 + # makefile for STM8*_StdPeriph_Lib and SDCC compiler
 + #
@@ -9811,7 +9806,10 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + 
 + .PHONY: clean
 + 
-+ all: $(TARGET)
++ all: $(OUTPUT_DIR) $(TARGET)
++ 
++ $(OUTPUT_DIR):
++ 	mkdir -p $(OUTPUT_DIR)
 + 
 + $(OUTPUT_DIR)/%.rel: %.c
 + 	$(CC) $(CFLAGS) $(INCLUDE) -D$(DEVICE) -c $?
@@ -9827,10 +9825,10 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + 
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh	2017-09-02 15:59:59.689192000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh	2017-11-19 09:06:46.944337807 +0100
 ***************
 *** 0 ****
---- 1,23 ----
+--- 1,20 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
@@ -9847,19 +9845,16 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + MAKE=make
 + 
 + # use Makefiles to delete outputs
-+ #$MAKE -f Makefile DEVICE=$DEVICE clean 
-+ 
-+ # also delete output folders
-+ rm -fr $DEVICE
++ $MAKE -f Makefile DEVICE=$DEVICE clean 
 + 
 + echo on
 + 
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh	2017-09-02 17:09:13.345356982 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh	2017-11-19 09:06:56.047702415 +0100
 ***************
 *** 0 ****
---- 1,50 ----
+--- 1,49 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
@@ -9886,9 +9881,8 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + # target hexfile
 + TARGET=./$DEVICE/$DEVICE.hex
 + 
-+ # make project; check for output folder (=device name)
++ # make project
 + echo "make application"
-+ test -d $DEVICE || mkdir $DEVICE
 + $MAKE -f Makefile DEVICE=$DEVICE
 + if [ $? -ne 0 ]; then
 +   echo " "
@@ -9912,10 +9906,10 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + 
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat	2017-09-02 16:01:10.061955000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat	2017-11-19 09:07:06.738956184 +0100
 ***************
 *** 0 ****
---- 1,18 ----
+--- 1,15 ----
 + REM just for output
 + echo off
 + cls
@@ -9927,19 +9921,16 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + set MAKE=mingw32-make
 + 
 + REM use makefile to delete sdcc output
-+ REM %MAKE% -f Makefile DEVICE=%DEVICE% clean
-+ 
-+ REM also delete output folders
-+ rd /S /Q  %DEVICE%
++ %MAKE% -f Makefile DEVICE=%DEVICE% clean
 + 
 + echo on
 + 
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-09-02 17:19:17.581340919 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-11-19 09:07:11.922594372 +0100
 ***************
 *** 0 ****
---- 1,50 ----
+--- 1,49 ----
 + REM just for output
 + echo off
 + cls
@@ -9968,7 +9959,6 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + 
 + REM compile and link
 + echo make application
-+ if not exist %DEVICE% mkdir %DEVICE%
 + %MAKE% -f Makefile DEVICE=%DEVICE%
 + IF ERRORLEVEL 1 GOTO END
 + echo done with application

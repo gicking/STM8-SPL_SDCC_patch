@@ -2388,7 +2388,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Doxyfile ./STM8S_StdPeriph_Lib_sdcc/Doxyfile
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h
 *** ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h	2014-10-21 17:32:20.000000000 +0200
---- ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h	2017-09-02 18:37:30.898018475 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h	2017-09-09 17:41:20.231844913 +0200
 ***************
 *** 84,89 ****
 --- 84,94 ----
@@ -19545,10 +19545,10 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/readme.txt ./ST
   create a new project. 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/Makefile ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/Makefile
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/Makefile	2017-09-02 18:04:32.924247017 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/Makefile	2017-11-19 08:53:26.791560788 +0100
 ***************
 *** 0 ****
---- 1,79 ----
+--- 1,82 ----
 + #######
 + # makefile for STM8*_StdPeriph_Lib and SDCC compiler
 + #
@@ -19614,7 +19614,10 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/Makefile .
 + 
 + .PHONY: clean
 + 
-+ all: $(TARGET)
++ all: $(OUTPUT_DIR) $(TARGET)
++ 
++ $(OUTPUT_DIR):
++ 	mkdir -p $(OUTPUT_DIR)
 + 
 + $(OUTPUT_DIR)/%.rel: %.c
 + 	$(CC) $(CFLAGS) $(INCLUDE) -D$(DEVICE) -c $?
@@ -19630,10 +19633,10 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/Makefile .
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh	2017-09-02 18:17:17.499305980 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.sh	2017-11-19 08:57:43.558186273 +0100
 ***************
 *** 0 ****
---- 1,24 ----
+--- 1,21 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
@@ -19651,19 +19654,16 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_clean.
 + MAKE=make
 + 
 + # use Makefiles to delete outputs
-+ #$MAKE -f Makefile DEVICE=$DEVICE clean 
-+ 
-+ # also delete output folders
-+ rm -fr $DEVICE
++ $MAKE -f Makefile DEVICE=$DEVICE clean 
 + 
 + echo on
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh	2017-09-02 18:16:04.472728483 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_UX_compile_run.sh	2017-11-19 08:48:47.166030894 +0100
 ***************
 *** 0 ****
---- 1,52 ----
+--- 1,51 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
@@ -19692,9 +19692,8 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_compil
 + # target hexfile
 + TARGET=./$DEVICE/$DEVICE.hex
 + 
-+ # make project; check for output folder (=device name)
++ # make project
 + echo "make application"
-+ test -d $DEVICE || mkdir $DEVICE
 + $MAKE -f Makefile DEVICE=$DEVICE
 + if [ $? -ne 0 ]; then
 +   echo " "
@@ -19718,10 +19717,10 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_UX_compil
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat	2017-09-02 18:17:28.523694960 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean.bat	2017-11-19 08:57:48.185866249 +0100
 ***************
 *** 0 ****
---- 1,19 ----
+--- 1,16 ----
 + REM just for output
 + echo off
 + cls
@@ -19734,19 +19733,16 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_clean
 + set MAKE=mingw32-make
 + 
 + REM use makefile to delete sdcc output
-+ REM %MAKE% -f Makefile DEVICE=%DEVICE% clean
-+ 
-+ REM also delete output folders
-+ rd /S /Q  %DEVICE%
++ %MAKE% -f Makefile DEVICE=%DEVICE% clean
 + 
 + echo on
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat	2017-09-02 18:15:52.272297711 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compile_run.bat	2017-11-19 08:50:21.566414095 +0100
 ***************
 *** 0 ****
---- 1,53 ----
+--- 1,52 ----
 + REM just for output
 + echo off
 + cls
@@ -19778,7 +19774,6 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/SDCC/_WIN_compi
 + 
 + REM compile and link
 + echo make application
-+ if not exist %DEVICE% mkdir %DEVICE%
 + %MAKE% -f Makefile DEVICE=%DEVICE%
 + IF ERRORLEVEL 1 GOTO END
 + echo done with application
@@ -20230,10 +20225,10 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/main.c ./STM8S_StdP
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/Makefile ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/Makefile
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/Makefile	2017-09-02 18:19:07.135172996 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/Makefile	2017-11-19 08:53:33.587119326 +0100
 ***************
 *** 0 ****
---- 1,79 ----
+--- 1,82 ----
 + #######
 + # makefile for STM8*_StdPeriph_Lib and SDCC compiler
 + #
@@ -20250,7 +20245,7 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/Makefile ./STM
 + #######
 + 
 + # STM8 device (for supported devices see stm8s.h)
-+ DEVICE=STM8S105
++ DEVICE=STM8AF52Ax
 + 
 + # set compiler path & parameters 
 + CC_ROOT =
@@ -20299,7 +20294,10 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/Makefile ./STM
 + 
 + .PHONY: clean
 + 
-+ all: $(TARGET)
++ all: $(OUTPUT_DIR) $(TARGET)
++ 
++ $(OUTPUT_DIR):
++ 	mkdir -p $(OUTPUT_DIR)
 + 
 + $(OUTPUT_DIR)/%.rel: %.c
 + 	$(CC) $(CFLAGS) $(INCLUDE) -D$(DEVICE) -c $?
@@ -20315,10 +20313,10 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/Makefile ./STM
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh	2017-09-02 18:20:19.469722883 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh	2017-11-19 08:58:48.689673525 +0100
 ***************
 *** 0 ****
---- 1,24 ----
+--- 1,21 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
@@ -20336,19 +20334,16 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_clean.sh .
 + MAKE=make
 + 
 + # use Makefiles to delete outputs
-+ #$MAKE -f Makefile DEVICE=$DEVICE clean 
-+ 
-+ # also delete output folders
-+ rm -fr $DEVICE
++ $MAKE -f Makefile DEVICE=$DEVICE clean 
 + 
 + echo on
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh	2017-09-02 18:20:30.434109304 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_run.sh	2017-11-19 08:52:46.502137601 +0100
 ***************
 *** 0 ****
---- 1,52 ----
+--- 1,51 ----
 + #!/bin/bash 
 + 
 + # change to current working directory
@@ -20377,9 +20372,8 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_ru
 + # target hexfile
 + TARGET=./$DEVICE/$DEVICE.hex
 + 
-+ # make project; check for output folder (=device name)
++ # make project
 + echo "make application"
-+ test -d $DEVICE || mkdir $DEVICE
 + $MAKE -f Makefile DEVICE=$DEVICE
 + if [ $? -ne 0 ]; then
 +   echo " "
@@ -20403,10 +20397,10 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_UX_compile_ru
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat	2017-09-02 18:20:39.398425218 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat	2017-11-19 08:59:26.883020523 +0100
 ***************
 *** 0 ****
---- 1,19 ----
+--- 1,16 ----
 + REM just for output
 + echo off
 + cls
@@ -20419,19 +20413,16 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_clean.bat
 + set MAKE=mingw32-make
 + 
 + REM use makefile to delete sdcc output
-+ REM %MAKE% -f Makefile DEVICE=%DEVICE% clean
-+ 
-+ REM also delete output folders
-+ rd /S /Q  %DEVICE%
++ %MAKE% -f Makefile DEVICE=%DEVICE% clean
 + 
 + echo on
 + 
 diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat
 *** ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-09-02 18:20:52.162875029 +0200
+--- ./STM8S_StdPeriph_Lib_sdcc/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-11-19 09:10:45.808621440 +0100
 ***************
 *** 0 ****
---- 1,53 ----
+--- 1,52 ----
 + REM just for output
 + echo off
 + cls
@@ -20463,7 +20454,6 @@ diff -rcN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/SDCC/_WIN_compile_r
 + 
 + REM compile and link
 + echo make application
-+ if not exist %DEVICE% mkdir %DEVICE%
 + %MAKE% -f Makefile DEVICE=%DEVICE%
 + IF ERRORLEVEL 1 GOTO END
 + echo done with application
