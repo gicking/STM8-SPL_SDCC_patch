@@ -2758,6 +2758,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
   #else /* _IAR_ */
     asm("push cc");
     asm("pop a"); /* Ignore compiler warning, the returned value is in A register */
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c	2014-10-21 14:13:24.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c	2018-04-05 05:29:56.830125087 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  #include "stm8l_eval_lcd.h"
+  
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -2848,6 +2861,31 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_A
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/main.c	2018-04-05 05:30:05.059100623 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  #include "stm8l_eval_lcd.h"
+  
+***************
+*** 281,284 ****
+    * @}
+    */
+  
+! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+\ Kein Zeilenumbruch am Dateiende.
+--- 282,285 ----
+    * @}
+    */
+  
+! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -2938,6 +2976,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/main.c	2014-10-21 14:13:26.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/main.c	2018-04-05 05:30:14.136921106 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
+  /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -3028,6 +3079,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_M
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/main.c	2014-10-21 14:13:26.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/main.c	2018-04-05 05:30:00.790594295 +0200
+***************
+*** 28,33 ****
+--- 28,34 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
+  /* Private defines -----------------------------------------------------------*/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -3117,6 +3181,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
   #endif /* __STM8L10x_IT_H */
+  
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c	2014-10-21 14:13:26.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c	2018-04-05 05:31:13.246388105 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
@@ -3208,6 +3285,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/main.c	2014-10-21 14:13:24.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/main.c	2018-04-05 05:30:43.396646206 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup FLASH_ByteReadWriteOperation
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -3300,10 +3390,20 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2017-08-16 15:10:30.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2018-04-05 05:30:39.785542736 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
+  /** @addtogroup STM8L10x_StdPeriph_Examples
 ***************
 *** 95,100 ****
---- 95,105 ----
+--- 96,106 ----
            (int)&__size__FLASH_ProgramBlock);
   #endif /*_RAISONANCE_*/
   
@@ -3322,7 +3422,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
     */
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 \ Kein Zeilenumbruch am Dateiende.
---- 222,225 ----
+--- 223,226 ----
   /**
     * @}
     */
@@ -3417,6 +3517,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/main.c	2014-10-21 14:13:24.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/main.c	2018-04-05 05:30:36.142480800 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup FLASH_WriteWordOperation
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -3507,6 +3620,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/main.c	2014-10-21 14:13:26.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/main.c	2018-04-05 05:29:26.850593596 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /** @addtogroup STM8L10x_StdPeriph_Examples
+    * @{
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -3597,6 +3723,31 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/main.c	2018-04-05 05:31:32.315330759 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  #include "main.h"
+  
+***************
+*** 322,325 ****
+    * @}
+    */
+  
+! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+\ Kein Zeilenumbruch am Dateiende.
+--- 323,326 ----
+    * @}
+    */
+  
+! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -3686,6 +3837,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
   #endif /* __STM8L10x_IT_H */
+  
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/main.c	2018-04-05 05:31:36.714715704 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  #include "main.h"
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
@@ -3777,6 +3941,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c	2018-04-05 05:31:40.174254160 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l_eval_i2c_ee.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup I2C_EEPROM
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -3867,6 +4044,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_E
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/main.c	2014-10-21 14:13:24.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/main.c	2018-04-05 05:29:44.508669144 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup IRTIM_SignalGeneration
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -3957,6 +4147,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c	2014-10-21 14:13:22.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c	2018-04-05 05:29:52.729639906 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
+  /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4047,6 +4250,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_S
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/main.c	2014-10-21 14:13:24.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/main.c	2018-04-05 05:29:18.877661133 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
+  /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4137,6 +4353,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/main.c	2014-10-21 14:13:26.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/main.c	2018-04-05 05:29:23.426192725 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
+  /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4227,6 +4456,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_I
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/main.c	2014-10-21 14:13:24.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/main.c	2018-04-05 05:29:31.515140529 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l101_eval.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l_eval_lcd.h"
+  #include <stdio.h>
+  /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4317,6 +4559,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_F
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/main.c	2014-10-21 14:13:24.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/main.c	2018-04-05 05:29:36.303703026 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  #include "stm8l_eval_lcd.h"
+  #include "stm8l_eval_spi_sd.h"
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4407,6 +4662,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_M
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/main.c	2014-10-21 14:13:24.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/main.c	2018-04-05 05:29:40.776229303 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  #include "stm8l_eval_lcd.h"
+  #include <stdio.h>
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4497,6 +4765,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_S
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/main.c	2018-04-05 05:30:17.771760693 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup TIM2_InputCapture 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4587,6 +4868,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/main.c	2018-04-05 05:30:24.425738428 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup TIM2_OCActiveMode
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4677,6 +4971,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/main.c	2014-10-21 14:13:26.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/main.c	2018-04-05 05:30:28.176654424 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup TIM2_OCInactiveMode
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4767,6 +5074,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/main.c	2018-04-05 05:30:21.050747594 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup TIM2_PWM_DutyCycleConfiguration
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4857,6 +5177,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/main.c	2018-04-05 05:30:32.783376621 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "main.h"
+  
+  __IO MySin_Typedef sin ;/* Stores the sin structure */
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -4947,6 +5280,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/main.c	2018-04-05 05:29:14.849191186 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
+  /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -5037,6 +5383,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2014-10-21 14:13:28.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2018-04-05 05:29:09.740596445 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup TIM4_TimeBase
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -5127,6 +5486,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/main.c	2014-10-21 14:13:26.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/main.c	2018-04-05 05:31:16.837761040 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup USART_HyperTerminalInterrupt
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -5217,6 +5589,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c	2014-10-21 14:13:26.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c	2018-04-05 05:31:24.364525710 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "main.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
+  /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -5309,10 +5694,20 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2017-08-19 09:29:34.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2018-04-05 05:31:27.923977050 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stdio.h"
+  /**
+    * @addtogroup USART_Printf
 ***************
 *** 40,45 ****
---- 40,52 ----
+--- 41,53 ----
   #elif defined (_COSMIC_)
    #define PUTCHAR_PROTOTYPE char putchar (char c)
    #define GETCHAR_PROTOTYPE char getchar (void)
@@ -5416,6 +5811,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/main.c	2014-10-21 14:13:26.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/main.c	2018-04-05 05:31:20.097213151 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /**
+    * @addtogroup USART_Synchronous
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -5506,6 +5914,19 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/main.c	2014-10-21 14:13:22.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/main.c	2018-04-05 05:29:49.041204028 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  #include "stm8l101_eval.h"
+  
+  /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
@@ -5596,6 +6017,31 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_W
   
   #endif /* __STM8L10x_IT_H */
   
+diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/main.c
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/main.c	2014-10-21 14:13:30.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/main.c	2018-04-05 05:29:05.872147007 +0200
+***************
+*** 27,32 ****
+--- 27,33 ----
+  
+  /* Includes ------------------------------------------------------------------*/
+  #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
+  
+  /** @addtogroup STM8L10x_StdPeriph_Templates
+    * @{
+***************
+*** 73,76 ****
+    * @}
+    */
+    
+! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+\ Kein Zeilenumbruch am Dateiende.
+--- 74,77 ----
+    * @}
+    */
+    
+! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/readme.txt ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/readme.txt
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/readme.txt	2014-10-21 14:13:30.000000000 +0200
 --- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_Templates/readme.txt	2017-08-16 15:08:47.000000000 +0200
@@ -5918,7 +6364,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/main.c ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/main.c
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/main.c	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/main.c	2017-09-02 19:43:24.541811976 +0200
+--- ./STM8L10x_StdPeriph_Lib_sdcc/Project/STM8L10x_StdPeriph_test/main.c	2018-04-05 05:29:01.191604335 +0200
 ***************
 *** 0 ****
 --- 1,118 ----
@@ -5951,8 +6397,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/main.c ./STM8
 + 
 + /* Includes ------------------------------------------------------------------*/
 + #include "stm8l10x.h"
++ #include "stm8l10x_it.h"    /* SDCC patch: required by SDCC for interrupts */
 + #include "stm8l10x_tim4.h"
-+ #include "stm8l10x_it.h"    // SDCC requires ISR declaration to be included here
 + 
 + /** @addtogroup STM8L10x_StdPeriph_Templates
 +   * @{
