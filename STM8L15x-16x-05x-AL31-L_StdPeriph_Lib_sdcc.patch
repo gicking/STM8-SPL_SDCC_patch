@@ -2830,7 +2830,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h	2018-04-08 17:28:30.642232705 +0200
 ***************
 *** 1,8 ****
   /**
@@ -2905,7 +2905,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -2956,7 +2956,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h	2018-04-08 17:28:28.122189252 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3031,7 +3031,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -3082,7 +3082,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "timing_delay.h"
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h	2018-04-08 17:28:23.194103377 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3157,7 +3157,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -3208,7 +3208,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "timing_delay.h"
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h	2018-04-08 17:30:08.484630446 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3283,7 +3283,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -3346,7 +3346,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h	2018-04-08 17:30:13.524840390 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3421,7 +3421,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -3472,7 +3472,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h	2018-04-08 17:30:18.821056033 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3547,7 +3547,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -3598,7 +3598,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h	2018-04-08 17:30:25.265311829 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3673,7 +3673,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -3724,7 +3724,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "timing_delay.h"
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h	2018-04-08 17:31:24.811390115 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3799,7 +3799,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -3850,7 +3850,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h	2018-04-08 17:31:40.667873325 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3925,7 +3925,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -3977,7 +3977,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h	2018-04-08 17:31:46.044031779 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4052,7 +4052,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -4103,7 +4103,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h	2018-04-08 17:31:52.268212042 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4178,7 +4178,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -4229,7 +4229,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h	2018-04-08 17:31:59.452416089 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4304,7 +4304,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -4356,7 +4356,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h	2018-04-08 17:32:04.172547916 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4431,7 +4431,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -4482,7 +4482,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h	2018-04-08 17:32:10.372718496 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4557,7 +4557,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -4609,7 +4609,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h	2018-04-08 17:32:24.401094346 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4684,7 +4684,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -4735,7 +4735,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h	2018-04-08 17:32:32.889315448 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4810,7 +4810,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -4861,7 +4861,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h	2018-04-08 17:32:37.713439128 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4936,7 +4936,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -4987,7 +4987,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h	2018-04-08 17:32:42.329556197 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5062,7 +5062,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -5125,7 +5125,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h	2018-04-08 17:37:07.391136116 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5200,7 +5200,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -5251,7 +5251,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h	2018-04-08 17:37:19.195358948 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5326,7 +5326,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -5377,7 +5377,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h	2018-04-08 17:37:23.715444031 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5452,7 +5452,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -5529,7 +5529,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h	2018-04-08 17:37:28.063525757 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5621,7 +5621,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -5672,7 +5672,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h	2018-04-08 17:37:31.799595889 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5747,7 +5747,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -5799,7 +5799,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h	2018-04-08 17:37:35.483664965 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5874,7 +5874,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -5925,7 +5925,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h	2018-04-08 17:37:39.051731792 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6000,7 +6000,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -6063,7 +6063,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h	2018-04-08 17:39:58.069257368 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6138,7 +6138,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -6189,7 +6189,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h	2018-04-08 17:40:57.211589070 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6264,7 +6264,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -6327,7 +6327,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h	2018-04-08 17:41:01.639754345 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6402,7 +6402,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -6453,7 +6453,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h	2018-04-08 17:41:10.272073150 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6528,7 +6528,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -6579,7 +6579,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h	2014-10-22 14:31:16.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h	2018-04-08 17:37:42.999805655 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6654,7 +6654,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -6705,7 +6705,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h	2018-04-08 17:37:47.779894971 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6780,7 +6780,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -6831,7 +6831,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8l1526_eval_glass_lcd.h"
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h	2018-04-08 17:37:51.699968131 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6906,7 +6906,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -6957,7 +6957,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "timing_delay.h"
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h	2018-04-08 17:37:55.028030182 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7032,7 +7032,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -7083,7 +7083,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h	2018-04-08 17:37:59.980122413 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7158,7 +7158,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -7210,7 +7210,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h	2018-04-08 17:38:03.124180908 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7285,7 +7285,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -7337,7 +7337,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h	2018-04-08 17:38:06.524244117 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7412,7 +7412,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -7475,7 +7475,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h	2018-04-08 17:38:09.924307275 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7550,7 +7550,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -7602,7 +7602,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h	2018-04-08 17:38:12.900394057 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7677,7 +7677,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -7728,7 +7728,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h	2018-04-08 17:38:16.024554646 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7803,7 +7803,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -7866,7 +7866,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h	2018-04-08 17:38:19.276720754 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7941,7 +7941,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -8004,7 +8004,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h	2018-04-08 17:38:23.648942182 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8079,7 +8079,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -8130,7 +8130,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h	2018-04-08 17:38:26.925106705 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8205,7 +8205,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -8256,7 +8256,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h	2018-04-08 17:38:30.365278167 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8329,7 +8329,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -8379,7 +8379,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h	2018-04-08 17:38:37.221616078 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8454,7 +8454,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -8505,7 +8505,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h	2018-04-08 17:38:33.653440852 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8580,7 +8580,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -8631,7 +8631,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h	2018-04-08 17:38:40.069754974 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8706,7 +8706,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -8757,7 +8757,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h	2018-04-08 17:38:42.929893592 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8832,7 +8832,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -8883,7 +8883,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h	2018-04-08 17:38:45.950039043 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8958,7 +8958,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -9009,7 +9009,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @{
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h	2018-04-08 17:38:49.310199760 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9084,7 +9084,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -9135,7 +9135,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h	2018-04-08 17:38:52.438348355 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9210,7 +9210,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -9261,7 +9261,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h	2018-04-08 17:38:55.398488069 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9336,7 +9336,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -9387,7 +9387,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h	2018-04-08 17:38:58.614638884 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9462,7 +9462,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -9513,7 +9513,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h	2018-04-08 17:39:02.218806696 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9588,7 +9588,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -9651,7 +9651,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h	2018-04-08 17:39:05.350951506 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9726,7 +9726,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -9793,7 +9793,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #define GETCHAR_PROTOTYPE int getchar (void)
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h	2018-04-08 17:39:08.551098500 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9868,7 +9868,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
@@ -9919,7 +9919,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   /** @addtogroup STM8L15x_StdPeriph_Examples
 diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h
 *** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h	2017-08-18 12:09:32.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h	2018-04-08 17:39:12.083259634 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9994,7 +9994,7 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void);                                          /* TRAP */
+!  void TRAP_IRQHandler(void) __trap;                                   /* TRAP */
 !  void FLASH_IRQHandler(void) INTERRUPT(1);                            /* FLASH EOP/PG_DIS */
 !  void DMA1_CHANNEL0_1_IRQHandler(void) INTERRUPT(2);                  /* DMA1 Channel0/1*/
 !  void DMA1_CHANNEL2_3_IRQHandler(void) INTERRUPT(3);                  /* DMA1 Channel2/3*/
