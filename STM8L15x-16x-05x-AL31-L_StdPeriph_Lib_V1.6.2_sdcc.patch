@@ -1,6 +1,6 @@
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Doxyfile ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Doxyfile
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Doxyfile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Doxyfile	2017-08-18 11:09:08.000000000 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Doxyfile ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Doxyfile
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Doxyfile	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Doxyfile	2017-08-18 11:09:08.000000000 +0200
 ***************
 *** 0 ****
 --- 1,2348 ----
@@ -2352,9 +2352,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Doxyfile ./STM8L15x-16x-05x-AL
 + 
 + DOT_CLEANUP            = YES
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_Driver/inc/stm8l15x.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Libraries/STM8L15x_StdPeriph_Driver/inc/stm8l15x.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_Driver/inc/stm8l15x.h	2014-10-22 14:31:38.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Libraries/STM8L15x_StdPeriph_Driver/inc/stm8l15x.h	2017-09-02 18:47:39.248963801 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Libraries/STM8L15x_StdPeriph_Driver/inc/stm8l15x.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Libraries/STM8L15x_StdPeriph_Driver/inc/stm8l15x.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Libraries/STM8L15x_StdPeriph_Driver/inc/stm8l15x.h	2014-10-22 14:31:38.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Libraries/STM8L15x_StdPeriph_Driver/inc/stm8l15x.h	2017-09-02 18:47:39.000000000 +0200
 ***************
 *** 88,93 ****
 --- 88,98 ----
@@ -2460,9 +2460,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_D
   #endif /* _COSMIC_ */
    
   /*============================== Handling bits ====================================*/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_flash.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_flash.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_flash.c	2014-10-22 14:31:38.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_flash.c	2017-09-02 18:47:55.925489021 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_flash.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_flash.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_flash.c	2014-10-22 14:31:38.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_flash.c	2017-09-02 18:47:55.000000000 +0200
 ***************
 *** 133,142 ****
 --- 133,224 ----
@@ -2759,9 +2759,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_D
     */ 
     
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_i2c.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_i2c.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_i2c.c	2014-10-22 14:31:38.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_i2c.c	2017-08-18 11:42:04.000000000 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_i2c.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_i2c.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_i2c.c	2014-10-22 14:31:38.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_i2c.c	2017-08-18 11:42:04.000000000 +0200
 ***************
 *** 1144,1151 ****
     *            @arg I2C_FLAG_STOPF: Stop detection flag (Slave mode)
@@ -2800,9 +2800,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_D
     *            @arg I2C_IT_SB: Start bit flag (Master mode)
     * @retval The new state of I2C_IT
     */
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_itc.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_itc.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_itc.c	2014-10-22 14:31:38.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_itc.c	2017-08-18 11:44:50.000000000 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_itc.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_itc.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_itc.c	2014-10-22 14:31:38.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Libraries/STM8L15x_StdPeriph_Driver/src/stm8l15x_itc.c	2017-08-18 11:44:50.000000000 +0200
 ***************
 *** 61,66 ****
 --- 61,69 ----
@@ -2815,9 +2815,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Libraries/STM8L15x_StdPeriph_D
   #else /* _IAR_ */
     asm("push cc");
     asm("pop a"); /* Ignore compiler warning, the returned value is in A register */
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/main.c	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/main.c	2018-04-05 05:33:39.283104580 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/main.c	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/main.c	2018-04-05 05:33:39.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -2828,9 +2828,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "stm8_eval_lcd.h"
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h	2018-04-08 17:28:30.642232705 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_AnalogWatchdog/stm8l15x_it.h	2018-04-08 17:28:30.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -2941,9 +2941,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/main.c	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/main.c	2018-04-05 05:33:34.891146664 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/main.c	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/main.c	2018-04-05 05:33:34.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -2954,9 +2954,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "stm8_eval_lcd.h"
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h	2018-04-08 17:28:28.122189252 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_DMA/stm8l15x_it.h	2018-04-08 17:28:28.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3067,9 +3067,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/main.c	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/main.c	2018-04-05 05:33:52.047048721 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/main.c	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/main.c	2018-04-05 05:33:52.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -3080,9 +3080,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "stm8_eval_lcd.h"
   #include "timing_delay.h"
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h	2018-04-08 17:28:23.194103377 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IDD_measurement/stm8l15x_it.h	2018-04-08 17:28:23.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3193,9 +3193,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/main.c	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/main.c	2018-04-05 05:33:46.579060924 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/main.c	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/main.c	2018-04-05 05:33:46.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -3206,9 +3206,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "stm8_eval_lcd.h"
   #include "timing_delay.h"
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h	2018-04-08 17:30:08.484630446 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ADC/ADC_IT/stm8l15x_it.h	2018-04-08 17:30:08.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3319,9 +3319,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/main.c	2018-04-05 05:33:16.971451776 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/main.c	2018-04-05 05:33:16.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -3344,9 +3344,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h	2018-04-08 17:30:13.524840390 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_EncryptDecrypt/stm8l15x_it.h	2018-04-08 17:30:13.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3457,9 +3457,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/main.c	2018-04-05 05:33:27.051252947 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/main.c	2018-04-05 05:33:27.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -3470,9 +3470,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h	2018-04-08 17:30:18.821056033 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_KeyDerivation/stm8l15x_it.h	2018-04-08 17:30:18.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3583,9 +3583,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/main.c	2018-04-05 05:33:12.819555259 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/main.c	2018-04-05 05:33:12.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -3596,9 +3596,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h	2018-04-08 17:30:25.265311829 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/AES/AES_MultipleBlockEncryptDecrypt/stm8l15x_it.h	2018-04-08 17:30:25.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3709,9 +3709,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/main.c	2018-04-05 05:45:11.740711328 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/main.c	2018-04-05 05:45:11.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -3722,9 +3722,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "stm8_eval_lcd.h"
   #include "timing_delay.h"
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h	2018-04-08 17:31:24.811390115 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/CLK/CLK_SYSCLKSwitch/stm8l15x_it.h	2018-04-08 17:31:24.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3835,9 +3835,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/main.c	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/main.c	2018-04-05 05:44:40.843150151 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/main.c	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/main.c	2018-04-05 05:44:40.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -3848,9 +3848,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "timing_delay.h"
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h	2018-04-08 17:31:40.667873325 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP1_Halt/stm8l15x_it.h	2018-04-08 17:31:40.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -3961,9 +3961,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/main.c	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/main.c	2018-04-05 05:44:46.295421993 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/main.c	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/main.c	2018-04-05 05:44:46.000000000 +0200
 ***************
 *** 26,31 ****
 --- 26,33 ----
@@ -3975,9 +3975,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "main.h"
   
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h	2018-04-08 17:31:46.044031779 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_AnalogVoltageMonitoring/stm8l15x_it.h	2018-04-08 17:31:46.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4088,9 +4088,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/main.c	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/main.c	2018-04-05 05:44:51.491682565 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/main.c	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/main.c	2018-04-05 05:44:51.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -4101,9 +4101,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h	2018-04-08 17:31:52.268212042 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_FrequencyMeasurement/stm8l15x_it.h	2018-04-08 17:31:52.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4214,9 +4214,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/main.c	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/main.c	2018-04-05 05:44:56.011910391 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/main.c	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/main.c	2018-04-05 05:44:56.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -4227,9 +4227,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h	2018-04-08 17:31:59.452416089 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP2_PWMSignalControl/stm8l15x_it.h	2018-04-08 17:31:59.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4340,9 +4340,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/main.c	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/main.c	2018-04-05 05:44:35.042862754 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/main.c	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/main.c	2018-04-05 05:44:35.000000000 +0200
 ***************
 *** 26,31 ****
 --- 26,33 ----
@@ -4354,9 +4354,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "main.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h	2018-04-08 17:32:04.172547916 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/COMP/COMP_AnalogWatchdog/stm8l15x_it.h	2018-04-08 17:32:04.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4467,9 +4467,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/main.c	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/main.c	2018-04-05 05:45:07.028470068 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/main.c	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/main.c	2018-04-05 05:45:07.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -4480,9 +4480,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h	2018-04-08 17:32:10.372718496 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_NoiseTriangleGenerator/stm8l15x_it.h	2018-04-08 17:32:10.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4593,9 +4593,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/main.c	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/main.c	2018-04-05 05:45:01.184172393 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/main.c	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/main.c	2018-04-05 05:45:01.000000000 +0200
 ***************
 *** 26,31 ****
 --- 26,33 ----
@@ -4607,9 +4607,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "main.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h	2018-04-08 17:32:24.401094346 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DAC/DAC_SignalsGeneration/stm8l15x_it.h	2018-04-08 17:32:24.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4720,9 +4720,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/main.c	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/main.c	2018-04-05 05:45:58.383154771 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/main.c	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/main.c	2018-04-05 05:45:58.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -4733,9 +4733,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h	2018-04-08 17:32:32.889315448 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ADCtoTIM/stm8l15x_it.h	2018-04-08 17:32:32.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4846,9 +4846,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/main.c	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/main.c	2018-04-05 05:46:20.460343250 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/main.c	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/main.c	2018-04-05 05:46:20.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -4859,9 +4859,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h	2018-04-08 17:32:37.713439128 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_ChannelsPriority/stm8l15x_it.h	2018-04-08 17:32:37.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -4972,9 +4972,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/main.c	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/main.c	2018-04-05 05:46:08.343688618 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/main.c	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/main.c	2018-04-05 05:46:08.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -4985,9 +4985,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval_lcd.h"
   #include "stm8_eval.h"
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h	2018-04-08 17:32:42.329556197 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_USARTtoRAM/stm8l15x_it.h	2018-04-08 17:32:42.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5098,9 +5098,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/main.c	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/main.c	2018-04-05 05:46:15.848093399 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/main.c	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/main.c	2018-04-05 05:46:15.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -5123,9 +5123,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @}
     */
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h	2018-04-08 17:37:07.391136116 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFE/stm8l15x_it.h	2018-04-08 17:37:07.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5236,9 +5236,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/main.c	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/main.c	2018-04-05 05:46:03.159410265 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/main.c	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/main.c	2018-04-05 05:46:03.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -5249,9 +5249,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h	2018-04-08 17:37:19.195358948 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/DMA/DMA_WFI/stm8l15x_it.h	2018-04-08 17:37:19.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5362,9 +5362,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c	2018-04-05 05:45:28.205562681 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/main.c	2018-04-05 05:45:28.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -5375,9 +5375,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "stm8_eval_lcd.h"
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h	2018-04-08 17:37:23.715444031 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l15x_it.h	2018-04-08 17:37:23.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5488,9 +5488,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/main.c	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/main.c	2018-04-05 05:45:22.193250319 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/main.c	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/main.c	2018-04-05 05:45:22.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -5527,9 +5527,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @}
     */
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h	2018-04-08 17:37:28.063525757 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/FLASH/Data_Program/stm8l15x_it.h	2018-04-08 17:37:28.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5657,9 +5657,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/main.c	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/main.c	2018-04-05 05:33:58.179055093 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/main.c	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/main.c	2018-04-05 05:33:58.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -5670,9 +5670,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h	2018-04-08 17:37:31.799595889 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8l15x_it.h	2018-04-08 17:37:31.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5783,9 +5783,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c	2018-04-05 05:46:56.130301282 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/main.c	2018-04-05 05:46:56.000000000 +0200
 ***************
 *** 26,31 ****
 --- 26,33 ----
@@ -5797,9 +5797,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval_i2c_ee.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h	2018-04-08 17:37:35.483664965 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l15x_it.h	2018-04-08 17:37:35.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -5910,9 +5910,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/main.c	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/main.c	2018-04-05 05:46:31.148925283 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/main.c	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/main.c	2018-04-05 05:46:31.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -5923,9 +5923,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval_i2c_tsensor.h"
   #include "stm8_eval_lcd.h"
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h	2018-04-08 17:37:39.051731792 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TSENSOR/stm8l15x_it.h	2018-04-08 17:37:39.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6036,9 +6036,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/main.c	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/main.c	2018-04-05 05:46:36.725230571 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/main.c	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/main.c	2018-04-05 05:46:36.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -6061,9 +6061,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h	2018-04-08 17:39:58.069257368 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8l15x_it.h	2018-04-08 17:39:58.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6174,9 +6174,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/main.c	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/main.c	2018-04-05 05:46:41.797509209 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/main.c	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/main.c	2018-04-05 05:46:41.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -6187,9 +6187,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "main.h"
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h	2018-04-08 17:40:57.211589070 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8l15x_it.h	2018-04-08 17:40:57.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6300,9 +6300,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/main.c	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/main.c	2018-04-05 05:46:46.765782992 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/main.c	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/main.c	2018-04-05 05:46:46.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -6325,9 +6325,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h	2018-04-08 17:41:01.639754345 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Master/stm8l15x_it.h	2018-04-08 17:41:01.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6438,9 +6438,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/main.c	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/main.c	2018-04-05 05:46:51.514045429 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/main.c	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/main.c	2018-04-05 05:46:51.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -6451,9 +6451,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "main.h"
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h	2018-04-08 17:41:10.272073150 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_JoystickPlay/Slave/stm8l15x_it.h	2018-04-08 17:41:10.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6564,9 +6564,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c	2014-10-22 14:31:16.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c	2018-04-05 05:43:51.976791275 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c	2014-10-22 14:31:16.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/main.c	2018-04-05 05:43:51.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -6577,9 +6577,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h	2014-10-22 14:31:16.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h	2018-04-08 17:37:42.999805655 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h	2014-10-22 14:31:16.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l15x_it.h	2018-04-08 17:37:42.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6690,9 +6690,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/main.c	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/main.c	2018-04-05 05:33:30.679198743 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/main.c	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/main.c	2018-04-05 05:33:30.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -6703,9 +6703,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h	2018-04-08 17:37:47.779894971 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l15x_it.h	2018-04-08 17:37:47.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6816,9 +6816,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/main.c	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/main.c	2018-04-05 05:34:02.327070885 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/main.c	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/main.c	2018-04-05 05:34:02.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -6829,9 +6829,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   #ifdef USE_STM8L1526_EVAL
   #include "stm8l1526_eval_glass_lcd.h"
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h	2018-04-08 17:37:51.699968131 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h	2014-10-22 14:31:24.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/LCD/LCD_SegmentsDrive/stm8l15x_it.h	2018-04-08 17:37:51.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -6942,9 +6942,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/main.c	2018-04-05 05:47:01.710611491 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/main.c	2018-04-05 05:47:01.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -6955,9 +6955,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   #include "stm8_eval_lcd.h"
   #include "timing_delay.h"
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h	2018-04-08 17:37:55.028030182 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_PVD_Halt/stm8l15x_it.h	2018-04-08 17:37:55.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7068,9 +7068,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/main.c	2018-04-05 05:47:06.950903698 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/main.c	2018-04-05 05:47:06.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -7081,9 +7081,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h	2018-04-08 17:37:59.980122413 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/PWR/PWR_WFI/stm8l15x_it.h	2018-04-08 17:37:59.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7194,9 +7194,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/main.c	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/main.c	2018-04-05 05:43:46.720546531 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/main.c	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/main.c	2018-04-05 05:43:46.000000000 +0200
 ***************
 *** 28,33 ****
 --- 28,35 ----
@@ -7208,9 +7208,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "main.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h	2018-04-08 17:38:03.124180908 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Calendar/stm8l15x_it.h	2018-04-08 17:38:03.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7321,9 +7321,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/main.c	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/main.c	2018-04-05 05:43:36.332068381 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/main.c	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/main.c	2018-04-05 05:43:36.000000000 +0200
 ***************
 *** 28,33 ****
 --- 28,35 ----
@@ -7335,9 +7335,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "main.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h	2018-04-08 17:38:06.524244117 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_ChronoSubSecond/stm8l15x_it.h	2018-04-08 17:38:06.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7448,9 +7448,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/main.c	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/main.c	2018-04-05 05:34:54.275938600 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/main.c	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/main.c	2018-04-05 05:34:54.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -7473,9 +7473,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @}
     */
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h	2018-04-08 17:38:09.924307275 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_PeriodicWakeup500ms/stm8l15x_it.h	2018-04-08 17:38:09.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7586,9 +7586,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/main.c	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/main.c	2018-04-05 05:34:48.731794191 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/main.c	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/main.c	2018-04-05 05:34:48.000000000 +0200
 ***************
 *** 28,33 ****
 --- 28,35 ----
@@ -7600,9 +7600,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "main.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h	2018-04-08 17:38:12.900394057 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h	2014-10-22 14:31:18.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/RTC/RTC_Tamper1Detection/stm8l15x_it.h	2018-04-08 17:38:12.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7713,9 +7713,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/main.c	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/main.c	2018-04-05 05:34:12.955151311 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/main.c	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/main.c	2018-04-05 05:34:12.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -7726,9 +7726,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h	2018-04-08 17:38:16.024554646 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_FLASH/stm8l15x_it.h	2018-04-08 17:38:16.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7839,9 +7839,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/main.c	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/main.c	2018-04-05 05:34:08.807113266 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/main.c	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/main.c	2018-04-05 05:34:08.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -7864,9 +7864,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @}
     */
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h	2018-04-08 17:38:19.276720754 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_MSD/stm8l15x_it.h	2018-04-08 17:38:19.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -7977,9 +7977,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/main.c	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/main.c	2018-04-05 05:34:16.695192725 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/main.c	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/main.c	2018-04-05 05:34:16.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -8002,9 +8002,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h	2018-04-08 17:38:23.648942182 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/SPI/SPI_SlaveDMA/stm8l15x_it.h	2018-04-08 17:38:23.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8115,9 +8115,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c	2018-04-05 05:44:03.373328229 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c	2018-04-05 05:44:03.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -8128,9 +8128,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h	2018-04-08 17:38:26.925106705 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8l15x_it.h	2018-04-08 17:38:26.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8241,9 +8241,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/main.c	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/main.c	2018-04-05 05:44:19.178086512 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/main.c	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/main.c	2018-04-05 05:44:19.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -8254,9 +8254,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h	2018-04-08 17:38:30.365278167 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals/stm8l15x_it.h	2018-04-08 17:38:30.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8364,9 +8364,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   #endif /* __STM8L15x_IT_H */
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/main.c	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/main.c	2018-04-05 05:44:29.674598463 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/main.c	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/main.c	2018-04-05 05:44:29.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -8377,9 +8377,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h	2018-04-08 17:38:37.221616078 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMA/stm8l15x_it.h	2018-04-08 17:38:37.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8490,9 +8490,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/main.c	2018-04-05 05:43:56.925023369 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/main.c	2018-04-05 05:43:56.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -8503,9 +8503,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h	2018-04-08 17:38:33.653440852 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_DMABurstMode/stm8l15x_it.h	2018-04-08 17:38:33.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8616,9 +8616,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/main.c	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/main.c	2018-04-05 05:44:09.501620415 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/main.c	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/main.c	2018-04-05 05:44:09.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -8629,9 +8629,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h	2018-04-08 17:38:40.069754974 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMInput/stm8l15x_it.h	2018-04-08 17:38:40.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8742,9 +8742,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/main.c	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/main.c	2018-04-05 05:44:14.313851495 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/main.c	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/main.c	2018-04-05 05:44:14.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -8755,9 +8755,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h	2018-04-08 17:38:42.929893592 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_PWMOutput/stm8l15x_it.h	2018-04-08 17:38:42.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8868,9 +8868,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/main.c	2018-04-05 05:44:24.394340118 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/main.c	2018-04-05 05:44:24.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -8881,9 +8881,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h	2018-04-08 17:38:45.950039043 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM1/TIM1_Synchro/stm8l15x_it.h	2018-04-08 17:38:45.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -8994,9 +8994,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/main.c	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/main.c	2018-04-05 05:45:16.700966455 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/main.c	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/main.c	2018-04-05 05:45:16.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -9007,9 +9007,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h	2018-04-08 17:38:49.310199760 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h	2014-10-22 14:31:28.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM2/TIM2_TRIGLSE/stm8l15x_it.h	2018-04-08 17:38:49.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9120,9 +9120,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2018-04-05 05:32:59.559976096 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2018-04-05 05:32:59.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -9133,9 +9133,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h	2018-04-08 17:38:52.438348355 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h	2014-10-22 14:31:30.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l15x_it.h	2018-04-08 17:38:52.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9246,9 +9246,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/main.c	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/main.c	2018-04-05 05:45:32.825803847 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/main.c	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/main.c	2018-04-05 05:45:32.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -9259,9 +9259,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h	2018-04-08 17:38:55.398488069 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_DMA/stm8l15x_it.h	2018-04-08 17:38:55.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9372,9 +9372,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/main.c	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/main.c	2018-04-05 05:45:37.586053328 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/main.c	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/main.c	2018-04-05 05:45:37.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -9385,9 +9385,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h	2018-04-08 17:38:58.614638884 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h	2014-10-22 14:31:20.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_HyperTerminal_Interrupts/stm8l15x_it.h	2018-04-08 17:38:58.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9498,9 +9498,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/main.c	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/main.c	2018-04-05 05:45:42.430308236 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/main.c	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/main.c	2018-04-05 05:45:42.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -9511,9 +9511,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h	2018-04-08 17:39:02.218806696 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_IrDA/stm8l15x_it.h	2018-04-08 17:39:02.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9624,9 +9624,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c	2018-04-05 05:45:48.210613728 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/main.c	2018-04-05 05:45:48.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -9649,9 +9649,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
     * @}
     */
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h	2018-04-08 17:39:05.350951506 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l15x_it.h	2018-04-08 17:39:05.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9762,9 +9762,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/main.c	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/main.c	2018-04-05 05:45:53.414889990 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/main.c	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/main.c	2018-04-05 05:45:53.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -9791,9 +9791,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #else /* _IAR_ */
   #define PUTCHAR_PROTOTYPE int putchar (int c)
   #define GETCHAR_PROTOTYPE int getchar (void)
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h	2018-04-08 17:39:08.551098500 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h	2014-10-22 14:31:22.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/USART/USART_Printf/stm8l15x_it.h	2018-04-08 17:39:08.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -9904,9 +9904,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/main.c	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/main.c	2018-04-05 05:46:25.712628735 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/main.c	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/main.c	2018-04-05 05:46:25.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -9917,9 +9917,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #include "stm8_eval.h"
   
   /** @addtogroup STM8L15x_StdPeriph_Examples
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h	2018-04-08 17:39:12.083259634 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h	2014-10-22 14:31:26.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Examples/WWDG/WWDG_Example/stm8l15x_it.h	2018-04-08 17:39:12.000000000 +0200
 ***************
 *** 1,8 ****
   /**
@@ -10030,9 +10030,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Exa
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/main.c	2014-10-22 14:31:16.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/main.c	2018-04-05 05:47:14.107304129 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/main.c	2014-10-22 14:31:16.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/main.c	2018-04-05 05:47:14.000000000 +0200
 ***************
 *** 27,32 ****
 --- 27,33 ----
@@ -10043,9 +10043,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
   
   /** @addtogroup STM8L15x_StdPeriph_Template
     * @{
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/readme.txt ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/readme.txt
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/readme.txt	2014-10-22 14:31:16.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/readme.txt	2017-08-18 12:28:41.000000000 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/readme.txt ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/readme.txt
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/readme.txt	2014-10-22 14:31:16.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/readme.txt	2017-08-18 12:28:41.000000000 +0200
 ***************
 *** 36,42 ****
   
@@ -10063,9 +10063,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
   STVD with raisonance and RIDE toolchains that compile the needed STM8L Standard
   Peripheral's drivers plus all the user-modifiable files that are necessary to 
   create a new project. 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile	2017-11-19 09:05:04.795467001 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/Makefile	2017-11-19 09:05:04.000000000 +0100
 ***************
 *** 0 ****
 --- 1,87 ----
@@ -10156,9 +10156,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + clean: 
 + 	rm -fr $(OUTPUT_DIR)
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh	2017-11-19 09:05:24.898064096 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_clean.sh	2017-11-19 09:05:24.000000000 +0100
 ***************
 *** 0 ****
 --- 1,20 ----
@@ -10182,9 +10182,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + 
 + echo on
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh	2017-11-19 09:05:37.049216072 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_UX_compile_run.sh	2017-11-19 09:05:37.000000000 +0100
 ***************
 *** 0 ****
 --- 1,49 ----
@@ -10237,9 +10237,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + echo " "
 + 
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat	2017-11-19 09:05:48.548413530 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_clean.bat	2017-11-19 09:05:48.000000000 +0100
 ***************
 *** 0 ****
 --- 1,15 ----
@@ -10258,9 +10258,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + 
 + echo on
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat	2017-11-19 09:05:54.112025235 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_compile_run.bat	2017-11-19 09:05:54.000000000 +0100
 ***************
 *** 0 ****
 --- 1,49 ----
@@ -10313,9 +10313,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + PAUSE
 + echo on
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_upload.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_upload.bat
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_upload.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_upload.bat	2017-09-02 16:18:13.009295000 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_upload.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_upload.bat
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_upload.bat	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/SDCC/_WIN_upload.bat	2017-09-02 16:18:13.000000000 +0200
 ***************
 *** 0 ****
 --- 1,26 ----
@@ -10345,9 +10345,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
 + PAUSE
 + echo on
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.c	2014-10-22 14:31:16.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.c	2017-09-02 15:52:11.301470841 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.c	2014-10-22 14:31:16.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.c	2017-09-02 15:52:11.000000000 +0200
 ***************
 *** 412,415 ****
     * @}
@@ -10360,9 +10360,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
     */ 
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.h	2014-10-22 14:31:16.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.h	2017-09-02 15:55:13.875022440 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.h	2014-10-22 14:31:16.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_Template/stm8l15x_it.h	2017-09-02 15:55:13.000000000 +0200
 ***************
 *** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
@@ -10437,9 +10437,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_Tem
   #endif /* __STM8L15x_IT_H */
   
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/main.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/main.c	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/main.c	2018-04-05 05:47:19.495606655 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/main.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/main.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/main.c	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/main.c	2018-04-05 05:47:19.000000000 +0200
 ***************
 *** 0 ****
 --- 1,122 ----
@@ -10565,9 +10565,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 +   */
 + 
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/Makefile ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/Makefile
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/Makefile	2017-11-19 09:06:37.980963422 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/Makefile ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/Makefile
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/Makefile	2017-11-19 09:06:37.000000000 +0100
 ***************
 *** 0 ****
 --- 1,90 ----
@@ -10661,9 +10661,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + clean: 
 + 	rm -fr $(OUTPUT_DIR)
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh	2017-11-19 09:06:46.944337807 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_clean.sh	2017-11-19 09:06:46.000000000 +0100
 ***************
 *** 0 ****
 --- 1,20 ----
@@ -10687,9 +10687,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + 
 + echo on
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh	2017-11-19 09:06:56.047702415 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_UX_compile_run.sh	2017-11-19 09:06:56.000000000 +0100
 ***************
 *** 0 ****
 --- 1,49 ----
@@ -10742,9 +10742,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + echo " "
 + 
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat	2017-11-19 09:07:06.738956184 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_clean.bat	2017-11-19 09:07:06.000000000 +0100
 ***************
 *** 0 ****
 --- 1,15 ----
@@ -10763,9 +10763,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + 
 + echo on
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-11-19 09:07:11.922594372 +0100
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-11-19 09:07:11.000000000 +0100
 ***************
 *** 0 ****
 --- 1,49 ----
@@ -10818,9 +10818,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + PAUSE
 + echo on
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_upload.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_upload.bat
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_upload.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_upload.bat	2017-09-02 16:18:13.009295000 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_upload.bat ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_upload.bat
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_upload.bat	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/SDCC/_WIN_upload.bat	2017-09-02 16:18:13.000000000 +0200
 ***************
 *** 0 ****
 --- 1,26 ----
@@ -10850,9 +10850,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + PAUSE
 + echo on
 + 
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/stm8l15x_conf.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_conf.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/stm8l15x_conf.h	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_conf.h	2014-10-22 14:31:16.000000000 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/stm8l15x_conf.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_conf.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/stm8l15x_conf.h	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_conf.h	2014-10-22 14:31:16.000000000 +0200
 ***************
 *** 0 ****
 --- 1,91 ----
@@ -10947,9 +10947,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + #endif /* __STM8L15x_CONF_H */
 + 
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/stm8l15x_it.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_it.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/stm8l15x_it.c	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_it.c	2017-09-02 19:40:00.710655850 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/stm8l15x_it.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_it.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/stm8l15x_it.c	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_it.c	2017-09-02 19:40:00.000000000 +0200
 ***************
 *** 0 ****
 --- 1,424 ----
@@ -11377,9 +11377,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 +   */ 
 + 
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_it.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_test/stm8l15x_it.h	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_it.h	2017-09-02 15:55:13.875022000 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/stm8l15x_it.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_it.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Project/STM8L15x_StdPeriph_test/stm8l15x_it.h	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Project/STM8L15x_StdPeriph_test/stm8l15x_it.h	2017-09-02 15:55:13.000000000 +0200
 ***************
 *** 0 ****
 --- 1,116 ----
@@ -11499,9 +11499,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Project/STM8L15x_StdPeriph_tes
 + #endif /* __STM8L15x_IT_H */
 + 
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Readme.md ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Readme.md
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Readme.md	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Readme.md	2017-09-02 17:38:12.348670841 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Readme.md ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Readme.md
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Readme.md	1970-01-01 01:00:00.000000000 +0100
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Readme.md	2017-09-02 17:38:12.000000000 +0200
 ***************
 *** 0 ****
 --- 1,20 ----
@@ -11525,9 +11525,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Readme.md ./STM8L15x-16x-05x-A
 +   - on Windows
 +     - SWIM upload can also be performed via [STVisualProgrammer](http://www.st.com). Please adapt build scripts accordingly
 +     - bootloader upload can also be performed via [Flash Loader Demonstrator](http://www.st.com). However, this is not supported by the automatic build
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Utilities/STM8_EVAL/stm8_eval.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Utilities/STM8_EVAL/stm8_eval.c
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Utilities/STM8_EVAL/stm8_eval.c	2014-10-22 14:31:40.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Utilities/STM8_EVAL/stm8_eval.c	2017-09-02 15:21:58.505906224 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Utilities/STM8_EVAL/stm8_eval.c ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Utilities/STM8_EVAL/stm8_eval.c
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Utilities/STM8_EVAL/stm8_eval.c	2014-10-22 14:31:40.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Utilities/STM8_EVAL/stm8_eval.c	2017-09-02 15:21:58.000000000 +0200
 ***************
 *** 41,49 ****
     */
@@ -11561,9 +11561,9 @@ diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Utilities/STM8_EVAL/stm8_eval.
     * @}
     */
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Utilities/STM8_EVAL/stm8_eval.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Utilities/STM8_EVAL/stm8_eval.h
-*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib/Utilities/STM8_EVAL/stm8_eval.h	2014-10-22 14:31:40.000000000 +0200
---- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_sdcc/Utilities/STM8_EVAL/stm8_eval.h	2017-09-02 15:22:45.915220781 +0200
+diff -rcN ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Utilities/STM8_EVAL/stm8_eval.h ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Utilities/STM8_EVAL/stm8_eval.h
+*** ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2/Utilities/STM8_EVAL/stm8_eval.h	2014-10-22 14:31:40.000000000 +0200
+--- ./STM8L15x-16x-05x-AL31-L_StdPeriph_Lib_V1.6.2_sdcc/Utilities/STM8_EVAL/stm8_eval.h	2017-09-02 15:22:45.000000000 +0200
 ***************
 *** 134,143 ****
   
