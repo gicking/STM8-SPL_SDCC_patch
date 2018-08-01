@@ -2388,7 +2388,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Doxyfile ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h
 *** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2014-10-21 14:13:34.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2017-09-02 18:43:16.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2018-08-01 18:54:47.833898571 +0200
 ***************
 *** 40,45 ****
 --- 40,50 ----
@@ -2476,7 +2476,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
    #define enableInterrupts()  __enable_interrupt()   /*!< Enable interrupts */
 ***************
 *** 1365,1370 ****
---- 1391,1409 ----
+--- 1391,1410 ----
     __interrupt void (a) (void)
   #endif
   
@@ -2484,11 +2484,12 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
 + #ifdef _SDCC_
 +  #define INTERRUPT_HANDLER(a,b) void a() __interrupt(b)
 + 
-+  /* traps require >=v3.4.3 */
++  /* traps require >=v3.4.3 -> else warn and skip */
 +  #if SDCC_VERSION >= 30403
 +    #define INTERRUPT_HANDLER_TRAP(a) void a() __trap 
 +  #else
-+    #error traps require SDCC >=3.4.3. Please update!
++    #warning traps require SDCC>=v3.4.3. Update if required
++    #define INTERRUPT_HANDLER_TRAP(a) void a()
 +  #endif 
 + 
 + #endif /* _SDCC_ */
@@ -2498,7 +2499,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
   #ifdef _COSMIC_
 ***************
 *** 1375,1380 ****
---- 1414,1423 ----
+--- 1415,1424 ----
   #define INTERRUPT __interrupt
   #endif
   
@@ -2773,7 +2774,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_A
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -2833,29 +2834,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_A
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -2888,7 +2889,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -2948,29 +2949,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -2991,7 +2992,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_M
   /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3051,29 +3052,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_M
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -3094,7 +3095,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP
   /* Private defines -----------------------------------------------------------*/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3154,29 +3155,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -3197,7 +3198,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3257,29 +3258,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -3300,7 +3301,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
     * @addtogroup FLASH_ByteReadWriteOperation
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3360,29 +3361,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -3429,7 +3430,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3489,29 +3490,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -3532,7 +3533,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
     * @addtogroup FLASH_WriteWordOperation
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3592,29 +3593,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -3635,7 +3636,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO
     * @{
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3695,29 +3696,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -3750,7 +3751,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3810,29 +3811,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -3853,7 +3854,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -3913,29 +3914,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -3956,7 +3957,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_E
     * @addtogroup I2C_EEPROM
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4016,29 +4017,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_E
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4059,7 +4060,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_
     * @addtogroup IRTIM_SignalGeneration
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4119,29 +4120,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4162,7 +4163,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_S
   /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4222,29 +4223,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_S
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4265,7 +4266,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG
   /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4325,29 +4326,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4368,7 +4369,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_I
   /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4428,29 +4429,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_I
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4471,7 +4472,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_F
   /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4531,29 +4532,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_F
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4574,7 +4575,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_M
   #include "stm8l_eval_spi_sd.h"
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4634,29 +4635,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_M
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4677,7 +4678,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_S
   #include <stdio.h>
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4737,29 +4738,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_S
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4780,7 +4781,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
     * @addtogroup TIM2_InputCapture 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4840,29 +4841,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4883,7 +4884,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
     * @addtogroup TIM2_OCActiveMode
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -4943,29 +4944,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -4986,7 +4987,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
     * @addtogroup TIM2_OCInactiveMode
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5046,29 +5047,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -5089,7 +5090,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
     * @addtogroup TIM2_PWM_DutyCycleConfiguration
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5149,29 +5150,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -5192,7 +5193,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   __IO MySin_Typedef sin ;/* Stores the sin structure */
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5252,29 +5253,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -5295,7 +5296,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3
   /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5355,29 +5356,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -5398,7 +5399,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4
     * @addtogroup TIM4_TimeBase
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5458,29 +5459,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -5501,7 +5502,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
     * @addtogroup USART_HyperTerminalInterrupt
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5561,29 +5562,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -5604,7 +5605,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5664,29 +5665,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -5723,7 +5724,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
    #define GETCHAR_PROTOTYPE int getchar (void)
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5783,29 +5784,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -5826,7 +5827,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
     * @addtogroup USART_Synchronous
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5886,29 +5887,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -5929,7 +5930,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_W
   /**
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 1,10 ****
   /**
@@ -5989,29 +5990,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_W
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -6297,7 +6298,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WI
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2014-10-21 14:13:30.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 41,47 ****
    INTERRUPT void NonHandledInterrupt(void);
@@ -6334,29 +6335,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x
 ! // SDCC patch: __interrupt keyword required after function name --> requires new block
 ! #elif defined (_SDCC_)
 ! 
-!  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-!  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-!  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-!  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-!  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-!  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-!  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-!  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-!  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-!  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-!  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-!  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-!  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-!  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-!  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-!  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-!  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-!  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-!  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-!  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-!  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-!  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-!  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
+!  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
+!  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
+!  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
+!  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
+!  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
+!  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
+!  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
+!  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
+!  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
+!  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
+!  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
+!  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
+!  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
+!  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
+!  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
+!  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
+!  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
+!  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
+!  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
+!  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
+!  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
+!  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 ! 
 ! #endif /* !(_RAISONANCE_) && !(_SDCC_) */
   
@@ -7157,7 +7158,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h	2017-08-19 09:11:40.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h	2018-08-01 19:08:29.703203000 +0200
 ***************
 *** 0 ****
 --- 1,104 ----
@@ -7235,29 +7236,29 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h
 + // SDCC patch: __interrupt keyword required after function name --> requires new block
 + #elif defined (_SDCC_)
 + 
-+  void TRAP_IRQHandler(void) __trap;               /* TRAP */
-+  void FLASH_IRQHandler(void) INTERRUPT(1);        /* FLASH EOP/PG_DIS */
-+  void AWU_IRQHandler(void)   INTERRUPT(4);        /* AWU */
-+  void EXTIB_IRQHandler(void) INTERRUPT(6);        /* EXTI PORTB */
-+  void EXTID_IRQHandler(void) INTERRUPT(7);        /* EXTI PORTD */
-+  void EXTI0_IRQHandler(void) INTERRUPT(8);        /* EXTI PIN0 */
-+  void EXTI1_IRQHandler(void) INTERRUPT(9);        /* EXTI PIN1 */
-+  void EXTI2_IRQHandler(void) INTERRUPT(10);       /* EXTI PIN2 */
-+  void EXTI3_IRQHandler(void) INTERRUPT(11);       /* EXTI PIN3 */
-+  void EXTI4_IRQHandler(void) INTERRUPT(12);       /* EXTI PIN4 */
-+  void EXTI5_IRQHandler(void) INTERRUPT(13);       /* EXTI PIN5 */
-+  void EXTI6_IRQHandler(void) INTERRUPT(14);       /* EXTI PIN6 */
-+  void EXTI7_IRQHandler(void) INTERRUPT(15);       /* EXTI PIN7 */
-+  void COMP_IRQHandler(void)  INTERRUPT(18);       /* COMP */
-+  void TIM2_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(19); /* TIM2 UPD/OVF/TRG/BRK */
-+  void TIM2_CAP_IRQHandler(void) INTERRUPT(20);    /* TIM2 CAP*/
-+  void TIM3_UPD_OVF_TRG_BRK_IRQHandler(void) INTERRUPT(21); /* TIM3 UPD/OVF/TRG/BRK */
-+  void TIM3_CAP_IRQHandler(void) INTERRUPT(22);    /* TIM3 CAP*/
-+  void TIM4_UPD_OVF_IRQHandler(void) INTERRUPT(25); /* TIM4 UPD/OVF */
-+  void SPI_IRQHandler(void)   INTERRUPT(26);       /* SPI */
-+  void USART_TX_IRQHandler(void) INTERRUPT(27);    /* USART TX */
-+  void USART_RX_IRQHandler(void) INTERRUPT(28);    /* USART RX */
-+  void I2C_IRQHandler(void)   INTERRUPT(29);       /* I2C */
++  INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler);                /* TRAP */
++  INTERRUPT_HANDLER(FLASH_IRQHandler, 1);                 /* FLASH EOP/PG_DIS */
++  INTERRUPT_HANDLER(AWU_IRQHandler,   4);                 /* AWU */
++  INTERRUPT_HANDLER(EXTIB_IRQHandler, 6);                 /* EXTI PORTB */
++  INTERRUPT_HANDLER(EXTID_IRQHandler, 7);                 /* EXTI PORTD */
++  INTERRUPT_HANDLER(EXTI0_IRQHandler, 8);                 /* EXTI PIN0 */
++  INTERRUPT_HANDLER(EXTI1_IRQHandler, 9);                 /* EXTI PIN1 */
++  INTERRUPT_HANDLER(EXTI2_IRQHandler, 10);                /* EXTI PIN2 */
++  INTERRUPT_HANDLER(EXTI3_IRQHandler, 11);                /* EXTI PIN3 */
++  INTERRUPT_HANDLER(EXTI4_IRQHandler, 12);                /* EXTI PIN4 */
++  INTERRUPT_HANDLER(EXTI5_IRQHandler, 13);                /* EXTI PIN5 */
++  INTERRUPT_HANDLER(EXTI6_IRQHandler, 14);                /* EXTI PIN6 */
++  INTERRUPT_HANDLER(EXTI7_IRQHandler, 15);                /* EXTI PIN7 */
++  INTERRUPT_HANDLER(COMP_IRQHandler, 18);                 /* COMP */
++  INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19); /* TIM2 UPD/OVF/TRG/BRK */
++  INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20);             /* TIM2 CAP*/
++  INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21); /* TIM3 UPD/OVF/TRG/BRK */
++  INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22);             /* TIM3 CAP*/
++  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 25);         /* TIM4 UPD/OVF */
++  INTERRUPT_HANDLER(SPI_IRQHandler, 26);                  /* SPI */
++  INTERRUPT_HANDLER(USART_TX_IRQHandler, 27);             /* USART TX */
++  INTERRUPT_HANDLER(USART_RX_IRQHandler, 28);             /* USART RX */
++  INTERRUPT_HANDLER(I2C_IRQHandler, 29);                  /* I2C */
 + 
 + #endif /* !(_RAISONANCE_) && !(_SDCC_) */
 + 
