@@ -1,7 +1,14 @@
 #!/bin/bash  
 
+# open terminal on double-click, skip else. See https://www.linuxquestions.org/questions/programming-9/executing-shell-script-in-terminal-directly-with-a-double-click-370091/
+tty -s; if [ $? -ne 0 ]; then /etc/alternatives/x-terminal-emulator -e "$0"; exit; fi
+
 # change to current working directory
 cd `dirname $0`
+
+# just for output
+echo off
+clear
 
 # set folders to patch 
 #PATCHFILE=./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc.patch
@@ -14,3 +21,6 @@ PATCHFILE=./STM8S_StdPeriph_Lib_V2.3.1_sdcc.patch
 #   -p0 == needed to find the proper folder
 patch -p0 < $PATCHFILE
 
+echo " "
+read -p "press key to close window..."
+echo on
