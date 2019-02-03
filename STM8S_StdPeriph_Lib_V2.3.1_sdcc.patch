@@ -2386,7 +2386,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Doxyfile ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Doxyf
 +
 diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h
 --- ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h	2018-04-27 10:56:24.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h	2019-01-10 05:26:33.374079260 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h	2019-02-03 09:08:03.936466563 +0100
 @@ -68,10 +68,10 @@
    - Low-Density STM8S devices are the STM8S103xx, STM8S003, STM8S903xx and STM8S001 microcontrollers
      where the Flash density is 8 Kbytes. */
@@ -2491,11 +2491,63 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
   #else /*_IAR_*/
    #define IN_RAM(a) __ramfunc a
   #endif /* _COSMIC_ */
-@@ -228,7 +243,13 @@
- typedef uint8_t  u8;
+@@ -207,28 +222,50 @@
+ #define     __O     volatile         /*!< defines 'write only' permissions    */
+ #define     __IO    volatile         /*!< defines 'read / write' permissions  */
  
+-/*!< Signed integer types  */
+-typedef   signed char     int8_t;
+-typedef   signed short    int16_t;
+-typedef   signed long     int32_t;
++/* SDCC patch: define standard data types */
++#if defined(_COSMIC_) || defined(_RAISONANCE_) || defined(_IAR_)
++
++  // skip if already defined
++  #ifndef INT8_MAX
+ 
+-/*!< Unsigned integer types  */
+-typedef unsigned char     uint8_t;
+-typedef unsigned short    uint16_t;
+-typedef unsigned long     uint32_t;
++    /*!< Signed integer types  */
++    typedef   signed char     int8_t;
++    typedef   signed short    int16_t;
++    typedef   signed long     int32_t;
+ 
+-/*!< STM8 Standard Peripheral Library old types (maintained for legacy purpose) */
++    /*!< Unsigned integer types  */
++    typedef unsigned char     uint8_t;
++    typedef unsigned short    uint16_t;
++    typedef unsigned long     uint32_t;
+ 
+-typedef int32_t  s32;
+-typedef int16_t s16;
+-typedef int8_t  s8;
++    /*!< STM8 Standard Peripheral Library old types (maintained for legacy purpose) */
++    typedef int32_t  s32;
++    typedef int16_t s16;
++    typedef int8_t  s8;
+ 
+-typedef uint32_t  u32;
+-typedef uint16_t u16;
+-typedef uint8_t  u8;
++    typedef uint32_t  u32;
++    typedef uint16_t u16;
++    typedef uint8_t  u8;
+ 
++  #endif // INT8_MAX
  
 -typedef enum {FALSE = 0, TRUE = !FALSE} bool;
++#elif defined(_SDCC_)
++
++  // use compiler standard header
++  #include <stdint.h>
++
++#else
++ #error "Unsupported Compiler!"          /* Compiler defines not found */
++#endif
++
++
 +/* SDCC patch: SDCC defines a special Bool type, use that if available */
 +#ifdef __bool_true_false_are_defined
 + #define TRUE true
@@ -2506,7 +2558,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
  
  typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus, BitStatus, BitAction;
  
-@@ -377,7 +398,7 @@
+@@ -377,7 +414,7 @@
   #define ADC1_CR3_DBUF    ((uint8_t)0x80) /*!< Data Buffer Enable mask */
   #define ADC1_CR3_OVR     ((uint8_t)0x40) /*!< Overrun Status Flag mask */
  
@@ -2515,7 +2567,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
  /**
    * @}
    */
-@@ -386,7 +407,7 @@
+@@ -386,7 +423,7 @@
  /**
    * @brief  Analog to Digital Converter (ADC2)
    */
@@ -2524,7 +2576,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
   typedef struct ADC2_struct
   {
    __IO uint8_t CSR;        /*!< ADC2 control status register */
-@@ -427,7 +448,7 @@
+@@ -427,7 +464,7 @@
   #define ADC2_CR2_EXTSEL  ((uint8_t)0x30) /*!< External event selection mask */
   #define ADC2_CR2_ALIGN   ((uint8_t)0x08) /*!< Data Alignment mask */
  
@@ -2533,7 +2585,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
  /**
    * @}
    */
-@@ -2601,18 +2622,18 @@
+@@ -2601,18 +2638,18 @@
  #if defined(STM8S105) || defined(STM8S005) || defined(STM8S103) || defined(STM8S003) || \
      defined(STM8S001) || defined(STM8S903) || defined(STM8AF626x) || defined(STM8AF622x)
   #define ADC1 ((ADC1_TypeDef *) ADC1_BaseAddress)
@@ -2558,7 +2610,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
   #define CAN ((CAN_TypeDef *) CAN_BaseAddress)
  #endif /* (STM8S208) || (STM8AF52Ax) */
  
-@@ -2636,16 +2657,16 @@
+@@ -2636,16 +2673,16 @@
  
  #define GPIOF ((GPIO_TypeDef *) GPIOF_BaseAddress)
  
@@ -2581,7 +2633,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
  
  #define RST ((RST_TypeDef *) RST_BaseAddress)
  
-@@ -2655,19 +2676,19 @@
+@@ -2655,19 +2692,19 @@
  #define SPI ((SPI_TypeDef *) SPI_BaseAddress)
  #define I2C ((I2C_TypeDef *) I2C_BaseAddress)
  
@@ -2609,7 +2661,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
  
  #if defined(STM8AF622x)
   #define UART4 ((UART4_TypeDef *) UART4_BaseAddress)
-@@ -2675,24 +2696,24 @@
+@@ -2675,24 +2712,24 @@
  
  #define TIM1 ((TIM1_TypeDef *) TIM1_BaseAddress)
  
@@ -2646,7 +2698,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
   #define TIM5 ((TIM5_TypeDef *) TIM5_BaseAddress)
   #define TIM6 ((TIM6_TypeDef *) TIM6_BaseAddress)
  #endif /* (STM8S903) || (STM8AF622x) */ 
-@@ -2730,6 +2751,16 @@
+@@ -2730,6 +2767,16 @@
   #define trap()                {_asm("trap\n");} /* Trap (soft IT) */
   #define wfi()                 {_asm("wfi\n");}  /* Wait For Interrupt */
   #define halt()                {_asm("halt\n");} /* Halt */
@@ -2663,7 +2715,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h ./S
  #else /*_IAR_*/
   #include <intrinsics.h>
   #define enableInterrupts()    __enable_interrupt()   /* enable interrupts */
-@@ -2764,12 +2795,29 @@
+@@ -2764,12 +2811,29 @@
   _Pragma( VECTOR_ID( 1 ) ) \
   __interrupt void (a) (void)  
  #endif /* _IAR_ */
