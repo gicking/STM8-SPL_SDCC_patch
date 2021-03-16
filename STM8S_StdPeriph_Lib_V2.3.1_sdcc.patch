@@ -3107,7 +3107,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/ADC2/ADC2_Conti
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/ADC2/ADC2_ContinuousConversion/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/ADC2/ADC2_ContinuousConversion/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/ADC2/ADC2_ContinuousConversion/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/ADC2/ADC2_ContinuousConversion/stm8s_it.h	2019-01-10 06:15:48.752569913 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/ADC2/ADC2_ContinuousConversion/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -3260,8 +3260,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/ADC2/ADC2_Conti
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -3387,7 +3387,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/AWU/AWU_ActiveH
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8s_it.h	2019-01-10 06:15:48.760570159 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -3540,8 +3540,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/AWU/AWU_ActiveH
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -3667,7 +3667,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/BEEP/BEEP_3Sign
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8s_it.h	2019-01-10 06:15:48.760570159 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -3820,8 +3820,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/BEEP/BEEP_3Sign
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -3947,7 +3947,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CAN/CAN_Network
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CAN/CAN_Networking/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CAN/CAN_Networking/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CAN/CAN_Networking/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CAN/CAN_Networking/stm8s_it.h	2019-01-10 06:15:48.744569668 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CAN/CAN_Networking/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -4100,8 +4100,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CAN/CAN_Network
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -4227,7 +4227,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSe
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSecuritySystem/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSecuritySystem/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSecuritySystem/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSecuritySystem/stm8s_it.h	2019-01-10 06:15:48.756570037 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSecuritySystem/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -4380,8 +4380,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSe
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -4507,7 +4507,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSe
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSelection/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSelection/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSelection/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSelection/stm8s_it.h	2019-01-10 06:15:48.756570037 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSelection/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -4660,8 +4660,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_ClockSe
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -4787,7 +4787,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_MaxSpee
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_MaxSpeed/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CLK/CLK_MaxSpeed/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_MaxSpeed/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CLK/CLK_MaxSpeed/stm8s_it.h	2019-01-10 06:15:48.756570037 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/CLK/CLK_MaxSpeed/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -4940,8 +4940,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/CLK/CLK_MaxSpee
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -5067,7 +5067,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/EXTI/EXTI_Inter
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/EXTI/EXTI_InterruptPriority/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/EXTI/EXTI_InterruptPriority/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/EXTI/EXTI_InterruptPriority/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/EXTI/EXTI_InterruptPriority/stm8s_it.h	2019-01-10 06:15:48.748569791 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/EXTI/EXTI_InterruptPriority/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -5220,8 +5220,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/EXTI/EXTI_Inter
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -5347,7 +5347,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_Byt
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8s_it.h	2019-01-10 06:15:48.792571141 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -5500,8 +5500,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_Byt
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -5642,7 +5642,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_Dat
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8s_it.h	2019-01-10 06:15:48.788571018 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -5795,8 +5795,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_Dat
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -5922,7 +5922,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_Wri
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8s_it.h	2019-01-10 06:15:48.792571141 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -6075,8 +6075,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/FLASH/FLASH_Wri
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -6202,7 +6202,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggl
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8s_it.h	2019-01-10 06:15:48.784570896 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggle/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -6355,8 +6355,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggl
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -6482,7 +6482,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_EEPROM/
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_EEPROM/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/I2C/I2C_EEPROM/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_EEPROM/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/I2C/I2C_EEPROM/stm8s_it.h	2019-01-10 06:15:48.808571632 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/I2C/I2C_EEPROM/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -6635,8 +6635,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_EEPROM/
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -6762,7 +6762,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoar
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8s_it.h	2019-01-10 06:15:48.808571632 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Master/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -6915,8 +6915,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoar
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -7042,7 +7042,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoar
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8s_it.h	2019-01-10 06:15:48.808571632 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoards/I2C_DataExchange/Slave/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -7195,8 +7195,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/I2C/I2C_TwoBoar
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -7322,7 +7322,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/ITC/ITC_Softwar
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8s_it.h	2019-01-10 06:15:48.748569791 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -7475,8 +7475,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/ITC/ITC_Softwar
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -7602,7 +7602,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/IWDG/IWDG_Examp
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/IWDG/IWDG_Example/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/IWDG/IWDG_Example/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/IWDG/IWDG_Example/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/IWDG/IWDG_Example/stm8s_it.h	2019-01-10 06:15:48.788571018 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/IWDG/IWDG_Example/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -7755,8 +7755,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/IWDG/IWDG_Examp
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -7882,7 +7882,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/RST/RST_Illegal
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8s_it.h	2019-01-10 06:15:48.744569668 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -8035,8 +8035,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/RST/RST_Illegal
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -8162,7 +8162,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_FastCom
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_FastCommunicationMicroSD/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/SPI/SPI_FastCommunicationMicroSD/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_FastCommunicationMicroSD/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/SPI/SPI_FastCommunicationMicroSD/stm8s_it.h	2019-01-10 06:15:48.800571387 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/SPI/SPI_FastCommunicationMicroSD/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -8315,8 +8315,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_FastCom
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -8442,7 +8442,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_FullDup
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_FullDuplexUART1/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/SPI/SPI_FullDuplexUART1/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_FullDuplexUART1/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/SPI/SPI_FullDuplexUART1/stm8s_it.h	2019-01-10 06:15:48.804571510 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/SPI/SPI_FullDuplexUART1/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -8595,8 +8595,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_FullDup
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -8722,7 +8722,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_Simplex
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8s_it.h	2019-01-10 06:15:48.800571387 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -8875,8 +8875,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_Simplex
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -8896,6 +8896,161 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/SPI/SPI_Simplex
  
  #endif /* __STM8S_IT_H */
  
+diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c
+--- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c	2018-04-27 10:56:20.000000000 +0200
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/main.c	1970-01-01 01:00:00.000000000 +0100
+@@ -1,151 +0,0 @@
+-/**
+-  ******************************************************************************
+-  * @file    TIM1_6Steps\main.c
+-  * @author  MCD Application Team
+-  * @version V2.0.4
+-  * @date    26-April-2018
+-  * @brief   This file contains the main function for TIM1 6 Steps example.
+-  ******************************************************************************
+-  * @attention
+-  *
+-  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+-  *
+-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+-  * You may not use this file except in compliance with the License.
+-  * You may obtain a copy of the License at:
+-  *
+-  *        http://www.st.com/software_license_agreement_liberty_v2
+-  *
+-  * Unless required by applicable law or agreed to in writing, software 
+-  * distributed under the License is distributed on an "AS IS" BASIS, 
+-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-  * See the License for the specific language governing permissions and
+-  * limitations under the License.
+-  *
+-  ******************************************************************************
+-  */ 
+-
+-/* Includes ------------------------------------------------------------------*/
+-#include "stm8s.h"
+-
+-/**
+-  * @addtogroup TIM1_6Steps
+-  * @{
+-  */
+-
+-/* Private typedef -----------------------------------------------------------*/
+-/* Private define ------------------------------------------------------------*/
+-/* Private macro -------------------------------------------------------------*/
+-/* Private variables ---------------------------------------------------------*/
+-/* Private function prototypes -----------------------------------------------*/
+-static void TIM1_Config(void);
+-static void TIM4_Config(void);
+-/* Private functions ---------------------------------------------------------*/
+-/* Public functions ----------------------------------------------------------*/
+-
+-/**
+-  * @brief  Main program.
+-  * @param  None
+-  * @retval None
+-  */
+-void main(void)
+-{
+-  /* TIM1 configuration -----------------------------------------*/
+-    TIM1_Config();
+-    
+-  /* TIM4 configuration -----------------------------------------*/
+-    TIM4_Config();
+-   
+-  /* Main Output Enable */
+-  TIM1_CtrlPWMOutputs(ENABLE);
+-  
+-  enableInterrupts();
+-  
+-  while (1)
+-  {} 
+-}
+-
+-/**
+-  * @brief  Configure TIM1 to generate 6 Steps PWM signal
+-  * @param  None
+-  * @retval None
+-  */
+-static void TIM1_Config(void)
+-{
+-  /* TIM1 Peripheral Configuration */ 
+-  TIM1_DeInit();
+-
+-  /* Time Base configuration */
+-  TIM1_TimeBaseInit(0, TIM1_COUNTERMODE_UP, 4095, 0);
+-
+-  /* Channel 1, 2 and 3 Configuration in TIMING mode */  
+-  
+-  /* TIM1_Pulse = 2047 */
+-  TIM1_OC1Init(TIM1_OCMODE_TIMING, TIM1_OUTPUTSTATE_ENABLE, TIM1_OUTPUTNSTATE_ENABLE,
+-               2047, TIM1_OCPOLARITY_HIGH, TIM1_OCNPOLARITY_HIGH, TIM1_OCIDLESTATE_SET,
+-               TIM1_OCNIDLESTATE_SET);  
+-
+-  /* TIM1_Pulse = 1023 */
+-  TIM1_OC2Init(TIM1_OCMODE_TIMING, TIM1_OUTPUTSTATE_ENABLE, TIM1_OUTPUTNSTATE_ENABLE, 1023,
+-               TIM1_OCPOLARITY_HIGH, TIM1_OCNPOLARITY_HIGH, TIM1_OCIDLESTATE_SET, 
+-               TIM1_OCNIDLESTATE_SET); 
+-
+-  /* TIM1_Pulse = 511 */
+-  TIM1_OC3Init(TIM1_OCMODE_TIMING, TIM1_OUTPUTSTATE_ENABLE, TIM1_OUTPUTNSTATE_ENABLE,
+-               511, TIM1_OCPOLARITY_HIGH, TIM1_OCNPOLARITY_HIGH, TIM1_OCIDLESTATE_SET,
+-               TIM1_OCNIDLESTATE_SET); 
+-
+-  /* Automatic Output enable, Break, dead time and lock configuration*/
+-  TIM1_BDTRConfig( TIM1_OSSISTATE_ENABLE,  TIM1_LOCKLEVEL_OFF, 1,  TIM1_BREAK_DISABLE,
+-                   TIM1_BREAKPOLARITY_LOW,  TIM1_AUTOMATICOUTPUT_ENABLE);
+-  TIM1_CCPreloadControl(ENABLE);
+-  TIM1_ITConfig(TIM1_IT_COM, ENABLE);
+-
+-  /* TIM1 counter enable */
+-  TIM1_Cmd(ENABLE);
+-}
+-
+-/**
+-  * @brief  Configure TIM4 to generate a software COM event each 180 ms
+-  * @param  None
+-  * @retval None
+-  */
+-static void TIM4_Config(void)
+-{
+-  /* TIM4 Peripheral Configuration */ 
+-  /* Time Base configuration */
+-  TIM4_TimeBaseInit(TIM4_PRESCALER_128, 0xFF);
+-  
+-  /*TIM4 counter enable */
+-  TIM4_Cmd(ENABLE);
+-  
+-  TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
+-}
+-
+-#ifdef USE_FULL_ASSERT
+-
+-/**
+-  * @brief  Reports the name of the source file and the source line number
+-  *   where the assert_param error has occurred.
+-  * @param file: pointer to the source file name
+-  * @param line: assert_param error line source number
+-  * @retval None
+-  */
+-void assert_failed(uint8_t* file, uint32_t line)
+-{ 
+-  /* User can add his own implementation to report the file name and line number,
+-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+-
+-  /* Infinite loop */
+-  while (1)
+-  {
+-  }
+-}
+-#endif
+-
+-/**
+-  * @}
+-  */
+-
+-
+-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8s_conf.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8s_conf.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8s_conf.h	2018-04-27 10:56:20.000000000 +0200
 +++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8s_conf.h	2019-01-10 06:15:33.092089224 +0100
@@ -9002,7 +9157,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Step
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8s_it.h	2019-01-10 06:15:48.768570405 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Steps/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -9155,8 +9310,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_6Step
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -9282,7 +9437,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_7PWM_
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_7PWM_Output/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_7PWM_Output/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_7PWM_Output/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_7PWM_Output/stm8s_it.h	2019-01-10 06:15:48.768570405 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_7PWM_Output/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -9435,8 +9590,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_7PWM_
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -9562,7 +9717,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Compl
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals_DeadTime_Break_Lock/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals_DeadTime_Break_Lock/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals_DeadTime_Break_Lock/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals_DeadTime_Break_Lock/stm8s_it.h	2019-01-10 06:15:48.764570282 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_ComplementarySignals_DeadTime_Break_Lock/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -9715,8 +9870,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Compl
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -9842,7 +9997,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Input
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Input_Capture/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Input_Capture/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Input_Capture/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Input_Capture/stm8s_it.h	2019-01-10 06:15:48.764570282 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Input_Capture/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -9995,8 +10150,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Input
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -10122,7 +10277,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Sinew
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Sinewave_Generation/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Sinewave_Generation/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Sinewave_Generation/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Sinewave_Generation/stm8s_it.h	2019-01-10 06:15:48.764570282 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Sinewave_Generation/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -10275,8 +10430,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM1/TIM1_Sinew
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -10402,7 +10557,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_Ac
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_ActiveMode/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_ActiveMode/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_ActiveMode/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_ActiveMode/stm8s_it.h	2019-01-10 06:15:48.796571265 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_ActiveMode/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -10555,8 +10710,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_Ac
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -10682,7 +10837,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_In
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_InactiveMode/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_InactiveMode/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_InactiveMode/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_InactiveMode/stm8s_it.h	2019-01-10 06:15:48.796571265 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_InactiveMode/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -10835,8 +10990,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_OC_In
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -10962,7 +11117,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_PWM_D
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_PWM_DutyCycleConfiguration/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_PWM_DutyCycleConfiguration/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_PWM_DutyCycleConfiguration/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_PWM_DutyCycleConfiguration/stm8s_it.h	2019-01-10 06:15:48.796571265 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_PWM_DutyCycleConfiguration/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -11115,8 +11270,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM2/TIM2_PWM_D
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -11242,7 +11397,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM4/TIM4_TimeB
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8s_it.h	2019-01-10 06:15:48.804571510 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -11395,8 +11550,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM4/TIM4_TimeB
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -11522,7 +11677,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM5/TIM5_Synch
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM5/TIM5_Synchronisation_With_TIM6/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM5/TIM5_Synchronisation_With_TIM6/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM5/TIM5_Synchronisation_With_TIM6/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM5/TIM5_Synchronisation_With_TIM6/stm8s_it.h	2019-01-10 06:15:48.744569668 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/TIM5/TIM5_Synchronisation_With_TIM6/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -11675,8 +11830,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/TIM5/TIM5_Synch
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -11802,7 +11957,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Hal
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_HalfDuplex/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_HalfDuplex/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_HalfDuplex/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_HalfDuplex/stm8s_it.h	2019-01-10 06:15:48.784570896 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_HalfDuplex/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -11955,8 +12110,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Hal
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -12082,7 +12237,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Hyp
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_HyperTerminal_Interrupt/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_HyperTerminal_Interrupt/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_HyperTerminal_Interrupt/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_HyperTerminal_Interrupt/stm8s_it.h	2019-01-10 06:15:48.772570527 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_HyperTerminal_Interrupt/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -12235,8 +12390,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Hyp
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -12362,7 +12517,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Int
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Interrupt/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_Interrupt/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Interrupt/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_Interrupt/stm8s_it.h	2019-01-10 06:15:48.776570651 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_Interrupt/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -12515,8 +12670,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Int
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -12642,7 +12797,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrD
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Receive/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Receive/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Receive/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Receive/stm8s_it.h	2019-01-10 06:15:48.776570651 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Receive/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -12795,8 +12950,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrD
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -12922,7 +13077,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrD
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Transmit/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Transmit/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Transmit/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Transmit/stm8s_it.h	2019-01-10 06:15:48.780570773 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrDA/Transmit/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -13075,8 +13230,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_IrD
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -13202,7 +13357,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Mul
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_MultiProcessor/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_MultiProcessor/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_MultiProcessor/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_MultiProcessor/stm8s_it.h	2019-01-10 06:15:48.784570896 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_MultiProcessor/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -13355,8 +13510,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Mul
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -13514,7 +13669,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Pri
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Printf/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_Printf/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Printf/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_Printf/stm8s_it.h	2019-01-10 06:15:48.772570527 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_Printf/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -13667,8 +13822,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Pri
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -13794,7 +13949,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Sma
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_SmartCard/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_SmartCard/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_SmartCard/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_SmartCard/stm8s_it.h	2019-01-10 06:15:48.780570773 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_SmartCard/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -13947,8 +14102,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Sma
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -14074,7 +14229,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Syn
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Synchronous/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_Synchronous/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Synchronous/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_Synchronous/stm8s_it.h	2019-01-10 06:15:48.780570773 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/UART1/UART1_Synchronous/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -14227,8 +14382,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/UART1/UART1_Syn
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -14354,7 +14509,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/WWDG/WWDG_Examp
  /* Exported types ------------------------------------------------------------*/
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/WWDG/WWDG_Example/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/WWDG/WWDG_Example/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/WWDG/WWDG_Example/stm8s_it.h	2018-04-27 10:56:20.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/WWDG/WWDG_Example/stm8s_it.h	2019-01-10 06:15:48.752569913 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Examples/WWDG/WWDG_Example/stm8s_it.h	2021-03-16 20:32:52.240467000 +0100
 @@ -41,7 +41,8 @@
   INTERRUPT void NonHandledInterrupt(void);
  #endif /* _COSMIC_ */
@@ -14507,8 +14662,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/WWDG/WWDG_Examp
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -14865,7 +15020,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/stm8s_conf.h ./
  #include "stm8s_wwdg.h"
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Template/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/stm8s_it.h	2018-04-27 10:56:18.000000000 +0200
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Template/stm8s_it.h	2019-01-10 06:15:48.812571756 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_Template/stm8s_it.h	2021-03-16 20:32:52.240467373 +0100
 @@ -1,11 +1,11 @@
  /**
    ******************************************************************************
@@ -15027,8 +15182,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Template/stm8s_it.h ./ST
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
@@ -16202,7 +16357,7 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/stm8s_it.c ./STM8S_
 +
 diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/stm8s_it.h ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_test/stm8s_it.h
 --- ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/stm8s_it.h	1970-01-01 01:00:00.000000000 +0100
-+++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_test/stm8s_it.h	2019-01-10 06:15:48.740569546 +0100
++++ ./STM8S_StdPeriph_Lib_V2.3.1_sdcc/Project/STM8S_StdPeriph_test/stm8s_it.h	2021-03-16 20:33:58.250827247 +0100
 @@ -0,0 +1,201 @@
 +/**
 +  ******************************************************************************
@@ -16382,8 +16537,8 @@ diff -ruN ./STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_test/stm8s_it.h ./STM8S_
 +#endif /* (STM8S105) || (STM8AF626x) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
-+ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 20);              /* UART3 RX */
-+ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 21);              /* UART3 TX */
++ INTERRUPT_HANDLER(UART3_TX_IRQHandler, 20);              /* UART3 RX */
++ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21);              /* UART3 TX */
 +#endif /* (STM8S207) || (STM8S208) || (STM8AF62Ax) || (STM8AF52Ax) */
 +
 +#if defined(STM8S207) || defined(STM8S007) || defined(STM8S208) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
