@@ -1,6 +1,6 @@
 diff -rcN ./STM8L10x_StdPeriph_Lib/Doxyfile ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Doxyfile
 *** ./STM8L10x_StdPeriph_Lib/Doxyfile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Doxyfile	2019-01-10 04:57:47.101033193 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Doxyfile	2023-12-02 18:23:10.566744301 +0100
 ***************
 *** 0 ****
 --- 1,2382 ----
@@ -2387,8 +2387,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Doxyfile ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc
 + DOT_CLEANUP            = YES
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h
-*** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2014-10-21 14:13:34.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2021-11-02 18:09:22.614859032 +0100
+*** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2023-12-02 18:26:37.199990663 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l10x.h	2024-08-02 08:46:01.017379504 +0200
 ***************
 *** 40,45 ****
 --- 40,50 ----
@@ -2563,14 +2563,14 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
   
 + /* SDCC patch: declare ISR handlers */
 + #ifdef _SDCC_
-+  #define INTERRUPT_HANDLER(a,b) void a() __interrupt(b)
++  #define INTERRUPT_HANDLER(a,b) void a(void) __interrupt(b)
 + 
 +  /* traps require >=v3.4.3 -> else warn and skip */
 +  #if SDCC_VERSION >= 30403
-+    #define INTERRUPT_HANDLER_TRAP(a) void a() __trap 
++    #define INTERRUPT_HANDLER_TRAP(a) void a(void) __trap 
 +  #else
 +    #warning traps require SDCC>=v3.4.3. Update if required
-+    #define INTERRUPT_HANDLER_TRAP(a) void a()
++    #define INTERRUPT_HANDLER_TRAP(a) void a(void)
 +  #endif 
 + 
 + #endif /* _SDCC_ */
@@ -2592,8 +2592,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/inc/stm8l
   /*============================== Handling bits ====================================*/
   /*-----------------------------------------------------------------------------
 diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c
-*** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2014-10-21 14:13:34.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2019-01-09 18:46:33.504418174 +0100
+*** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2023-12-02 18:26:37.163990630 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_flash.c	2023-12-02 18:26:37.059990531 +0100
 ***************
 *** 116,125 ****
 --- 116,206 ----
@@ -2814,8 +2814,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
    #pragma section (FLASH_CODE)
   #endif  /* _COSMIC_ && RAM_EXECUTION */
 diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c
-*** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c	2014-10-21 14:13:34.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c	2017-08-16 14:30:29.000000000 +0200
+*** ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c	2023-12-02 18:26:37.163990630 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l10x_itc.c	2023-12-02 18:26:37.071990542 +0100
 ***************
 *** 62,67 ****
 --- 62,70 ----
@@ -2829,8 +2829,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Libraries/STM8L10x_StdPeriph_Driver/src/stm8l
     asm("push cc");
     asm("pop a"); /* Ignore compiler warning, the returned value is in A register */
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c	2019-01-10 05:44:38.563306468 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c	2023-12-02 18:27:24.579811680 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/main.c	2023-12-02 18:27:24.375813312 +0100
 ***************
 *** 276,279 ****
     * @}
@@ -2844,8 +2844,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_A
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 \ Kein Zeilenumbruch am Dateiende.
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_conf.h	2019-01-10 05:44:42.259419993 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_conf.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -2909,8 +2909,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_A
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2019-01-10 05:44:42.259419993 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_ActiveHaltMode/stm8l10x_it.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3002,8 +3002,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/AWU/AWU_A
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_conf.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_conf.h	2019-01-10 05:44:42.259419993 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_conf.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3067,8 +3067,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2019-01-10 05:44:42.263420116 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP_3SignalsGeneration/stm8l10x_it.h	2023-12-02 18:27:23.303821780 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3160,8 +3160,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/BEEP/BEEP
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_conf.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_conf.h	2019-01-10 05:44:42.255419870 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_conf.h	2023-12-02 18:27:23.303821780 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3225,8 +3225,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_M
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2019-01-10 05:44:42.259419993 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_MasterClock/stm8l10x_it.h	2023-12-02 18:27:23.303821780 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3318,8 +3318,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/CLK/CLK_M
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_conf.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_conf.h	2019-01-10 05:44:42.267420240 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_conf.h	2023-12-02 18:27:23.307821750 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3383,8 +3383,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2019-01-10 05:44:42.267420240 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/COMP/COMP_Interrupt/stm8l10x_it.h	2023-12-02 18:27:23.307821750 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3476,8 +3476,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/COMP/COMP
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_conf.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_conf.h	2019-01-10 05:44:42.251419748 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_conf.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3541,8 +3541,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2019-01-10 05:44:42.251419748 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI_IOControl/stm8l10x_it.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3634,8 +3634,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/EXTI/EXTI
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_conf.h	2019-01-10 05:44:42.271420362 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_conf.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3699,8 +3699,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2019-01-10 05:44:42.275420485 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_ByteReadWriteOperation/stm8l10x_it.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3792,8 +3792,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2019-01-10 05:44:38.575306836 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2023-12-02 18:27:24.579811680 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/main.c	2023-12-02 18:27:24.375813312 +0100
 ***************
 *** 95,100 ****
 --- 95,105 ----
@@ -3809,8 +3809,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
     STM_EVAL_LEDInit(LED2);
     STM_EVAL_LEDInit(LED3);
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_conf.h	2019-01-10 05:44:42.271420362 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_conf.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3874,8 +3874,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2019-01-10 05:44:42.271420362 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_DataProgram/stm8l10x_it.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -3967,8 +3967,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_conf.h	2019-01-10 05:44:42.275420485 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_conf.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4032,8 +4032,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2019-01-10 05:44:42.275420485 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/FLASH/FLASH_WriteWordOperation/stm8l10x_it.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4125,8 +4125,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/FLASH/FLA
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_conf.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_conf.h	2019-01-10 05:44:42.263420116 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_conf.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_conf.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4190,8 +4190,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2019-01-10 05:44:42.263420116 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO_IOToggle/stm8l10x_it.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4283,8 +4283,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/GPIO/GPIO
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_conf.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_conf.h	2019-01-10 05:44:42.303421346 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_conf.h	2023-12-02 18:27:56.935476537 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_conf.h	2023-12-02 18:27:47.739586303 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4348,8 +4348,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2019-01-10 05:44:42.307421467 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2023-12-02 18:27:56.935476537 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Master/stm8l10x_it.h	2023-12-02 18:27:47.739586303 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4441,8 +4441,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_conf.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_conf.h	2019-01-10 05:44:42.307421467 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_conf.h	2023-12-02 18:27:56.935476537 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_conf.h	2023-12-02 18:27:47.739586303 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4506,8 +4506,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2019-01-10 05:44:42.311421591 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2023-12-02 18:27:56.935476537 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_DataExchange/Slave/stm8l10x_it.h	2023-12-02 18:27:47.739586303 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4599,8 +4599,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_D
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_conf.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_conf.h	2019-01-10 05:44:42.303421346 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_conf.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_conf.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4664,8 +4664,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_E
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2019-01-10 05:44:42.303421346 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2023-12-02 18:27:24.579811680 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_EEPROM/stm8l10x_it.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4757,8 +4757,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/I2C/I2C_E
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_conf.h	2019-01-10 05:44:42.295421099 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_conf.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_conf.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4822,8 +4822,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2019-01-10 05:44:42.295421099 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_SignalGeneration/stm8l10x_it.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4915,8 +4915,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IRTIM/IR_
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_conf.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_conf.h	2019-01-10 05:44:42.251419748 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_conf.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_conf.h	2023-12-02 18:27:23.315821686 +0100
 ***************
 *** 1,10 ****
   /**
@@ -4980,8 +4980,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_S
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2019-01-10 05:44:42.255419870 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_SoftwarePriority/stm8l10x_it.h	2023-12-02 18:27:23.319821654 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5073,8 +5073,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/ITC/ITC_S
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_conf.h	2019-01-10 05:44:42.271420362 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_conf.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_conf.h	2023-12-02 18:27:23.319821654 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5138,8 +5138,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2019-01-10 05:44:42.271420362 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2023-12-02 18:27:25.007808255 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG_Example/stm8l10x_it.h	2023-12-02 18:27:23.319821654 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5231,8 +5231,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/IWDG/IWDG
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_conf.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_conf.h	2019-01-10 05:44:42.247419625 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_conf.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5296,8 +5296,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_I
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2019-01-10 05:44:42.247419625 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/RST/RST_IllegalOpcode/stm8l10x_it.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5389,8 +5389,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/RST/RST_I
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_conf.h	2019-01-10 05:44:42.291420977 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5454,8 +5454,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_F
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2019-01-10 05:44:42.295421099 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_FullDuplexUSART/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5547,8 +5547,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_F
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_conf.h	2019-01-10 05:44:42.295421099 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5612,8 +5612,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_M
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2019-01-10 05:44:42.295421099 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_MSD/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5705,8 +5705,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_M
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_conf.h	2019-01-10 05:44:42.291420977 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_conf.h	2023-12-02 18:27:24.391813184 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5770,8 +5770,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_S
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2019-01-10 05:44:42.291420977 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2023-12-02 18:27:24.391813184 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_SimplexLCD/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5863,8 +5863,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/SPI/SPI_S
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_conf.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_conf.h	2019-01-10 05:44:42.279420609 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -5928,8 +5928,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2019-01-10 05:44:42.279420609 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_InputCapture/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6021,8 +6021,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_conf.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_conf.h	2019-01-10 05:44:42.275420485 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6086,8 +6086,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2019-01-10 05:44:42.279420609 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCActiveMode/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6179,8 +6179,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_conf.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_conf.h	2019-01-10 05:44:42.283420730 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6244,8 +6244,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2019-01-10 05:44:42.283420730 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_OCInactiveMode/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6337,8 +6337,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_conf.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_conf.h	2019-01-10 05:44:42.283420730 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6402,8 +6402,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2019-01-10 05:44:42.283420730 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_PWMDutyCycleConfiguration/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6495,8 +6495,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_conf.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_conf.h	2019-01-10 05:44:42.287420853 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6560,8 +6560,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2019-01-10 05:44:42.287420853 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2_SinewaveGeneration/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6653,8 +6653,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM2/TIM2
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_conf.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_conf.h	2019-01-10 05:44:42.299421222 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6718,8 +6718,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2019-01-10 05:44:42.299421222 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3_SynchronisationWithTIM4/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6811,8 +6811,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM3
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2019-01-10 05:47:49.889176665 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2023-12-02 18:27:24.391813184 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/main.c	2023-12-02 18:27:24.275814113 +0100
 ***************
 *** 54,60 ****
   }
@@ -6843,8 +6843,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4
 ! /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 \ Kein Zeilenumbruch am Dateiende.
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_conf.h	2014-10-21 14:13:30.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_conf.h	2019-01-10 05:44:42.299421222 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -6908,8 +6908,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2014-10-21 14:13:28.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2019-01-10 05:44:42.299421222 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4_TimeBase/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7001,8 +7001,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/TIM4/TIM4
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_conf.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_conf.h	2019-01-10 05:44:42.243419501 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_conf.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7066,8 +7066,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2019-01-10 05:44:42.243419501 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_HyperTerminalInterrupt/stm8l10x_it.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7159,8 +7159,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_conf.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_conf.h	2019-01-10 05:44:42.239419380 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_conf.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7224,8 +7224,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2019-01-10 05:44:42.239419380 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_MultiProcessor/stm8l10x_it.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7317,8 +7317,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2019-01-10 05:44:38.519305117 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2023-12-02 18:27:24.391813184 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/main.c	2023-12-02 18:27:24.283814048 +0100
 ***************
 *** 40,45 ****
 --- 40,52 ----
@@ -7336,8 +7336,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
    #define PUTCHAR_PROTOTYPE int putchar (int c)
    #define GETCHAR_PROTOTYPE int getchar (void)
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_conf.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_conf.h	2019-01-10 05:44:42.243419501 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7401,8 +7401,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2014-10-21 14:13:24.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2019-01-10 05:44:42.243419501 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Printf/stm8l10x_it.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7494,8 +7494,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_conf.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_conf.h	2019-01-10 05:44:42.247419625 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_conf.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7559,8 +7559,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2014-10-21 14:13:26.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2019-01-10 05:44:42.247419625 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/USART/USART_Synchronous/stm8l10x_it.h	2023-12-02 18:27:23.295821843 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7652,8 +7652,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/USART/USA
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_conf.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_conf.h	2019-01-10 05:44:42.255419870 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_conf.h	2023-12-02 18:27:24.939808799 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_conf.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7717,8 +7717,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_W
   /* Exported macro ------------------------------------------------------------*/
   #ifdef  USE_FULL_ASSERT
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2014-10-21 14:13:22.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2019-01-10 05:44:42.255419870 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2023-12-02 18:27:24.943808767 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_WakeUp/stm8l10x_it.h	2023-12-02 18:27:23.299821812 +0100
 ***************
 *** 1,10 ****
   /**
@@ -7810,8 +7810,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Examples/WFE/WFE_W
   
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/readme.txt ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/readme.txt
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/readme.txt	2014-10-21 14:13:30.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/readme.txt	2017-08-16 15:08:47.000000000 +0200
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/readme.txt	2023-12-02 18:24:55.914334240 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/readme.txt	2023-12-02 18:24:55.902333801 +0100
 ***************
 *** 35,41 ****
   
@@ -7831,7 +7831,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/readme.t
   create a new project. 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile	2017-11-19 09:01:32.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/Makefile	2023-12-02 18:26:37.051990524 +0100
 ***************
 *** 0 ****
 --- 1,77 ----
@@ -7914,7 +7914,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/Mak
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh	2019-01-10 05:13:27.977877000 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_clean.sh	2023-12-02 18:26:37.743991178 +0100
 ***************
 *** 0 ****
 --- 1,19 ----
@@ -7939,7 +7939,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX
 + $MAKE -f Makefile DEVICE=$DEVICE clean 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh	2019-01-10 05:18:51.407842000 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX_compile_run.sh	2023-12-02 18:26:37.743991178 +0100
 ***************
 *** 0 ****
 --- 1,47 ----
@@ -7992,7 +7992,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_UX
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat	2017-11-19 09:03:50.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_clean.bat	2023-12-02 18:26:37.743991178 +0100
 ***************
 *** 0 ****
 --- 1,15 ----
@@ -8013,7 +8013,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WI
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat	2017-11-19 09:03:59.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/SDCC/_WIN_compile_run.bat	2023-12-02 18:26:37.743991178 +0100
 ***************
 *** 0 ****
 --- 1,44 ----
@@ -8062,8 +8062,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/SDCC/_WI
 + echo on
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_conf.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_conf.h	2014-10-21 14:13:30.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_conf.h	2019-01-10 04:49:37.470167039 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_conf.h	2023-12-02 18:24:55.914334240 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_conf.h	2023-12-02 18:24:56.034338606 +0100
 ***************
 *** 1,6 ****
   /**
@@ -8080,8 +8080,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x
     * @version  V1.2.1
     * @date     30-September-2014
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h
-*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2014-10-21 14:13:30.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2019-01-10 04:53:47.689819888 +0100
+*** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2023-12-02 18:24:55.918334386 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_Templates/stm8l10x_it.h	2023-12-02 18:24:56.030338462 +0100
 ***************
 *** 1,6 ****
   /**
@@ -8166,7 +8166,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_Templates/stm8l10x
   /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/main.c ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/main.c
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/main.c	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/main.c	2019-01-10 05:42:05.862618460 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/main.c	2023-12-02 18:24:55.898333655 +0100
 ***************
 *** 0 ****
 --- 1,117 ----
@@ -8289,7 +8289,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/main.c ./STM8
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/Makefile ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/Makefile
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/Makefile	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/Makefile	2017-11-19 09:03:18.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/Makefile	2023-12-02 18:26:37.031990505 +0100
 ***************
 *** 0 ****
 --- 1,77 ----
@@ -8372,7 +8372,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/Makefile
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clean.sh ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clean.sh
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clean.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clean.sh	2019-01-10 05:13:27.977877342 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clean.sh	2023-12-02 18:26:37.031990505 +0100
 ***************
 *** 0 ****
 --- 1,19 ----
@@ -8397,7 +8397,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_clea
 + $MAKE -f Makefile DEVICE=$DEVICE clean 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_compile_run.sh ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_compile_run.sh
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_compile_run.sh	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_compile_run.sh	2019-01-10 05:18:51.407842735 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_UX_compile_run.sh	2023-12-02 18:26:37.043990516 +0100
 ***************
 *** 0 ****
 --- 1,47 ----
@@ -8450,7 +8450,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_UX_comp
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_clean.bat ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_clean.bat
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_clean.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_clean.bat	2017-11-19 09:03:50.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_clean.bat	2023-12-02 18:26:37.043990516 +0100
 ***************
 *** 0 ****
 --- 1,15 ----
@@ -8471,7 +8471,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_cle
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_compile_run.bat ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_compile_run.bat
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_compile_run.bat	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_compile_run.bat	2017-11-19 09:03:59.000000000 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_compile_run.bat	2023-12-02 18:26:37.043990516 +0100
 ***************
 *** 0 ****
 --- 1,44 ----
@@ -8521,7 +8521,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/SDCC/_WIN_com
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_conf.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_conf.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_conf.h	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_conf.h	2019-01-10 04:49:37.466166916 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_conf.h	2023-12-02 18:24:55.898333655 +0100
 ***************
 *** 0 ****
 --- 1,81 ----
@@ -8608,7 +8608,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_conf
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c	2017-09-02 19:16:22.000000000 +0200
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c	2023-12-02 18:24:55.898333655 +0100
 ***************
 *** 0 ****
 --- 1,346 ----
@@ -8960,7 +8960,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.c
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h
 *** ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h	2019-01-10 04:53:47.657818937 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h	2023-12-02 18:24:55.898333655 +0100
 ***************
 *** 0 ****
 --- 1,103 ----
@@ -9069,7 +9069,7 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Project/STM8L10x_StdPeriph_test/stm8l10x_it.h
 + /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 diff -rcN ./STM8L10x_StdPeriph_Lib/Readme.md ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Readme.md
 *** ./STM8L10x_StdPeriph_Lib/Readme.md	1970-01-01 01:00:00.000000000 +0100
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Readme.md	2019-01-10 04:57:47.105033314 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Readme.md	2023-12-02 18:23:10.570744777 +0100
 ***************
 *** 0 ****
 --- 1,19 ----
@@ -9093,8 +9093,8 @@ diff -rcN ./STM8L10x_StdPeriph_Lib/Readme.md ./STM8L10x_StdPeriph_Lib_V1.2.1_sdc
 +   - on Windows SWIM upload can also be performed via [STVisualProgrammer](http://www.st.com). Please adapt build scripts accordingly
 + 
 diff -rcN ./STM8L10x_StdPeriph_Lib/Release_Notes.html ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Release_Notes.html
-*** ./STM8L10x_StdPeriph_Lib/Release_Notes.html	2014-10-21 14:13:30.000000000 +0200
---- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Release_Notes.html	2019-01-10 04:57:58.517381257 +0100
+*** ./STM8L10x_StdPeriph_Lib/Release_Notes.html	2023-12-02 18:23:10.930787662 +0100
+--- ./STM8L10x_StdPeriph_Lib_V1.2.1_sdcc/Release_Notes.html	2023-12-02 18:23:10.574745254 +0100
 ***************
 *** 1,4 ****
 ! <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
